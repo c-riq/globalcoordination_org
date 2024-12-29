@@ -1,0 +1,84 @@
+/* Basic reset and container styling */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #333;
+}
+
+/* Article styling */
+article {
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+h2 {
+    color: #34495e;
+    font-size: 1.8rem;
+    margin-top: 2rem;
+}
+
+/* Sections */
+section {
+    margin-bottom: 2.5rem;
+}
+
+/* Blockquote styling */
+blockquote {
+    border-left: 4px solid #3498db;
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa;
+    font-style: italic;
+}
+
+/* List styling */
+ul {
+    padding-left: 2rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* Intro section emphasis */
+.intro p {
+    font-size: 1.2rem;
+    color: #2c3e50;
+}
+
+/* Links */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    article {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+} 
