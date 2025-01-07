@@ -3,7 +3,8 @@ set x
 trap "exit" INT
 
 # Get AWS PROFILE, S3 Bucket and CloudFront Id from environment variables  or write it down statically
-aws_profile=chris-s3-deploy
+#aws_profile=chris-s3-deploy
+aws_profile=default
 s3_bucket=globalcoordination.org
 cf_id=E1J4XELCO0OJJX
 
