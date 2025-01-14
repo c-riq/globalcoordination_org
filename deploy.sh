@@ -4,7 +4,7 @@ trap "exit" INT
 
 # Get AWS PROFILE, S3 Bucket and CloudFront Id from environment variables  or write it down statically
 #aws_profile=chris-s3-deploy
-aws_profile=default
+aws_profile=rix-admin-chris
 s3_bucket=globalcoordination.org
 cf_id=E1J4XELCO0OJJX
 
@@ -38,5 +38,5 @@ aws s3 sync public/ s3://$s3_bucket --delete --cache-control max-age=31536000,pu
 
 if [ ! -z "$cf_id" ]; then
     echo Invalidating cloudfront cache
-    aws cloudfront create-invalidation --distribution-id $cf_id --paths "/*"
+    aws cloudfront create-invalidation --distribution-id $cf_id --paths "/*" --no-cli-pager
 fi

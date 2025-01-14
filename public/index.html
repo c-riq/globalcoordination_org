@@ -62,4 +62,44 @@
             </li>
         </ul>
     </section>
+
+    <section class="newsletter">
+        <h2>Stay Updated</h2>
+        <p>Subscribe to our newsletter to receive updates about global coordination initiatives.</p>
+        <div class="newsletter-form">
+            <input type="email" id="newsletterEmail" placeholder="Enter your email address" required>
+            <button onclick="subscribeNewsletter()">Subscribe</button>
+        </div>
+        <div id="newsletter-message"></div>
+    </section>
 </article>
+
+<script>
+const subscribeNewsletter = () => {
+    const email = document.getElementById('newsletterEmail').value;
+    const messageElement = document.getElementById('newsletter-message');
+    
+    if (!email) {
+        messageElement.innerHTML = '<div class="alert alert-warning" role="alert">Please enter your email address</div>';
+        return;
+    }
+
+    messageElement.innerHTML = '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
+    
+    fetch(`https://4c6h4byudhvb77kisfehckmaim0dmswz.lambda-url.us-east-1.on.aws/?email=${encodeURIComponent(email)}`)
+        .then(response => {
+            const isSuccess = response.status === 200;
+            return response.json().then(data => ({ ...data, isSuccess }));
+        })
+        .then(data => {
+            messageElement.innerHTML = `<div class="alert alert-${data.isSuccess ? 'success' : 'warning'}" role="alert">${data.message}</div>`;
+            if (data.isSuccess) {
+                document.getElementById('newsletterEmail').value = '';
+            }
+        })
+        .catch(error => {
+            messageElement.innerHTML = '<div class="alert alert-danger" role="alert">An error occurred. Please try again later.</div>';
+        });
+};
+</script>
+</body>
