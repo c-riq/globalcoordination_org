@@ -30,11 +30,10 @@ if [ ! -d "public" ]; then
 fi
 
 echo Synching Build Folder: $s3_bucket...
-aws s3 sync public/ s3://$s3_bucket --delete --cache-control max-age=31536000,public
+aws s3 sync public/ s3://$s3_bucket --delete --cache-control max-age=3600,public
 
-# echo Adjusting cache...
-# aws s3 cp s3://$s3_bucket/sw.js s3://$s3_bucket/sw.js --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type application/javascript --acl public-read
-# aws s3 cp s3://$s3_bucket/index.html s3://$s3_bucket/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html --acl public-read
+echo Adjusting cache...
+aws s3 cp s3://$s3_bucket/index.html s3://$s3_bucket/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html --acl public-read
 
 if [ ! -z "$cf_id" ]; then
     echo Invalidating cloudfront cache
