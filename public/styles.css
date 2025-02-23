@@ -1,10 +1,17 @@
-/* Basic reset and container styling */
+:root {
+    --primary-color: #112e51;  /* Classic government navy */
+    --accent-color: #981b1e;   /* Traditional government red */
+    --text-color: #1b1b1b;
+    --background: #ffffff;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
+    line-height: 1.5;
     margin: 0;
     padding: 0;
-    color: #333;
+    color: var(--text-color);
+    background: var(--background);
 }
 
 .container {
@@ -26,15 +33,15 @@ article {
 
 /* Headings */
 h1 {
-    color: #2c3e50;
-    font-size: 2.5rem;
+    color: var(--primary-color);
+    font-size: 2rem;
     margin: 0;
-    text-align: left;
+    font-weight: 600;
 }
 
 h2 {
-    color: #34495e;
-    font-size: 1.8rem;
+    color: var(--primary-color);
+    font-size: 1.5rem;
     margin-top: 2rem;
 }
 
@@ -97,14 +104,14 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 20px;
-    justify-content: center;
     margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .header-logo {
     width: 50px;
     height: 50px;
-    object-fit: contain;
 }
 
 .newsletter {
@@ -245,5 +252,51 @@ a:hover {
     h1 {
         text-align: center;
         font-size: 2rem;
+    }
+}
+
+.site-footer {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--primary-color);
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.footer-section {
+    text-align: left;
+}
+
+.site-footer p {
+    margin: 0.2rem 0;
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.site-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .footer-section {
+        text-align: center;
     }
 }
