@@ -1,7 +1,14 @@
-import { Box, Typography } from '@mui/material';
-import WorldMap from './WorldMap';
+import { Box, Typography, FormControl, Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import { useState } from 'react';
+import WorldMap, { StatusType } from './WorldMap';
 
 function LandingPage() {
+  const [statusType, setStatusType] = useState<StatusType>('website');
+
+  const handleStatusChange = (event: SelectChangeEvent) => {
+    setStatusType(event.target.value as StatusType);
+  };
+
   return (
     <Box
       sx={{
@@ -73,7 +80,34 @@ function LandingPage() {
           >
             globalcoordination.org
           </Typography>
-          <WorldMap />
+          {/* Status Selector */}
+          <Box sx={{
+            position: 'absolute',
+            top: { xs: 8, sm: 16 },
+            right: { xs: 8, sm: 16 },
+            zIndex: 20
+          }}>
+            <FormControl size="small" sx={{ minWidth: 180 }}>
+              <Select
+                value={statusType}
+                onChange={handleStatusChange}
+                sx={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                  backdropFilter: 'blur(8px)',
+                  fontSize: '0.8rem',
+                  '& .MuiSelect-select': {
+                    py: 1
+                  }
+                }}
+              >
+                <MenuItem value="website">Ministry Website Status</MenuItem>
+                <MenuItem value="robots">Robots.txt Status</MenuItem>
+                <MenuItem value="statements">Statements.txt Status</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+          
+          <WorldMap statusType={statusType} />
         </Box>
         
         {/* Legend */}
@@ -87,7 +121,11 @@ function LandingPage() {
         }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Box sx={{ width: 12, height: 12, backgroundColor: '#424242', borderRadius: 1 }} />
-            <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>Working (200)</Typography>
+            <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
+              {statusType === 'website' ? 'Working (200)' :
+               statusType === 'robots' ? 'Available (200)' :
+               'Available (200)'}
+            </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Box sx={{ width: 12, height: 12, backgroundColor: '#616161', borderRadius: 1 }} />
@@ -99,11 +137,13 @@ function LandingPage() {
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Box sx={{ width: 12, height: 12, backgroundColor: '#BDBDBD', borderRadius: 1 }} />
-            <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>SSL Error</Typography>
+            <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
+              {statusType === 'website' ? 'SSL Error' : 'Not Found (404)'}
+            </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Box sx={{ width: 12, height: 12, backgroundColor: '#757575', borderRadius: 1 }} />
-            <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>Timeout</Typography>
+            <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>Timeout/Other</Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Box sx={{ width: 12, height: 12, backgroundColor: '#E4E5E9', borderRadius: 1 }} />

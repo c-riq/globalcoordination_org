@@ -7,14 +7,21 @@ import {
 import { Box, Tooltip } from '@mui/material';
 import countryBorders from './countryBorders.json';
 
+export type StatusType = 'website' | 'robots' | 'statements';
+
+interface WorldMapProps {
+  statusType: StatusType;
+}
+
 interface ForeignMinistry {
   country: string;
   code: string;
   foreign_affairs_ministry_url: string;
   http_response_code: string;
+  robots_txt: string;
 }
 
-const WorldMap: React.FC = () => {
+const WorldMap: React.FC<WorldMapProps> = ({ statusType }) => {
   const [foreignMinistries, setForeignMinistries] = useState<ForeignMinistry[]>([]);
 
   useEffect(() => {
@@ -31,7 +38,8 @@ const WorldMap: React.FC = () => {
               country: values[0]?.trim() || '',
               code: values[1]?.trim() || '',
               foreign_affairs_ministry_url: values[7]?.trim() || '',
-              http_response_code: values[14]?.trim() || ''
+              http_response_code: values[14]?.trim() || '',
+              robots_txt: values[15]?.trim() || ''
             };
           })
           .filter(item => item.code && item.foreign_affairs_ministry_url);
@@ -97,33 +105,49 @@ const WorldMap: React.FC = () => {
               const ministry = getForeignMinistryForCountry(countryName, isoCode);
               const hasMinistry = !!ministry;
               
-              // Determine color based on HTTP response code (grey shades only)
+              // Determine color based on selected status type (grey shades only)
               let fillColor = "#E4E5E9"; // Light gray for no ministry
               let tooltipText = countryName;
               
               if (ministry) {
-                const responseCode = ministry.http_response_code;
+                let responseCode = '';
+                let statusLabel = '';
+                
+                if (statusType === 'website') {
+                  responseCode = ministry.http_response_code;
+                  statusLabel = 'Website';
+                } else if (statusType === 'robots') {
+                  responseCode = ministry.robots_txt;
+                  statusLabel = 'Robots.txt';
+                } else if (statusType === 'statements') {
+                  responseCode = '404'; // Map empty statements_txt to 404 (not found)
+                  statusLabel = 'Statements.txt';
+                }
+                
                 if (responseCode === '200') {
-                  fillColor = "#424242"; // Dark gray for working
-                  tooltipText = `${countryName} - Working (${responseCode}) - Click to visit`;
+                  fillColor = "#424242"; // Dark gray for working/available
+                  tooltipText = `${countryName} - ${statusLabel} Available (${responseCode}) - Click to visit`;
                 } else if (responseCode === '301' || responseCode === '302') {
                   fillColor = "#616161"; // Medium-dark gray for redirects
-                  tooltipText = `${countryName} - Redirect (${responseCode}) - Click to visit`;
+                  tooltipText = `${countryName} - ${statusLabel} Redirect (${responseCode}) - Click to visit`;
                 } else if (responseCode === '403') {
                   fillColor = "#9E9E9E"; // Medium gray for forbidden/bot protection
-                  tooltipText = `${countryName} - Blocked (${responseCode}) - May have bot protection`;
+                  tooltipText = `${countryName} - ${statusLabel} Blocked (${responseCode}) - May have bot protection`;
+                } else if (responseCode === '404') {
+                  fillColor = "#BDBDBD"; // Light-medium gray for not found
+                  tooltipText = `${countryName} - ${statusLabel} Not Found (${responseCode})`;
                 } else if (responseCode.startsWith('ERROR_')) {
                   fillColor = "#BDBDBD"; // Light-medium gray for SSL/certificate errors
-                  tooltipText = `${countryName} - SSL Error (${responseCode})`;
+                  tooltipText = `${countryName} - ${statusLabel} Error (${responseCode})`;
                 } else if (responseCode === 'TIMEOUT') {
                   fillColor = "#757575"; // Medium gray for timeouts
-                  tooltipText = `${countryName} - Timeout - Click to try`;
+                  tooltipText = `${countryName} - ${statusLabel} Timeout - Click to try`;
                 } else if (responseCode) {
                   fillColor = "#757575"; // Medium gray for other codes
-                  tooltipText = `${countryName} - HTTP ${responseCode} - Click to visit`;
+                  tooltipText = `${countryName} - ${statusLabel} HTTP ${responseCode} - Click to visit`;
                 } else {
                   fillColor = "#757575"; // Medium gray for ministry with no response code
-                  tooltipText = `${countryName} - Click to visit Ministry of Foreign Affairs`;
+                  tooltipText = `${countryName} - ${statusLabel} Status Unknown - Click to visit Ministry of Foreign Affairs`;
                 }
               }
 
