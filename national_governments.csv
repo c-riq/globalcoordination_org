@@ -1,250 +1,250 @@
-country,code,government_website_domain,source_domain,confidence_domain,ssl_ov_subject_org,google_search_term_first_result,foreign_affairs_ministry_domain,mfa_name,source_mfa_domain,confidence_mfa_domain,Population_2022_million,gdp_2022_billion_usd,source_population_gdp
-Afghanistan,AF,,,,,,mfa.gov.af,,,0.1,,,
-Åland Islands,AX,,,,,,,,,,,,
-Albania,AL,,,,,,punetejashtme.gov.al,,,,2.866,18.509,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Algeria,DZ,,,,,,mfa.gov.dz,Ministry of Foreign Affairs (Algeria),,0.7,45.291,195.415,"https://www.imf.org/en/Publications/WEO/weo-database/"
-American Samoa,AS,americansamoa.gov,,,,american samoa government,mfat.gov.ws,,,0.1,,,
-Andorra,AD,,,,,,,,,,,,
-Angola,AO,governo.gov.ao,,,,angola government website,mirex.gov.ao,Ministry of External Relations (Angola),,0.7,35.711,121.417,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Anguilla,AI,,,,,,,,,,,,
-Antarctica,AQ,,,,,,,,,,,,
-Antigua and Barbuda,AG,,,,,,,,,,0.101,1.682,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Argentina,AR,,,,,,cancilleria.gob.ar,Ministry of Foreign Affairs and Worship,https://twitter.com/argentinamfa|Verified since October 2016|verified as government entity,0.98,46.3,632.241,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Armenia,AM,,,,,,,,,,2.962,19.503,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Aruba,AW,,,,,,,,,,0.109,3.493,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Australia,AU,australia.gov.au,,,Services Australia,australia government website,dfat.gov.au,Department of Foreign Affairs and Trade,https://twitter.com/dfat|Verified since April 2013|verified as government entity,0.98,25.973,1701.893,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Austria,AT,,,,,,bmeia.gv.at,Ministry of Foreign Affairs (Austria),https://twitter.com/MFA_Austria|Verified since March 2014|verified as government entity,0.98,9.025,471.685,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Azerbaijan,AZ,,,,,,,,,,10.241,69.906,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Bahamas (the),BS,,,,,,,,,,0.394,13.038,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Bahrain,BH,,,,,,,,,,1.542,44.388,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Bangladesh,BD,bangladesh.gov.bd,,,-,bangladesh government website,mofa.gov.bd,Ministry of Foreign Affairs (Bangladesh),https://twitter.com/BDMOFA|Verified since January 2023|verified as government entity,0.9,168.52,460.201,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Barbados,BB,,,,,,,,,,0.289,5.665,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Belarus,BY,,,,,,,,,,9.303,73.12,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Belgium,BE,,,,,,diplomatie.belgium.be,Federal Public Service Foreign Affairs,https://twitter.com/BelgiumMFA|Verified since March 2014|verified as government entity,0.98,11.618,582.21,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Belize,BZ,,,,,,,,,,0.442,2.95,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Benin,BJ,,,,,,,,,,13.43,17.413,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Bermuda,BM,,,,,,,,,,,,
-Bhutan,BT,,,,,,,,,,0.76,2.642,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Bolivia (Plurinational State of),BO,,,,,,,,,,11.96,43.221,"https://www.imf.org/en/Publications/WEO/weo-database/"
-"Bonaire, Sint Eustatius and Saba",BQ,,,,,,,,,,,,
-Bosnia and Herzegovina,BA,,,,,,,,,,3.473,25.484,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Botswana,BW,,,,,,,,,,2.642,19.176,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Bouvet Island,BV,,,,,,,,,,,,
-Brazil,BR,gov.br,,,-,government brazil website,gov.br,Ministry of Foreign Affairs (Brazil),https://twitter.com/Itamaraty_EN|not verified|https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Brazil),0.9,213.911,1924.134,"https://www.imf.org/en/Publications/WEO/weo-database/"
-British Indian Ocean Territory (the),IO,,,,,,,,,,,,
-Brunei Darussalam,BN,,,,,,,,,,0.442,16.639,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Bulgaria,BG,,,,,,mfa.bg,Ministry of Foreign Affairs (Bulgaria),,0.7,6.798,89.115,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Burkina Faso,BF,,,,,,,,,,22.766,19.568,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Burundi,BI,,,,,,,,,,,,
-Cabo Verde,CV,,,,,,,,,,,,
-Cambodia,KH,,,,,,,,,,,,
-Cameroon,CM,,,,,,,,,,,,
-Canada,CA,canada.ca,,,-,canada government website,international.gc.ca,Global Affairs Canada,https://twitter.com/CanadaFP|Verified since March 2014|verified as government entity,0.98,38.846,2139.84,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Cayman Islands (the),KY,,,,,,,,,,,,
-Central African Republic (the),CF,,,,,,,,,,,,
-Chad,TD,,,,,,,,,,,,
-Chile,CL,,,,,,minrel.gob.cl,Ministry of Foreign Affairs (Chile),https://twitter.com/chilemfa|Verified since April 2017|verified as government entity,0.98,,358,
-China,CN,gov.cn,,,,china government webiste,mfa.gov.cn,Ministry of Foreign Affairs of the People's Republic of China,https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_of_the_People%27s_Republic_of_China,0.9,1412.547,18100.044,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Christmas Island,CX,,,,,,,,,,,,
-Cocos (Keeling) Islands (the),CC,,,,,,,,,,,,
-Colombia,CO,,,,,,cancilleria.gov.co,Ministry of Foreign Affairs (Colombia),https://twitter.com/CancilleriaCol|Verified since January 2023|verified as government entity,0.98,,334,
-Comoros (the),KM,,,,,,,,,,,,
-Congo (the Democratic Republic of the),CD,,,,,,,,,,,,
-Congo (the),CG,,,,,,,,,,,,
-Cook Islands (the),CK,,,,,,,,,,,,
-Costa Rica,CR,,,,,,,,,,,,
-Côte d'Ivoire,CI,,,,,,,,,,,,
-Croatia,HR,,,,,,,,,,,,
-Cuba,CU,,,,,,,,,,,,
-Curaçao,CW,,,,,,,,,,,,
-Cyprus,CY,,,,,,,,,,,,
-Czechia,CZ,,,,,,mzv.cz,Ministry of Foreign Affairs (Czech Republic),https://twitter.com/CzechMFA|link to https://twitter.com/JanLipavsky linking to mzv.cz,0.7,,330,
-Denmark,DK,,,,,,um.dk,Ministry of Foreign Affairs (Denmark),https://twitter.com/DanishMFA|Verified since July 2017|verified as government entity,0.98,5.873,390.677,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Djibouti,DJ,,,,,,,,,,,,
-Dominica,DM,,,,,,,,,,,,
-Dominican Republic (the),DO,,,,,,,,,,,,
-Ecuador,EC,,,,,,,,,,,,
-Egypt,EG,,,,,,mfa.gov.eg,Ministry of Foreign Affairs (Egypt),https://twitter.com/MfaEgypt|Verified since May 2016|verified as government entity|site broken,0.1,104.142,475.231,"https://www.imf.org/en/Publications/WEO/weo-database/"
-El Salvador,SV,,,,,,,,,,,,
-Equatorial Guinea,GQ,,,,,,,,,,,,
-Eritrea,ER,,,,,,,,,,,,
-Estonia,EE,,,,,,,,,,,,
-Eswatini,SZ,,,,,,,,,,,,
-Ethiopia,ET,*.gov.et,,,,,mfa.gov.et,Ministry of Foreign Affairs (Ethiopia),https://twitter.com/mfaethiopia|Verified since October 2018|verified as government entity,0.98,104.082,120.369,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Falkland Islands (the) [Malvinas],FK,,,,,,,,,,,,
-Faroe Islands (the),FO,,,,,,,,,,,,
-Fiji,FJ,,,,,,,,,,,,
-Finland,FI,,,,,,um.fi,Ministry for Foreign Affairs (Finland),https://twitter.com/Ulkoministerio|Verified since June 2023|verified as government entity,0.98,5.548,281.047,"https://www.imf.org/en/Publications/WEO/weo-database/"
-France,FR,gouvernement.fr,https://en.wikipedia.org/wiki/Government_of_France,,DIRECTION DES SERVICES ADMINISTRATIFS ET FINANCIERS,france gouvernement,diplomatie.gouv.fr,Ministry for Europe and Foreign Affairs (France),https://twitter.com/francediplo_EN|Verified since March 2014|verified as government entity|https://www.oecd.org/france/governmentoffranceusefullinks.htm|redirected via diplomatie.fr,0.98,65.647,2784.02,"https://www.imf.org/en/Publications/WEO/weo-database/"
-French Guiana,GF,,,,,,,,,,,,
-French Polynesia,PF,,,,,,,,,,,,
-French Southern Territories (the),TF,,,,,,,,,,,,
-Gabon,GA,,,,,,,,,,,,
-Gambia (the),GM,,,,,,,,,,,,
-Georgia,GE,,,,,,,,,,,,
-Germany,DE,bundesregierung.de,,,Presse- und Informationsamt der Bundesregierung (BPA),deutsche regierung website,auswaertiges-amt.de,Federal Foreign Office,https://twitter.com/GermanyDiplo|Verified since February 2012|verified as government entity|forwarded via https://diplo.de,0.98,83.794,4075.395,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Ghana,GH,,,,,,,,,,,,
-Gibraltar,GI,,,,,,,,,,,,
-Greece,GR,,,,,,,,,,,,
-Greenland,GL,,,,,,,,,,,,
-Grenada,GD,,,,,,,,,,,,
-Guadeloupe,GP,,,,,,,,,,,,
-Guam,GU,,,,,,,,,,,,
-Guatemala,GT,,,,,,,,,,,,
-Guernsey,GG,,,,,,,,,,,,
-Guinea,GN,,,,,,,,,,,,
-Guinea-Bissau,GW,,,,,,,,,,,,
-Guyana,GY,,,,,,,,,,,,
-Haiti,HT,,,,,,,,,,,,
-Heard Island and McDonald Islands,HM,,,,,,,,,,,,
-Holy See (the),VA,,,,,,,,,,,,
-Honduras,HN,,,,,,,,,,,,
-Hong Kong,HK,gov.hk,,,,government hongkong,,,,,7.333,360.983,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Hungary,HU,,,,,,,,,,,,
-Iceland,IS,,,,,,,,,,,,
-India,IN,india.gov.in,,,-,government india webiste,mea.gov.in,Ministry of External Affairs (India),https://twitter.com/MEAIndia|Verified since March 2014|verified as government entity,0.98,1423.331,3386.403,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Indonesia,ID,indonesia.go.id,,,-,indonesia pemerintah website,kemlu.go.id,Ministry of Foreign Affairs (Indonesia),https://twitter.com/Menlu_RI|Verified since March 2018|verified as government entity,0.98,274.859,1318.807,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Iran (Islamic Republic of),IR,,,,,,mfa.ir,Ministry of Foreign Affairs (Iran),https://twitter.com/IRIMFA_EN|Verified since July 2021|verified as government entity,0.98,85.69,352.213,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Iraq,IQ,,,,,,mofa.gov.iq,Ministry of Foreign Affairs (Iraq),https://en.wikipedia.org/wiki/Minister_of_Foreign_Affairs_(Iraq)|not loading,0.1,,267,
-Ireland,IE,,,,,,dfa.ie,Department of Foreign Affairs (Ireland),https://twitter.com/dfatirl|Verified since December 2012|verified as government entity,0.98,5.134,529.661,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Isle of Man,IM,,,,,,,,,,,,
-Israel,IL,,,,,,govextra.gov.il,Ministry of Foreign Affairs (Israel),https://twitter.com/IsraelMFA|Verified since December 2011|verified as government entity,0.98,9.551,522.53,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Italy,IT,governo.it,,,-,italia governo,esteri.it,Ministry of Foreign Affairs (Italy),https://twitter.com/ItalyMFA_int|Verified since January 2022|verified as government entity,0.98,58.98,2012.013,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Jamaica,JM,,,,,,mfaft.gov.jm,,,0.1,,,
-Japan,JP,japan.go.jp,,,,japan government website,mofa.go.jp,Ministry of Foreign Affairs (Japan),https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Japan),0.9,125.171,4233.538,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Jersey,JE,,,,,,,,,,,,
-Jordan,JO,,,,,,,,,,,,
-Kazakhstan,KZ,,,,,,,,,,,,
-Kenya,KE,,,,,,,,,,,,
-Kiribati,KI,,,,,,,,,,,,
-Korea (the Democratic People's Republic of),KP,,,,,,mfa.gov.kp,,,0.1,,,
-Korea (the Republic of),KR,gov.kr,,,-,,mofa.go.kr,Ministry of Foreign Affairs (South Korea),https://twitter.com/MOFAkr_eng|Verified since March 2014|verified as government entity,0.98,51.635,1665.246,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Kuwait,KW,,,,,,,,,,,,
-Kyrgyzstan,KG,,,,,,,,,,,,
-Lao People's Democratic Republic (the),LA,,,,,,,,,,,,
-Latvia,LV,,,,,,,,,,,,
-Lebanon,LB,,,,,,mfa.gov.rs,,,0.1,,,
-Lesotho,LS,,,,,,,,,,,,
-Liberia,LR,,,,,,,,,,,,
-Libya,LY,,,,,,,,,,,,
-Liechtenstein,LI,,,,,,,,,,,,
-Lithuania,LT,,,,,,,,,,,,
-Luxembourg,LU,,,,,,,,,,,,
-Macao,MO,,,,,,,,,,,,
-Madagascar,MG,,,,,,,,,,,,
-Malawi,MW,,,,,,,,,,,,
-Malaysia,MY,malaysia.gov.my,,,UNIT PEMODENAN TADBIRAN DAN PERANCANGAN PENGURUSAN MALAYSIA,malaysian government website,kln.gov.my,Ministry of Foreign Affairs (Malaysia),https://twitter.com/MalaysiaMFA|Verified since November 2019|verified as government entity,0.98,32.993,407.923,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Maldives,MV,,,,,,,,,,,,
-Mali,ML,,,,,,,,,,,,
-Malta,MT,,,,,,,,,,,,
-Marshall Islands (the),MH,,,,,,,,,,,,
-Martinique,MQ,,,,,,,,,,,,
-Mauritania,MR,,,,,,,,,,,,
-Mauritius,MU,,,,,,,,,,,,
-Mayotte,YT,,,,,,,,,,,,
-Mexico,MX,gob.mx,https://en.wikipedia.org/wiki/Federal_government_of_Mexico,,-,,gob.mx,Secretariat of Foreign Affairs (Mexico),https://twitter.com/SRE_mx|Verified since April 2011|verified as government entity|forwarded via https://linktr.ee/sremx,0.98,130.118,1414.101,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Micronesia (Federated States of),FM,,,,,,,,,,,,
-Moldova (the Republic of),MD,,,,,,,,,,,,
-Monaco,MC,,,,,,,,,,,,
-Mongolia,MN,,,,,,,,,,,,
-Montenegro,ME,,,,,,,,,,,,
-Montserrat,MS,,,,,,,,,,,,
-Morocco,MA,,,,,,,,,,,,
-Mozambique,MZ,,,,,,,,,,,,
-Myanmar,MM,,,,,,,,,,,,
-Namibia,NA,,,,,,,,,,,,
-Nauru,NR,,,,,,,,,,,,
-Nepal,NP,,,,,,,,,,,,
-Netherlands (the),NL,government.nl,,,-,netherlands government website,government.nl,Ministry of Foreign Affairs (Netherlands),https://twitter.com/DutchMFA|Verified since October 2014|verified as government entity,0.98,17.591,993.681,"https://www.imf.org/en/Publications/WEO/weo-database/"
-New Caledonia,NC,,,,,,,,,,,,
-New Zealand,NZ,,,,,,mfat.govt.nz,Ministry of Foreign Affairs and Trade (New Zealand),https://twitter.com/MFATNZ|Verified since November 2016|verified as government entity,0.98,5.125,241.938,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Nicaragua,NI,,,,,,,,,,,,
-Niger (the),NE,,,,,,,,,,,,
-Nigeria,NG,statehouse.gov.ng,,,-,nigeria government website,foreignaffairs.gov.ng,Ministry of Foreign Affairs (Nigeria),https://twitter.com/NigeriaMFA|not verified|https://en.wikipedia.org/wiki/Minister_of_Foreign_Affairs_(Nigeria),0.7,216.747,477.376,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Niue,NU,,,,,,,,,,,,
-Norfolk Island,NF,,,,,,,,,,,,
-Northern Mariana Islands (the),MP,,,,,,,,,,,,
-Norway,NO,,,,,,regjeringen.no,Ministry of Foreign Affairs (Norway),https://twitter.com/NorwayMFA|Verified since March 2014|verified as government entity|redirected from mfa.no to regjeringen.no,0.7,5.448,579.267,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Oman,OM,,,,,,,,,,,,
-Pakistan,PK,pakistan.gov.pk,,,-,pakistan government website,mofa.gov.pk,Ministry of Foreign Affairs (Pakistan),https://twitter.com/ForeignOfficePk|not verified|https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Pakistan),0.7,227.027,376.493,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Palau,PW,,,,,,,,,,,,
-"Palestine, State of",PS,,,,,,,,,,,,
-Panama,PA,,,,,,,,,,,,
-Papua New Guinea,PG,,,,,,,,,,,,
-Paraguay,PY,,,,,,,,,,,,
-Peru,PE,,,,,,gob.pe,Ministry of Foreign Affairs (Peru),https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Peru),0.9,34.167,242.396,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Philippines (the),PH,gov.ph,https://en.wikipedia.org/wiki/Government_of_the_Philippines,,-,,dfa.gov.ph,Department of Foreign Affairs (Philippines),https://twitter.com/DFAPHL|Verified since October 2017|verified as government entity,0.98,111.57,404.261,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Pitcairn,PN,,,,,,,,,,,,
-Poland,PL,,,,,,gov.pl,Ministry of Foreign Affairs (Poland),https://twitter.com/PolandMFA|Verified since March 2014|verified as government entity,0.98,37.654,688.301,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Portugal,PT,,,,,,,,,,,,
-Puerto Rico,PR,,,,,,,,,,,,
-Qatar,QA,,,,,,,,,,,,
-Republic of North Macedonia,MK,,,,,,,,,,,,
-Réunion,RE,,,,,,,,,,,,
-Romania,RO,,,,,,mae.ro,Ministry of Foreign Affairs (Romania),https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Romania),0.9,19.042,301.845,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Russian Federation (the),RU,government.ru,https://en.wikipedia.org/wiki/Government_of_Russia|https://twitter.com/GovernmentRF|https://www.whois.com/whois/government.ru,,-,,mid.ru,Ministry of Foreign Affairs (Russia),https://twitter.com/mfa_russia|Verified since March 2014|verified as government entity,0.98,143.442,2215.294,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Rwanda,RW,,,,,,,,,,,,
-Saint Barthélemy,BL,,,,,,,,,,,,
-"Saint Helena, Ascension and Tristan da Cunha",SH,,,,,,,,,,,,
-Saint Kitts and Nevis,KN,,,,,,,,,,,,
-Saint Lucia,LC,,,,,,,,,,,,
-Saint Martin (French part),MF,,,,,,,,,,,,
-Saint Pierre and Miquelon,PM,,,,,,,,,,,,
-Saint Vincent and the Grenadines,VC,,,,,,,,,,,,
-Samoa,WS,,,,,,,,,,,,
-San Marino,SM,,,,,,,,,,,,
-Sao Tome and Principe,ST,,,,,,,,,,,,
-Saudi Arabia,SA,my.gov.sa,,,-,saudi arabia government website,mofa.gov.sa,Ministry of Foreign Affairs (Saudi Arabia),https://twitter.com/KSAmofaEN|Verified since May 2018|verified as government entity,0.98,34.793,1108.149,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Senegal,SN,,,,,,,,,,,,
-Serbia,RS,,,,,,,,,,,,
-Seychelles,SC,,,,,,,,,,,,
-Sierra Leone,SL,,,,,,,,,,,,
-Singapore,SG,,,,,,mfa.gov.sg,Ministry of Foreign Affairs (Singapore),https://twitter.com/MFAsg|Verified since August 2016.|verified as government entity,0.98,,515,
-Sint Maarten (Dutch part),SX,,,,,,,,,,,,
-Slovakia,SK,,,,,,,,,,,,
-Slovenia,SI,,,,,,,,,,,,
-Solomon Islands,SB,,,,,,,,,,,,
-Somalia,SO,,,,,,,,,,,,
-South Africa,ZA,,,,,,dirco.gov.za,Department of International Relations and Cooperation,https://twitter.com/DIRCO_ZA|Verified since December 2016|verified as government entity,0.98,60.604,405.705,"https://www.imf.org/en/Publications/WEO/weo-database/"
-South Georgia and the South Sandwich Islands,GS,,,,,,,,,,,,
-South Sudan,SS,,,,,,,,,,,,
-Spain,ES,lamoncloa.gob.es,https://en.wikipedia.org/wiki/Government_of_Spain,,-,government spain website,exteriores.gob.es,Ministry of Foreign Affairs (Spain),https://twitter.com/SpainMFA|Verified since October 2015|verified as government entity,0.98,47.603,1400.52,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Sri Lanka,LK,,,,,,,,,,,,
-Sudan (the),SD,,,,,,,,,,,,
-Suriname,SR,,,,,,,,,,,,
-Svalbard and Jan Mayen,SJ,,,,,,,,,,,,
-Sweden,SE,,,,,,government.se,Ministry for Foreign Affairs (Sweden),https://twitter.com/SweMFA|Verified since February 2012|verified as government entity,0.98,10.522,585.939,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Switzerland,CH,,,,,,fdfa.admin.ch,Federal Department of Foreign Affairs,https://twitter.com/SwissMFA|Verified since January 2023|verified as government entity,0.9,8.739,807.234,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Syrian Arab Republic,SY,,,,,,,,,,,,
-Taiwan (Province of China),TW,,,,,,mofa.gov.tw,Ministry of Foreign Affairs (Taiwan),https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Taiwan),0.8,23.334,761.691,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Tajikistan,TJ,,,,,,,,,,,,
-"Tanzania, United Republic of",TZ,,,,,,,,,,,,
-Thailand,TH,,,,,,mfa.go.th,Ministry of Foreign Affairs (Thailand),https://twitter.com/MFAThai|Verified since January 2023|verified as government entity,0.9,70.078,536.16,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Timor-Leste,TL,,,,,,,,,,,,
-Togo,TG,,,,,,,,,,,,
-Tokelau,TK,,,,,,,,,,,,
-Tonga,TO,,,,,,,,,,,,
-Trinidad and Tobago,TT,,,,,,,,,,,,
-Tunisia,TN,,,,,,,,,,,,
-Turkey,TR,,,,,,mfa.gov.tr,Ministry of Foreign Affairs (Turkey),https://twitter.com/MFATurkiye|Verified since March 2014|verified as government entity,0.98,85.28,905.527,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Turkmenistan,TM,,,,,,,,,,,,
-Turks and Caicos Islands (the),TC,,,,,,,,,,,,
-Tuvalu,TV,,,,,,,,,,,,
-Uganda,UG,,,,,,,,,,,,
-Ukraine,UA,,,,,,mfa.gov.ua,,https://twitter.com/MFA_Ukraine|Verified since January 2023|verified as government entity,0.9,,,
-United Arab Emirates (the),AE,,,,,,mofaic.gov.ae,Ministry of Foreign Affairs and International Cooperation (United Arab Emirates),https://twitter.com/MoFAICUAE|Verified since July 2012|verified as government entity,0.98,9.892,507.535,"https://www.imf.org/en/Publications/WEO/weo-database/"
-United Kingdom of Great Britain and Northern Ireland (the),GB,gov.uk,,,-,United Kingdom government website,gov.uk,"Foreign, Commonwealth and Development Office",https://twitter.com/FCDOGovUK|Verified since June 2010|verified as government entity|forwarded via https://linktr.ee/fcdogovuk,0.98,67.791,3070.6,"https://www.imf.org/en/Publications/WEO/weo-database/"
-United States Minor Outlying Islands (the),UM,,,,,,,,,,,,
-United States of America (the),US,usa.gov,,,-,usa government,state.gov,United States Department of State,https://twitter.com/StateDept|Verified since November 2009|verified as government entity,0.98,333.53,25464.475,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Uruguay,UY,,,,,,,,,,,,
-Uzbekistan,UZ,,,,,,,,,,,,
-Vanuatu,VU,,,,,,,,,,,,
-Venezuela (Bolivarian Republic of),VE,,,,,,,,,,,,
-Viet Nam,VN,,,,,,mofa.gov.vn,Ministry of Foreign Affairs (Vietnam),https://twitter.com/mofavietnam|Verified since July 2017|verified as government entity,0.98,99.462,406.452,"https://www.imf.org/en/Publications/WEO/weo-database/"
-Virgin Islands (British),VG,,,,,,,,,,,,
-Virgin Islands (U.S.),VI,,,,,,,,,,,,
-Wallis and Futuna,WF,,,,,,,,,,,,
-Western Sahara,EH,,,,,,,,,,,,
-Yemen,YE,,,,,,mofa.gov.ye,,https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Yemen)|also listing mofa-ye.org,0.1,,,
-Zambia,ZM,,,,,,,,,,,,
-Zimbabwe,ZW,,,,,,,,,,,,
+country,code,government_website_domain,source_domain,confidence_domain,ssl_ov_subject_org,google_search_term_first_result,foreign_affairs_ministry_url,mfa_name,source_mfa_domain,confidence_mfa_domain,Population_2022_million,gdp_2022_billion_usd,source_population_gdp,http_response_code
+Afghanistan,AF,,,,,,https://www.mfa.gov.af,,,0.1,,,,301
+Åland Islands,AX,,,,,,,,,,,,,
+Albania,AL,,,,,,https://www.punetejashtme.gov.al,,,,2.866,18.509,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Algeria,DZ,,,,,,https://www.mfa.gov.dz,Ministry of Foreign Affairs (Algeria),,0.7,45.291,195.415,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+American Samoa,AS,americansamoa.gov,,,,american samoa government,https://www.mfat.gov.ws,,,0.1,,,,200
+Andorra,AD,,,,,,,,,,,,,
+Angola,AO,governo.gov.ao,,,,angola government website,https://www.mirex.gov.ao,Ministry of External Relations (Angola),,0.7,35.711,121.417,"https://www.imf.org/en/Publications/WEO/weo-database/",ERROR_ERR_TLS_CERT_ALTNAME_INVALID
+Anguilla,AI,,,,,,,,,,,,,
+Antarctica,AQ,,,,,,,,,,,,,
+Antigua and Barbuda,AG,,,,,,,,,,0.101,1.682,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Argentina,AR,,,,,,https://www.cancilleria.gob.ar,Ministry of Foreign Affairs and Worship,https://twitter.com/argentinamfa|Verified since October 2016|verified as government entity,0.98,46.3,632.241,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Armenia,AM,,,,,,,,,,2.962,19.503,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Aruba,AW,,,,,,,,,,0.109,3.493,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Australia,AU,australia.gov.au,,,Services Australia,australia government website,https://www.dfat.gov.au,Department of Foreign Affairs and Trade,https://twitter.com/dfat|Verified since April 2013|verified as government entity,0.98,25.973,1701.893,"https://www.imf.org/en/Publications/WEO/weo-database/",TIMEOUT
+Austria,AT,,,,,,https://www.bmeia.gv.at,Ministry of Foreign Affairs (Austria),https://twitter.com/MFA_Austria|Verified since March 2014|verified as government entity,0.98,9.025,471.685,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Azerbaijan,AZ,,,,,,,,,,10.241,69.906,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Bahamas,BS,,,,,,,,,,0.394,13.038,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Bahrain,BH,,,,,,,,,,1.542,44.388,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Bangladesh,BD,bangladesh.gov.bd,,,-,bangladesh government website,https://www.mofa.gov.bd,Ministry of Foreign Affairs (Bangladesh),https://twitter.com/BDMOFA|Verified since January 2023|verified as government entity,0.9,168.52,460.201,"https://www.imf.org/en/Publications/WEO/weo-database/",ERROR_UNABLE_TO_VERIFY_LEAF_SIGNATURE
+Barbados,BB,,,,,,,,,,0.289,5.665,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Belarus,BY,,,,,,,,,,9.303,73.12,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Belgium,BE,,,,,,https://www.diplomatie.belgium.be,Federal Public Service Foreign Affairs,https://twitter.com/BelgiumMFA|Verified since March 2014|verified as government entity,0.98,11.618,582.21,"https://www.imf.org/en/Publications/WEO/weo-database/",301
+Belize,BZ,,,,,,,,,,0.442,2.95,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Benin,BJ,,,,,,,,,,13.43,17.413,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Bermuda,BM,,,,,,,,,,,,,
+Bhutan,BT,,,,,,,,,,0.76,2.642,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Bolivia (Plurinational State of),BO,,,,,,,,,,11.96,43.221,"https://www.imf.org/en/Publications/WEO/weo-database/",
+"Bonaire, Sint Eustatius and Saba",BQ,,,,,,,,,,,,,
+Bosnia and Herzegovina,BA,,,,,,,,,,3.473,25.484,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Botswana,BW,,,,,,,,,,2.642,19.176,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Bouvet Island,BV,,,,,,,,,,,,,
+Brazil,BR,gov.br,,,-,government brazil website,https://www.gov.br,Ministry of Foreign Affairs (Brazil),https://twitter.com/Itamaraty_EN|not verified|https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Brazil),0.9,213.911,1924.134,"https://www.imf.org/en/Publications/WEO/weo-database/",ERROR_UNABLE_TO_VERIFY_LEAF_SIGNATURE
+British Indian Ocean Territory,IO,,,,,,,,,,,,,
+Brunei Darussalam,BN,,,,,,,,,,0.442,16.639,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Bulgaria,BG,,,,,,https://www.mfa.bg,Ministry of Foreign Affairs (Bulgaria),,0.7,6.798,89.115,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Burkina Faso,BF,,,,,,,,,,22.766,19.568,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Burundi,BI,,,,,,,,,,,,,
+Cabo Verde,CV,,,,,,,,,,,,,
+Cambodia,KH,,,,,,,,,,,,,
+Cameroon,CM,,,,,,,,,,,,,
+Canada,CA,canada.ca,,,-,canada government website,https://www.international.gc.ca,Global Affairs Canada,https://twitter.com/CanadaFP|Verified since March 2014|verified as government entity,0.98,38.846,2139.84,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Cayman Islands,KY,,,,,,,,,,,,,
+Central African Republic,CF,,,,,,,,,,,,,
+Chad,TD,,,,,,,,,,,,,
+Chile,CL,,,,,,https://www.minrel.gob.cl,Ministry of Foreign Affairs (Chile),https://twitter.com/chilemfa|Verified since April 2017|verified as government entity,0.98,,358,,200
+China,CN,gov.cn,,,,china government webiste,https://www.mfa.gov.cn,Ministry of Foreign Affairs of the People's Republic of China,https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_of_the_People%27s_Republic_of_China,0.9,1412.547,18100.044,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Christmas Island,CX,,,,,,,,,,,,,
+Cocos (Keeling) Islands,CC,,,,,,,,,,,,,
+Colombia,CO,,,,,,https://www.cancilleria.gov.co,Ministry of Foreign Affairs (Colombia),https://twitter.com/CancilleriaCol|Verified since January 2023|verified as government entity,0.98,,334,,200
+Comoros,KM,,,,,,,,,,,,,
+Congo (the Democratic Republic of the),CD,,,,,,,,,,,,,
+Congo,CG,,,,,,,,,,,,,
+Cook Islands,CK,,,,,,,,,,,,,
+Costa Rica,CR,,,,,,,,,,,,,
+Côte d'Ivoire,CI,,,,,,,,,,,,,
+Croatia,HR,,,,,,,,,,,,,
+Cuba,CU,,,,,,,,,,,,,
+Curaçao,CW,,,,,,,,,,,,,
+Cyprus,CY,,,,,,,,,,,,,
+Czechia,CZ,,,,,,https://www.mzv.cz,Ministry of Foreign Affairs (Czech Republic),https://twitter.com/CzechMFA|link to https://twitter.com/JanLipavsky linking to mzv.cz,0.7,,330,,302
+Denmark,DK,,,,,,https://www.um.dk,Ministry of Foreign Affairs (Denmark),https://twitter.com/DanishMFA|Verified since July 2017|verified as government entity,0.98,5.873,390.677,"https://www.imf.org/en/Publications/WEO/weo-database/",302
+Djibouti,DJ,,,,,,,,,,,,,
+Dominica,DM,,,,,,,,,,,,,
+Dominican Republic,DO,,,,,,,,,,,,,
+Ecuador,EC,,,,,,,,,,,,,
+Egypt,EG,,,,,,https://www.mfa.gov.eg,Ministry of Foreign Affairs (Egypt),https://twitter.com/MfaEgypt|Verified since May 2016|verified as government entity|site broken,0.1,104.142,475.231,"https://www.imf.org/en/Publications/WEO/weo-database/",302
+El Salvador,SV,,,,,,,,,,,,,
+Equatorial Guinea,GQ,,,,,,,,,,,,,
+Eritrea,ER,,,,,,,,,,,,,
+Estonia,EE,,,,,,,,,,,,,
+Eswatini,SZ,,,,,,,,,,,,,
+Ethiopia,ET,*.gov.et,,,,,https://www.mfa.gov.et,Ministry of Foreign Affairs (Ethiopia),https://twitter.com/mfaethiopia|Verified since October 2018|verified as government entity,0.98,104.082,120.369,"https://www.imf.org/en/Publications/WEO/weo-database/",403
+Falkland Islands (the) [Malvinas],FK,,,,,,,,,,,,,
+Faroe Islands,FO,,,,,,,,,,,,,
+Fiji,FJ,,,,,,,,,,,,,
+Finland,FI,,,,,,https://www.um.fi,Ministry for Foreign Affairs (Finland),https://twitter.com/Ulkoministerio|Verified since June 2023|verified as government entity,0.98,5.548,281.047,"https://www.imf.org/en/Publications/WEO/weo-database/",301
+France,FR,gouvernement.fr,https://en.wikipedia.org/wiki/Government_of_France,,DIRECTION DES SERVICES ADMINISTRATIFS ET FINANCIERS,france gouvernement,https://www.diplomatie.gouv.fr,Ministry for Europe and Foreign Affairs (France),https://twitter.com/francediplo_EN|Verified since March 2014|verified as government entity|https://www.oecd.org/france/governmentoffranceusefullinks.htm|redirected via diplomatie.fr,0.98,65.647,2784.02,"https://www.imf.org/en/Publications/WEO/weo-database/",302
+French Guiana,GF,,,,,,,,,,,,,
+French Polynesia,PF,,,,,,,,,,,,,
+French Southern Territories,TF,,,,,,,,,,,,,
+Gabon,GA,,,,,,,,,,,,,
+Gambia,GM,,,,,,,,,,,,,
+Georgia,GE,,,,,,,,,,,,,
+Germany,DE,bundesregierung.de,,,Presse- und Informationsamt der Bundesregierung (BPA),deutsche regierung website,https://www.auswaertiges-amt.de,Federal Foreign Office,https://twitter.com/GermanyDiplo|Verified since February 2012|verified as government entity|forwarded via https://diplo.de,0.98,83.794,4075.395,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Ghana,GH,,,,,,,,,,,,,
+Gibraltar,GI,,,,,,,,,,,,,
+Greece,GR,,,,,,,,,,,,,
+Greenland,GL,,,,,,,,,,,,,
+Grenada,GD,,,,,,,,,,,,,
+Guadeloupe,GP,,,,,,,,,,,,,
+Guam,GU,,,,,,,,,,,,,
+Guatemala,GT,,,,,,,,,,,,,
+Guernsey,GG,,,,,,,,,,,,,
+Guinea,GN,,,,,,,,,,,,,
+Guinea-Bissau,GW,,,,,,,,,,,,,
+Guyana,GY,,,,,,,,,,,,,
+Haiti,HT,,,,,,,,,,,,,
+Heard Island and McDonald Islands,HM,,,,,,,,,,,,,
+Holy See,VA,,,,,,,,,,,,,
+Honduras,HN,,,,,,,,,,,,,
+Hong Kong,HK,gov.hk,,,,government hongkong,,,,,7.333,360.983,"https://www.imf.org/en/Publications/WEO/weo-database/",
+Hungary,HU,,,,,,,,,,,,,
+Iceland,IS,,,,,,,,,,,,,
+India,IN,india.gov.in,,,-,government india webiste,https://www.mea.gov.in,Ministry of External Affairs (India),https://twitter.com/MEAIndia|Verified since March 2014|verified as government entity,0.98,1423.331,3386.403,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Indonesia,ID,indonesia.go.id,,,-,indonesia pemerintah website,https://www.kemlu.go.id,Ministry of Foreign Affairs (Indonesia),https://twitter.com/Menlu_RI|Verified since March 2018|verified as government entity,0.98,274.859,1318.807,"https://www.imf.org/en/Publications/WEO/weo-database/",ERROR_UNABLE_TO_VERIFY_LEAF_SIGNATURE
+Iran (Islamic Republic of),IR,,,,,,https://www.mfa.ir,Ministry of Foreign Affairs (Iran),https://twitter.com/IRIMFA_EN|Verified since July 2021|verified as government entity,0.98,85.69,352.213,"https://www.imf.org/en/Publications/WEO/weo-database/",301
+Iraq,IQ,,,,,,https://www.mofa.gov.iq,Ministry of Foreign Affairs (Iraq),https://en.wikipedia.org/wiki/Minister_of_Foreign_Affairs_(Iraq)|not loading,0.1,,267,,530
+Ireland,IE,,,,,,https://www.dfa.ie,Department of Foreign Affairs (Ireland),https://twitter.com/dfatirl|Verified since December 2012|verified as government entity,0.98,5.134,529.661,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Isle of Man,IM,,,,,,,,,,,,,
+Israel,IL,,,,,,https://www.govextra.gov.il,Ministry of Foreign Affairs (Israel),https://twitter.com/IsraelMFA|Verified since December 2011|verified as government entity,0.98,9.551,522.53,"https://www.imf.org/en/Publications/WEO/weo-database/",301
+Italy,IT,governo.it,,,-,italia governo,https://www.esteri.it,Ministry of Foreign Affairs (Italy),https://twitter.com/ItalyMFA_int|Verified since January 2022|verified as government entity,0.98,58.98,2012.013,"https://www.imf.org/en/Publications/WEO/weo-database/",301
+Jamaica,JM,,,,,,https://www.mfaft.gov.jm,,,0.1,,,,200
+Japan,JP,japan.go.jp,,,,japan government website,https://www.mofa.go.jp,Ministry of Foreign Affairs (Japan),https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Japan),0.9,125.171,4233.538,"https://www.imf.org/en/Publications/WEO/weo-database/",403
+Jersey,JE,,,,,,,,,,,,,
+Jordan,JO,,,,,,,,,,,,,
+Kazakhstan,KZ,,,,,,,,,,,,,
+Kenya,KE,,,,,,,,,,,,,
+Kiribati,KI,,,,,,,,,,,,,
+Korea (the Democratic People's Republic of),KP,,,,,,https://www.mfa.gov.kp,,,0.1,,,,ERROR_DEPTH_ZERO_SELF_SIGNED_CERT
+Korea (the Republic of),KR,gov.kr,,,-,,https://www.mofa.go.kr,Ministry of Foreign Affairs (South Korea),https://twitter.com/MOFAkr_eng|Verified since March 2014|verified as government entity,0.98,51.635,1665.246,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Kuwait,KW,,,,,,,,,,,,,
+Kyrgyzstan,KG,,,,,,,,,,,,,
+Lao People's Democratic Republic,LA,,,,,,,,,,,,,
+Latvia,LV,,,,,,,,,,,,,
+Lebanon,LB,,,,,,https://www.mfa.gov.rs,,,0.1,,,,200
+Lesotho,LS,,,,,,,,,,,,,
+Liberia,LR,,,,,,,,,,,,,
+Libya,LY,,,,,,,,,,,,,
+Liechtenstein,LI,,,,,,,,,,,,,
+Lithuania,LT,,,,,,,,,,,,,
+Luxembourg,LU,,,,,,,,,,,,,
+Macao,MO,,,,,,,,,,,,,
+Madagascar,MG,,,,,,,,,,,,,
+Malawi,MW,,,,,,,,,,,,,
+Malaysia,MY,malaysia.gov.my,,,UNIT PEMODENAN TADBIRAN DAN PERANCANGAN PENGURUSAN MALAYSIA,malaysian government website,https://www.kln.gov.my,Ministry of Foreign Affairs (Malaysia),https://twitter.com/MalaysiaMFA|Verified since November 2019|verified as government entity,0.98,32.993,407.923,"https://www.imf.org/en/Publications/WEO/weo-database/",ERROR_UNABLE_TO_VERIFY_LEAF_SIGNATURE
+Maldives,MV,,,,,,,,,,,,,
+Mali,ML,,,,,,,,,,,,,
+Malta,MT,,,,,,,,,,,,,
+Marshall Islands,MH,,,,,,,,,,,,,
+Martinique,MQ,,,,,,,,,,,,,
+Mauritania,MR,,,,,,,,,,,,,
+Mauritius,MU,,,,,,,,,,,,,
+Mayotte,YT,,,,,,,,,,,,,
+Mexico,MX,gob.mx,https://en.wikipedia.org/wiki/Federal_government_of_Mexico,,-,,https://www.gob.mx,Secretariat of Foreign Affairs (Mexico),https://twitter.com/SRE_mx|Verified since April 2011|verified as government entity|forwarded via https://linktr.ee/sremx,0.98,130.118,1414.101,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Micronesia (Federated States of),FM,,,,,,,,,,,,,
+Moldova (the Republic of),MD,,,,,,,,,,,,,
+Monaco,MC,,,,,,,,,,,,,
+Mongolia,MN,,,,,,,,,,,,,
+Montenegro,ME,,,,,,,,,,,,,
+Montserrat,MS,,,,,,,,,,,,,
+Morocco,MA,,,,,,,,,,,,,
+Mozambique,MZ,,,,,,,,,,,,,
+Myanmar,MM,,,,,,,,,,,,,
+Namibia,NA,,,,,,,,,,,,,
+Nauru,NR,,,,,,,,,,,,,
+Nepal,NP,,,,,,,,,,,,,
+Netherlands,NL,government.nl,,,-,netherlands government website,https://www.government.nl,Ministry of Foreign Affairs (Netherlands),https://twitter.com/DutchMFA|Verified since October 2014|verified as government entity,0.98,17.591,993.681,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+New Caledonia,NC,,,,,,,,,,,,,
+New Zealand,NZ,,,,,,https://www.mfat.govt.nz,Ministry of Foreign Affairs and Trade (New Zealand),https://twitter.com/MFATNZ|Verified since November 2016|verified as government entity,0.98,5.125,241.938,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Nicaragua,NI,,,,,,,,,,,,,
+Niger,NE,,,,,,,,,,,,,
+Nigeria,NG,statehouse.gov.ng,,,-,nigeria government website,https://www.foreignaffairs.gov.ng,Ministry of Foreign Affairs (Nigeria),https://twitter.com/NigeriaMFA|not verified|https://en.wikipedia.org/wiki/Minister_of_Foreign_Affairs_(Nigeria),0.7,216.747,477.376,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Niue,NU,,,,,,,,,,,,,
+Norfolk Island,NF,,,,,,,,,,,,,
+Northern Mariana Islands,MP,,,,,,,,,,,,,
+Norway,NO,,,,,,https://www.regjeringen.no,Ministry of Foreign Affairs (Norway),https://twitter.com/NorwayMFA|Verified since March 2014|verified as government entity|redirected from mfa.no to regjeringen.no,0.7,5.448,579.267,"https://www.imf.org/en/Publications/WEO/weo-database/",301
+Oman,OM,,,,,,,,,,,,,
+Pakistan,PK,pakistan.gov.pk,,,-,pakistan government website,https://www.mofa.gov.pk,Ministry of Foreign Affairs (Pakistan),https://twitter.com/ForeignOfficePk|not verified|https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Pakistan),0.7,227.027,376.493,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Palau,PW,,,,,,,,,,,,,
+"Palestine, State of",PS,,,,,,,,,,,,,
+Panama,PA,,,,,,,,,,,,,
+Papua New Guinea,PG,,,,,,,,,,,,,
+Paraguay,PY,,,,,,,,,,,,,
+Peru,PE,,,,,,https://www.gob.pe,Ministry of Foreign Affairs (Peru),https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Peru),0.9,34.167,242.396,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Philippines,PH,gov.ph,https://en.wikipedia.org/wiki/Government_of_the_Philippines,,-,,https://www.dfa.gov.ph,Department of Foreign Affairs (Philippines),https://twitter.com/DFAPHL|Verified since October 2017|verified as government entity,0.98,111.57,404.261,"https://www.imf.org/en/Publications/WEO/weo-database/",301
+Pitcairn,PN,,,,,,,,,,,,,
+Poland,PL,,,,,,https://www.gov.pl,Ministry of Foreign Affairs (Poland),https://twitter.com/PolandMFA|Verified since March 2014|verified as government entity,0.98,37.654,688.301,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Portugal,PT,,,,,,,,,,,,,
+Puerto Rico,PR,,,,,,,,,,,,,
+Qatar,QA,,,,,,,,,,,,,
+Republic of North Macedonia,MK,,,,,,,,,,,,,
+Réunion,RE,,,,,,,,,,,,,
+Romania,RO,,,,,,https://www.mae.ro,Ministry of Foreign Affairs (Romania),https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Romania),0.9,19.042,301.845,"https://www.imf.org/en/Publications/WEO/weo-database/",503
+Russian Federation,RU,government.ru,https://en.wikipedia.org/wiki/Government_of_Russia|https://twitter.com/GovernmentRF|https://www.whois.com/whois/government.ru,,-,,https://www.mid.ru,Ministry of Foreign Affairs (Russia),https://twitter.com/mfa_russia|Verified since March 2014|verified as government entity,0.98,143.442,2215.294,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Rwanda,RW,,,,,,,,,,,,,
+Saint Barthélemy,BL,,,,,,,,,,,,,
+"Saint Helena, Ascension and Tristan da Cunha",SH,,,,,,,,,,,,,
+Saint Kitts and Nevis,KN,,,,,,,,,,,,,
+Saint Lucia,LC,,,,,,,,,,,,,
+Saint Martin (French part),MF,,,,,,,,,,,,,
+Saint Pierre and Miquelon,PM,,,,,,,,,,,,,
+Saint Vincent and the Grenadines,VC,,,,,,,,,,,,,
+Samoa,WS,,,,,,,,,,,,,
+San Marino,SM,,,,,,,,,,,,,
+Sao Tome and Principe,ST,,,,,,,,,,,,,
+Saudi Arabia,SA,my.gov.sa,,,-,saudi arabia government website,https://www.mofa.gov.sa,Ministry of Foreign Affairs (Saudi Arabia),https://twitter.com/KSAmofaEN|Verified since May 2018|verified as government entity,0.98,34.793,1108.149,"https://www.imf.org/en/Publications/WEO/weo-database/",302
+Senegal,SN,,,,,,,,,,,,,
+Serbia,RS,,,,,,,,,,,,,
+Seychelles,SC,,,,,,,,,,,,,
+Sierra Leone,SL,,,,,,,,,,,,,
+Singapore,SG,,,,,,https://www.mfa.gov.sg,Ministry of Foreign Affairs (Singapore),https://twitter.com/MFAsg|Verified since August 2016.|verified as government entity,0.98,,515,,200
+Sint Maarten (Dutch part),SX,,,,,,,,,,,,,
+Slovakia,SK,,,,,,,,,,,,,
+Slovenia,SI,,,,,,,,,,,,,
+Solomon Islands,SB,,,,,,,,,,,,,
+Somalia,SO,,,,,,,,,,,,,
+South Africa,ZA,,,,,,https://www.dirco.gov.za,Department of International Relations and Cooperation,https://twitter.com/DIRCO_ZA|Verified since December 2016|verified as government entity,0.98,60.604,405.705,"https://www.imf.org/en/Publications/WEO/weo-database/",301
+South Georgia and the South Sandwich Islands,GS,,,,,,,,,,,,,
+South Sudan,SS,,,,,,,,,,,,,
+Spain,ES,lamoncloa.gob.es,https://en.wikipedia.org/wiki/Government_of_Spain,,-,government spain website,https://www.exteriores.gob.es,Ministry of Foreign Affairs (Spain),https://twitter.com/SpainMFA|Verified since October 2015|verified as government entity,0.98,47.603,1400.52,"https://www.imf.org/en/Publications/WEO/weo-database/",302
+Sri Lanka,LK,,,,,,,,,,,,,
+Sudan,SD,,,,,,,,,,,,,
+Suriname,SR,,,,,,,,,,,,,
+Svalbard and Jan Mayen,SJ,,,,,,,,,,,,,
+Sweden,SE,,,,,,https://www.government.se,Ministry for Foreign Affairs (Sweden),https://twitter.com/SweMFA|Verified since February 2012|verified as government entity,0.98,10.522,585.939,"https://www.imf.org/en/Publications/WEO/weo-database/",403
+Switzerland,CH,,,,,,https://www.fdfa.admin.ch,Federal Department of Foreign Affairs,https://twitter.com/SwissMFA|Verified since January 2023|verified as government entity,0.9,8.739,807.234,"https://www.imf.org/en/Publications/WEO/weo-database/",403
+Syrian Arab Republic,SY,,,,,,,,,,,,,
+Taiwan (Province of China),TW,,,,,,https://www.mofa.gov.tw,Ministry of Foreign Affairs (Taiwan),https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Taiwan),0.8,23.334,761.691,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Tajikistan,TJ,,,,,,,,,,,,,
+"Tanzania, United Republic of",TZ,,,,,,,,,,,,,
+Thailand,TH,,,,,,https://www.mfa.go.th,Ministry of Foreign Affairs (Thailand),https://twitter.com/MFAThai|Verified since January 2023|verified as government entity,0.9,70.078,536.16,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Timor-Leste,TL,,,,,,,,,,,,,
+Togo,TG,,,,,,,,,,,,,
+Tokelau,TK,,,,,,,,,,,,,
+Tonga,TO,,,,,,,,,,,,,
+Trinidad and Tobago,TT,,,,,,,,,,,,,
+Tunisia,TN,,,,,,,,,,,,,
+Turkey,TR,,,,,,https://www.mfa.gov.tr,Ministry of Foreign Affairs (Turkey),https://twitter.com/MFATurkiye|Verified since March 2014|verified as government entity,0.98,85.28,905.527,"https://www.imf.org/en/Publications/WEO/weo-database/",302
+Turkmenistan,TM,,,,,,,,,,,,,
+Turks and Caicos Islands,TC,,,,,,,,,,,,,
+Tuvalu,TV,,,,,,,,,,,,,
+Uganda,UG,,,,,,,,,,,,,
+Ukraine,UA,,,,,,https://www.mfa.gov.ua,,https://twitter.com/MFA_Ukraine|Verified since January 2023|verified as government entity,0.9,,,,403
+United Arab Emirates,AE,,,,,,https://www.mofaic.gov.ae,Ministry of Foreign Affairs and International Cooperation (United Arab Emirates),https://twitter.com/MoFAICUAE|Verified since July 2012|verified as government entity,0.98,9.892,507.535,"https://www.imf.org/en/Publications/WEO/weo-database/",301
+United Kingdom of Great Britain and Northern Ireland,GB,gov.uk,,,-,United Kingdom government website,https://www.gov.uk,"Foreign, Commonwealth and Development Office",https://twitter.com/FCDOGovUK|Verified since June 2010|verified as government entity|forwarded via https://linktr.ee/fcdogovuk,0.98,67.791,3070.6,200,200
+United States Minor Outlying Islands,UM,,,,,,,,,,,,,
+United States of America,US,usa.gov,,,-,usa government,https://www.state.gov,United States Department of State,https://twitter.com/StateDept|Verified since November 2009|verified as government entity,0.98,333.53,25464.475,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Uruguay,UY,,,,,,,,,,,,,
+Uzbekistan,UZ,,,,,,,,,,,,,
+Vanuatu,VU,,,,,,,,,,,,,
+Venezuela (Bolivarian Republic of),VE,,,,,,,,,,,,,
+Viet Nam,VN,,,,,,https://www.mofa.gov.vn,Ministry of Foreign Affairs (Vietnam),https://twitter.com/mofavietnam|Verified since July 2017|verified as government entity,0.98,99.462,406.452,"https://www.imf.org/en/Publications/WEO/weo-database/",200
+Virgin Islands (British),VG,,,,,,,,,,,,,
+Virgin Islands (U.S.),VI,,,,,,,,,,,,,
+Wallis and Futuna,WF,,,,,,,,,,,,,
+Western Sahara,EH,,,,,,,,,,,,,
+Yemen,YE,,,,,,https://www.mofa.gov.ye,,https://en.wikipedia.org/wiki/Ministry_of_Foreign_Affairs_(Yemen)|also listing mofa-ye.org,0.1,,,,301
+Zambia,ZM,,,,,,,,,,,,,
+Zimbabwe,ZW,,,,,,,,,,,,,
