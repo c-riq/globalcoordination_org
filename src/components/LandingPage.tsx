@@ -150,6 +150,101 @@ function LandingPage() {
             <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>No Foreign Ministry URL</Typography>
           </Box>
         </Box>
+        
+        {/* Link Cards */}
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 3,
+          mt: 4,
+          px: 2
+        }}>
+          <Box
+            component="a"
+            href="https://city-vote.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              width: { xs: 120, sm: 150 },
+              height: { xs: 120, sm: 150 },
+              backgroundColor: '#f5f5f5',
+              border: '2px solid #e0e0e0',
+              borderRadius: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textDecoration: 'none',
+              color: '#1a237e',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                backgroundColor: '#eeeeee',
+                borderColor: '#1a237e',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+              }
+            }}
+          >
+            <Typography variant="h6" sx={{
+              fontWeight: 600,
+              textAlign: 'center',
+              fontSize: { xs: '0.9rem', sm: '1.1rem' }
+            }}>
+              City Vote
+            </Typography>
+            <Typography variant="caption" sx={{
+              mt: 1,
+              textAlign: 'center',
+              fontSize: { xs: '0.7rem', sm: '0.8rem' },
+              opacity: 0.7
+            }}>
+              city-vote.com
+            </Typography>
+          </Box>
+          
+          <Box
+            component="a"
+            href="https://stated.network"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              width: { xs: 120, sm: 150 },
+              height: { xs: 120, sm: 150 },
+              backgroundColor: '#f5f5f5',
+              border: '2px solid #e0e0e0',
+              borderRadius: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textDecoration: 'none',
+              color: '#1a237e',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                backgroundColor: '#eeeeee',
+                borderColor: '#1a237e',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+              }
+            }}
+          >
+            <Typography variant="h6" sx={{
+              fontWeight: 600,
+              textAlign: 'center',
+              fontSize: { xs: '0.9rem', sm: '1.1rem' }
+            }}>
+              Stated Network
+            </Typography>
+            <Typography variant="caption" sx={{
+              mt: 1,
+              textAlign: 'center',
+              fontSize: { xs: '0.7rem', sm: '0.8rem' },
+              opacity: 0.7
+            }}>
+              stated.network
+            </Typography>
+          </Box>
+        </Box>
       </Box>
       
       {/* Footer */}
