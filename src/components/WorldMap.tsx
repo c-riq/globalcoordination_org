@@ -10,7 +10,8 @@ import countryBorders from './countryBorders.json';
 interface ForeignMinistry {
   country: string;
   code: string;
-  foreign_ministry_domain: string;
+  foreign_affairs_ministry_url: string;
+  http_response_code: string;
 }
 
 const WorldMap: React.FC = () => {
@@ -29,10 +30,11 @@ const WorldMap: React.FC = () => {
             return {
               country: values[0]?.trim() || '',
               code: values[1]?.trim() || '',
-              foreign_ministry_domain: values[7]?.trim() || ''
+              foreign_affairs_ministry_url: values[7]?.trim() || '',
+              http_response_code: values[14]?.trim() || ''
             };
           })
-          .filter(item => item.code && item.foreign_ministry_domain);
+          .filter(item => item.code && item.foreign_affairs_ministry_url);
         
         setForeignMinistries(data);
       })
@@ -60,9 +62,9 @@ const WorldMap: React.FC = () => {
   const handleCountryClick = (countryName: string, isoCode: string) => {
     const ministry = getForeignMinistryForCountry(countryName, isoCode);
     if (ministry) {
-      const url = ministry.foreign_ministry_domain.startsWith('http') 
-        ? ministry.foreign_ministry_domain 
-        : `https://${ministry.foreign_ministry_domain}`;
+      const url = ministry.foreign_affairs_ministry_url.startsWith('http')
+        ? ministry.foreign_affairs_ministry_url
+        : `https://${ministry.foreign_affairs_ministry_url}`;
       window.open(url, '_blank');
     }
   };
@@ -94,30 +96,64 @@ const WorldMap: React.FC = () => {
               const isoCode = geo.properties.iso_code;
               const ministry = getForeignMinistryForCountry(countryName, isoCode);
               const hasMinistry = !!ministry;
+              
+              // Determine color based on HTTP response code (grey shades only)
+              let fillColor = "#E4E5E9"; // Light gray for no ministry
+              let tooltipText = countryName;
+              
+              if (ministry) {
+                const responseCode = ministry.http_response_code;
+                if (responseCode === '200') {
+                  fillColor = "#424242"; // Dark gray for working
+                  tooltipText = `${countryName} - Working (${responseCode}) - Click to visit`;
+                } else if (responseCode === '301' || responseCode === '302') {
+                  fillColor = "#616161"; // Medium-dark gray for redirects
+                  tooltipText = `${countryName} - Redirect (${responseCode}) - Click to visit`;
+                } else if (responseCode === '403') {
+                  fillColor = "#9E9E9E"; // Medium gray for forbidden/bot protection
+                  tooltipText = `${countryName} - Blocked (${responseCode}) - May have bot protection`;
+                } else if (responseCode.startsWith('ERROR_')) {
+                  fillColor = "#BDBDBD"; // Light-medium gray for SSL/certificate errors
+                  tooltipText = `${countryName} - SSL Error (${responseCode})`;
+                } else if (responseCode === 'TIMEOUT') {
+                  fillColor = "#757575"; // Medium gray for timeouts
+                  tooltipText = `${countryName} - Timeout - Click to try`;
+                } else if (responseCode) {
+                  fillColor = "#757575"; // Medium gray for other codes
+                  tooltipText = `${countryName} - HTTP ${responseCode} - Click to visit`;
+                } else {
+                  fillColor = "#757575"; // Medium gray for ministry with no response code
+                  tooltipText = `${countryName} - Click to visit Ministry of Foreign Affairs`;
+                }
+              }
 
               return (
-                <Tooltip 
+                <Tooltip
                   key={geo.rsmKey}
-                  title={hasMinistry ? `${countryName} - Click to visit Foreign Ministry` : countryName}
-                  arrow 
+                  title={tooltipText}
+                  arrow
                   placement="top"
                 >
                   <Geography
                     geography={geo}
-                    fill={hasMinistry ? "#757575" : "#E4E5E9"}
+                    fill={fillColor}
                     stroke="#D6D6DA"
                     style={{
-                      default: { 
-                        outline: 'none', 
-                        fill: hasMinistry ? "#757575" : "#E4E5E9",
+                      default: {
+                        outline: 'none',
+                        fill: fillColor,
                         cursor: hasMinistry ? 'pointer' : 'default'
                       },
                       hover: {
                         outline: 'none',
-                        fill: hasMinistry ? "#424242" : "#D6D6DA",
+                        fill: hasMinistry ? (fillColor === "#424242" ? "#212121" :
+                                           fillColor === "#616161" ? "#424242" :
+                                           fillColor === "#9E9E9E" ? "#757575" :
+                                           fillColor === "#BDBDBD" ? "#9E9E9E" :
+                                           fillColor === "#757575" ? "#616161" : "#424242") : "#D6D6DA",
                         cursor: hasMinistry ? 'pointer' : 'default'
                       },
-                      pressed: { 
+                      pressed: {
                         outline: 'none',
                         fill: hasMinistry ? "#616161" : "#D6D6DA"
                       }

@@ -47,7 +47,7 @@ interface DuckDuckGoResult {
     Redirect: string;
 }
 
-// Function to search DuckDuckGo for MOFA URLs
+// Function to search DuckDuckGo for Ministry of Foreign Affairs URLs
 function searchDuckDuckGo(query: string): Promise<DuckDuckGoResult> {
     return new Promise((resolve, reject) => {
         const encodedQuery = encodeURIComponent(query);
@@ -74,7 +74,7 @@ function searchDuckDuckGo(query: string): Promise<DuckDuckGoResult> {
     });
 }
 
-// Function to extract potential MOFA URLs from search results
+// Function to extract potential Ministry of Foreign Affairs URLs from search results
 function extractMofaUrls(searchResult: DuckDuckGoResult): string[] {
     const urls: string[] = [];
     
@@ -97,7 +97,7 @@ function extractMofaUrls(searchResult: DuckDuckGoResult): string[] {
         }
     });
     
-    // Filter for likely MOFA URLs
+    // Filter for likely Ministry of Foreign Affairs URLs
     return urls.filter(url => {
         const lowerUrl = url.toLowerCase();
         return lowerUrl.includes('foreign') ||
@@ -290,8 +290,8 @@ async function processCSV(): Promise<void> {
                 console.log(`${normalizedUrl} - HTTP ${responseCode}`);
             }
         } else if (countryName && countryName.trim() !== '') {
-            // Search for missing MOFA URL
-            console.log(`Searching for MOFA URL for: ${countryName}`);
+            // Search for missing Ministry of Foreign Affairs URL
+            console.log(`Searching for Ministry of Foreign Affairs URL for: ${countryName}`);
             try {
                 const searchQuery = `ministry of foreign affairs ${countryName}`;
                 const searchResult = await searchDuckDuckGo(searchQuery);
