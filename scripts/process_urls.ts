@@ -8,6 +8,109 @@ interface UrlTestResult {
     responseCode: string;
 }
 
+interface DuckDuckGoResult {
+    Abstract: string;
+    AbstractText: string;
+    AbstractSource: string;
+    AbstractURL: string;
+    Image: string;
+    ImageIsLogo: string;
+    ImageHeight: string;
+    ImageWidth: string;
+    Heading: string;
+    Results: Array<{
+        Result: string;
+        FirstURL: string;
+        Icon: {
+            URL: string;
+            Height: string;
+            Width: string;
+        };
+        Text: string;
+    }>;
+    Answer: string;
+    AnswerType: string;
+    Definition: string;
+    DefinitionSource: string;
+    DefinitionURL: string;
+    RelatedTopics: Array<{
+        Result: string;
+        FirstURL: string;
+        Icon: {
+            URL: string;
+            Height: string;
+            Width: string;
+        };
+        Text: string;
+    }>;
+    Type: string;
+    Redirect: string;
+}
+
+// Function to search DuckDuckGo for MOFA URLs
+function searchDuckDuckGo(query: string): Promise<DuckDuckGoResult> {
+    return new Promise((resolve, reject) => {
+        const encodedQuery = encodeURIComponent(query);
+        const url = `https://api.duckduckgo.com/?q=${encodedQuery}&format=json&no_html=1&skip_disambig=1`;
+        
+        https.get(url, (res) => {
+            let data = '';
+            
+            res.on('data', (chunk) => {
+                data += chunk;
+            });
+            
+            res.on('end', () => {
+                try {
+                    const result = JSON.parse(data) as DuckDuckGoResult;
+                    resolve(result);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }).on('error', (error) => {
+            reject(error);
+        });
+    });
+}
+
+// Function to extract potential MOFA URLs from search results
+function extractMofaUrls(searchResult: DuckDuckGoResult): string[] {
+    const urls: string[] = [];
+    
+    // Check abstract URL
+    if (searchResult.AbstractURL) {
+        urls.push(searchResult.AbstractURL);
+    }
+    
+    // Check results
+    searchResult.Results?.forEach(result => {
+        if (result.FirstURL) {
+            urls.push(result.FirstURL);
+        }
+    });
+    
+    // Check related topics
+    searchResult.RelatedTopics?.forEach(topic => {
+        if (topic.FirstURL) {
+            urls.push(topic.FirstURL);
+        }
+    });
+    
+    // Filter for likely MOFA URLs
+    return urls.filter(url => {
+        const lowerUrl = url.toLowerCase();
+        return lowerUrl.includes('foreign') ||
+               lowerUrl.includes('mfa') ||
+               lowerUrl.includes('mofa') ||
+               lowerUrl.includes('exterior') ||
+               lowerUrl.includes('diplomacy') ||
+               lowerUrl.includes('diplomatic') ||
+               lowerUrl.includes('international') ||
+               lowerUrl.includes('affairs');
+    });
+}
+
 // Function to test URL and get HTTP response code
 function testUrl(url: string, timeout: number = 10000): Promise<string> {
     return new Promise((resolve) => {
@@ -131,6 +234,7 @@ async function processCSV(): Promise<void> {
         }
         
         const domain = columns[domainIndex] || '';
+        const countryName = columns[0] || ''; // First column is country name
         
         let normalizedUrl = '';
         let responseCode = '';
@@ -140,6 +244,26 @@ async function processCSV(): Promise<void> {
             console.log(`Testing: ${normalizedUrl}`);
             responseCode = await testUrl(normalizedUrl);
             console.log(`${normalizedUrl} - HTTP ${responseCode}`);
+        } else if (countryName && countryName.trim() !== '') {
+            // Search for missing MOFA URL
+            console.log(`Searching for MOFA URL for: ${countryName}`);
+            try {
+                const searchQuery = `ministry of foreign affairs ${countryName}`;
+                const searchResult = await searchDuckDuckGo(searchQuery);
+                
+                // Take the first result from Results array
+                if (searchResult.Results && searchResult.Results.length > 0) {
+                    const candidateUrl = searchResult.Results[0].FirstURL;
+                    console.log(`Found potential URL: ${candidateUrl}`);
+                    responseCode = await testUrl(candidateUrl);
+                    normalizedUrl = candidateUrl;
+                    console.log(`${candidateUrl} - HTTP ${responseCode} (FOUND via search)`);
+                } else {
+                    console.log(`No search results found for ${countryName}`);
+                }
+            } catch (error) {
+                console.log(`Search failed for ${countryName}: ${error}`);
+            }
         }
         
         // Update the URL column
