@@ -104,22 +104,22 @@ const WorldMap: React.FC = () => {
                 >
                   <Geography
                     geography={geo}
-                    fill={hasMinistry ? "#3949ab" : "#E4E5E9"}
+                    fill={hasMinistry ? "#757575" : "#E4E5E9"}
                     stroke="#D6D6DA"
                     style={{
                       default: { 
                         outline: 'none', 
-                        fill: hasMinistry ? "#3949ab" : "#E4E5E9",
+                        fill: hasMinistry ? "#757575" : "#E4E5E9",
                         cursor: hasMinistry ? 'pointer' : 'default'
                       },
-                      hover: { 
-                        outline: 'none', 
-                        fill: hasMinistry ? "#1a237e" : "#D6D6DA",
+                      hover: {
+                        outline: 'none',
+                        fill: hasMinistry ? "#424242" : "#D6D6DA",
                         cursor: hasMinistry ? 'pointer' : 'default'
                       },
                       pressed: { 
                         outline: 'none',
-                        fill: hasMinistry ? "#0d47a1" : "#D6D6DA"
+                        fill: hasMinistry ? "#616161" : "#D6D6DA"
                       }
                     }}
                     onClick={() => {

@@ -32,7 +32,7 @@ function LandingPage() {
           textAlign: 'center'
         }}
       >
-        National Government Coordination
+        globalcoordination.org
       </Typography>
       
       <Box sx={{ 
@@ -71,7 +71,7 @@ function LandingPage() {
               display: { xs: 'none', md: 'block' }
             }}
           >
-            National Government Coordination
+            globalcoordination.org
           </Typography>
           <WorldMap />
         </Box>
@@ -95,7 +95,7 @@ function LandingPage() {
         backdropFilter: 'blur(8px)'
       }}>
         <Typography variant="caption" component="span">
-          Global Coordination V2 · National Government Foreign Ministries
+          globalcoordination.org
         </Typography>
       </Box>
     </Box>
