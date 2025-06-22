@@ -111,49 +111,86 @@ function extractMofaUrls(searchResult: DuckDuckGoResult): string[] {
     });
 }
 
-// Function to test URL and get HTTP response code
-function testUrl(url: string, timeout: number = 10000): Promise<string> {
+// Function to test URL and follow redirects, returning final URL and response code
+function testUrlWithRedirects(url: string, timeout: number = 10000, maxRedirects: number = 5): Promise<{finalUrl: string, responseCode: string}> {
     return new Promise((resolve) => {
         if (!url || url.trim() === '') {
-            resolve('');
+            resolve({finalUrl: '', responseCode: ''});
             return;
         }
 
-        try {
-            const urlObj = new URL(url);
-            const protocol = urlObj.protocol === 'https:' ? https : http;
-            
-            const req = protocol.get(url, { 
-                timeout,
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-                }
-            }, (res) => {
-                resolve(res.statusCode?.toString() || 'UNKNOWN');
-                req.destroy();
-            });
+        let redirectCount = 0;
+        
+        function makeRequest(currentUrl: string): void {
+            try {
+                const urlObj = new URL(currentUrl);
+                const protocol = urlObj.protocol === 'https:' ? https : http;
+                
+                const req = protocol.get(currentUrl, {
+                    timeout,
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                    }
+                }, (res) => {
+                    const statusCode = res.statusCode || 0;
+                    
+                    // Handle redirects
+                    if ((statusCode === 301 || statusCode === 302 || statusCode === 307 || statusCode === 308) && res.headers.location) {
+                        if (redirectCount >= maxRedirects) {
+                            resolve({finalUrl: currentUrl, responseCode: `${statusCode}_MAX_REDIRECTS`});
+                            req.destroy();
+                            return;
+                        }
+                        
+                        redirectCount++;
+                        let redirectUrl = res.headers.location;
+                        
+                        // Handle relative redirects
+                        if (redirectUrl.startsWith('/')) {
+                            redirectUrl = `${urlObj.protocol}//${urlObj.host}${redirectUrl}`;
+                        } else if (!redirectUrl.startsWith('http')) {
+                            redirectUrl = `${urlObj.protocol}//${urlObj.host}/${redirectUrl}`;
+                        }
+                        
+                        req.destroy();
+                        makeRequest(redirectUrl);
+                        return;
+                    }
+                    
+                    // Final response
+                    resolve({finalUrl: currentUrl, responseCode: statusCode.toString()});
+                    req.destroy();
+                });
 
-            req.on('error', (err: NodeJS.ErrnoException) => {
-                if (err.code === 'ENOTFOUND') {
-                    resolve('DNS_ERROR');
-                } else if (err.code === 'ECONNREFUSED') {
-                    resolve('CONNECTION_REFUSED');
-                } else if (err.code === 'ETIMEDOUT') {
-                    resolve('TIMEOUT');
-                } else {
-                    resolve(`ERROR_${err.code || 'UNKNOWN'}`);
-                }
-            });
-            
-            req.on('timeout', () => {
-                req.destroy();
-                resolve('TIMEOUT');
-            });
-            
-        } catch (error) {
-            resolve('INVALID_URL');
+                req.on('error', (err: NodeJS.ErrnoException) => {
+                    if (err.code === 'ENOTFOUND') {
+                        resolve({finalUrl: currentUrl, responseCode: 'DNS_ERROR'});
+                    } else if (err.code === 'ECONNREFUSED') {
+                        resolve({finalUrl: currentUrl, responseCode: 'CONNECTION_REFUSED'});
+                    } else if (err.code === 'ETIMEDOUT') {
+                        resolve({finalUrl: currentUrl, responseCode: 'TIMEOUT'});
+                    } else {
+                        resolve({finalUrl: currentUrl, responseCode: `ERROR_${err.code || 'UNKNOWN'}`});
+                    }
+                });
+                
+                req.on('timeout', () => {
+                    req.destroy();
+                    resolve({finalUrl: currentUrl, responseCode: 'TIMEOUT'});
+                });
+                
+            } catch (error) {
+                resolve({finalUrl: currentUrl, responseCode: 'INVALID_URL'});
+            }
         }
+        
+        makeRequest(url);
     });
+}
+
+// Backward compatibility function
+function testUrl(url: string, timeout: number = 10000): Promise<string> {
+    return testUrlWithRedirects(url, timeout).then(result => result.responseCode);
 }
 
 // Function to normalize URL
@@ -179,7 +216,7 @@ function normalizeUrl(domain: string): string {
 
 async function processCSV(): Promise<void> {
     console.log('Reading CSV file...');
-    const csvContent = fs.readFileSync('../national_governments.csv', 'utf8');
+    const csvContent = fs.readFileSync('national_governments.csv', 'utf8');
     const lines = csvContent.split('\n');
     
     if (lines.length === 0) {
@@ -242,8 +279,16 @@ async function processCSV(): Promise<void> {
         if (domain && domain.trim() !== '') {
             normalizedUrl = normalizeUrl(domain);
             console.log(`Testing: ${normalizedUrl}`);
-            responseCode = await testUrl(normalizedUrl);
-            console.log(`${normalizedUrl} - HTTP ${responseCode}`);
+            const result = await testUrlWithRedirects(normalizedUrl);
+            responseCode = result.responseCode;
+            
+            // Update URL if it was redirected
+            if (result.finalUrl !== normalizedUrl && result.responseCode === '200') {
+                normalizedUrl = result.finalUrl;
+                console.log(`${domain} -> ${normalizedUrl} - HTTP ${responseCode} (followed redirect)`);
+            } else {
+                console.log(`${normalizedUrl} - HTTP ${responseCode}`);
+            }
         } else if (countryName && countryName.trim() !== '') {
             // Search for missing MOFA URL
             console.log(`Searching for MOFA URL for: ${countryName}`);
@@ -255,9 +300,17 @@ async function processCSV(): Promise<void> {
                 if (searchResult.Results && searchResult.Results.length > 0) {
                     const candidateUrl = searchResult.Results[0].FirstURL;
                     console.log(`Found potential URL: ${candidateUrl}`);
-                    responseCode = await testUrl(candidateUrl);
-                    normalizedUrl = candidateUrl;
-                    console.log(`${candidateUrl} - HTTP ${responseCode} (FOUND via search)`);
+                    const result = await testUrlWithRedirects(candidateUrl);
+                    responseCode = result.responseCode;
+                    
+                    // Use final URL after following redirects
+                    if (result.responseCode === '200' || result.responseCode === '301' || result.responseCode === '302') {
+                        normalizedUrl = result.finalUrl;
+                        console.log(`${candidateUrl} -> ${result.finalUrl} - HTTP ${responseCode} (FOUND via search)`);
+                    } else {
+                        normalizedUrl = candidateUrl;
+                        console.log(`${candidateUrl} - HTTP ${responseCode} (FOUND via search)`);
+                    }
                 } else {
                     console.log(`No search results found for ${countryName}`);
                 }
@@ -281,7 +334,7 @@ async function processCSV(): Promise<void> {
     
     // Write updated CSV
     console.log('Writing updated CSV...');
-    fs.writeFileSync('../national_governments.csv', processedLines.join('\n'));
+    fs.writeFileSync('national_governments.csv', processedLines.join('\n'));
     console.log('Processing complete!');
 }
 
