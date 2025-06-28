@@ -135,7 +135,7 @@ async function processCountriesInBatches(countries: CountryData[], browser: Brow
     log(`Processing batch ${Math.floor(i / CONFIG.maxConcurrency) + 1}/${Math.ceil(countries.length / CONFIG.maxConcurrency)}`);
     
     const promises = batch.map(async (country) => {
-      const jitter = Math.random() * 2000;
+      const jitter = Math.random() * 5000;
       await new Promise(resolve => setTimeout(resolve, jitter));
       
       log(`Processing ${country.country} (${country.code}) - ${country.foreign_affairs_ministry_url}`);

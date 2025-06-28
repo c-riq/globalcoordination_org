@@ -30,16 +30,26 @@ const WorldMap: React.FC<WorldMapProps> = ({ statusType }) => {
       .then(response => response.text())
       .then(csvText => {
         const lines = csvText.split('\n');
+        if (lines.length === 0) return;
+        
+        // Parse header to get column indices
+        const headers = lines[0].split(',').map(h => h.trim());
+        const countryIndex = headers.findIndex(h => h === 'country');
+        const codeIndex = headers.findIndex(h => h === 'code');
+        const foreignAffairsIndex = headers.findIndex(h => h === 'foreign_affairs_ministry_url');
+        const httpResponseIndex = headers.findIndex(h => h === 'http_response_code');
+        const robotsTxtIndex = headers.findIndex(h => h === 'robots_txt');
+        
         const data = lines.slice(1)
           .filter(line => line.trim())
           .map(line => {
             const values = line.split(',');
             return {
-              country: values[0]?.trim() || '',
-              code: values[1]?.trim() || '',
-              foreign_affairs_ministry_url: values[7]?.trim() || '',
-              http_response_code: values[14]?.trim() || '',
-              robots_txt: values[15]?.trim() || ''
+              country: countryIndex >= 0 ? (values[countryIndex]?.trim() || '') : '',
+              code: codeIndex >= 0 ? (values[codeIndex]?.trim() || '') : '',
+              foreign_affairs_ministry_url: foreignAffairsIndex >= 0 ? (values[foreignAffairsIndex]?.trim() || '') : '',
+              http_response_code: httpResponseIndex >= 0 ? (values[httpResponseIndex]?.trim() || '') : '',
+              robots_txt: robotsTxtIndex >= 0 ? (values[robotsTxtIndex]?.trim() || '') : ''
             };
           })
           .filter(item => item.code && item.foreign_affairs_ministry_url);
