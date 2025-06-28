@@ -1,11 +1,10 @@
 {
-  "name": "mofa-scraper",
+  "name": "mofa-aggregator",
   "version": "1.0.0",
-  "description": "Simple MOFA URL scraper using Puppeteer",
+  "description": "Aggregate content from ministries of foreign affairs",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
     "dev": "ts-node src/index.ts"
   },
   "dependencies": {

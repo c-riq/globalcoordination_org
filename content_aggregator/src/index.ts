@@ -18,12 +18,13 @@ interface AggregationResult {
   success: boolean;
   error?: string;
   contentLength: number;
+  htmlLength: number;
   processingTimeMs: number;
 }
 
 function parseArgs(): { maxConcurrency: number; timeout: number } {
   const args = process.argv.slice(2);
-  let maxConcurrency = 20;
+  let maxConcurrency = 5;
   let timeout = 15000;
 
   for (let i = 0; i < args.length; i++) {
@@ -61,7 +62,7 @@ async function createResultsDir(): Promise<string> {
   return resultsDir;
 }
 
-async function aggregateUrl(country: CountryData, browser: Browser): Promise<AggregationResult> {
+async function aggregateUrl(country: CountryData, browser: Browser): Promise<{ result: AggregationResult; textContent: string; htmlContent: string }> {
   const startTime = Date.now();
   const timestamp = new Date().toISOString();
   const page = await browser.newPage();
@@ -84,27 +85,36 @@ async function aggregateUrl(country: CountryData, browser: Browser): Promise<Agg
       timeout: CONFIG.timeout
     });
     
+    // Wait a bit more for any dynamic content to load
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
     const textContent = await page.evaluate(() => {
       const scripts = document.querySelectorAll('script, style');
       scripts.forEach(el => el.remove());
       return document.body.innerText.replace(/\s+/g, ' ').trim();
     });
     
+    // Get the full HTML content after rendering
+    const htmlContent = await page.content();
+    
     const processingTime = Date.now() - startTime;
     
-    return {
+    const result: AggregationResult = {
       country: country.country,
       code: country.code,
       url: country.foreign_affairs_ministry_url,
       timestamp,
       success: true,
       contentLength: textContent.length,
+      htmlLength: htmlContent.length,
       processingTimeMs: processingTime
     };
+    
+    return { result, textContent, htmlContent };
   } catch (error) {
     const processingTime = Date.now() - startTime;
     
-    return {
+    const result: AggregationResult = {
       country: country.country,
       code: country.code,
       url: country.foreign_affairs_ministry_url,
@@ -112,18 +122,23 @@ async function aggregateUrl(country: CountryData, browser: Browser): Promise<Agg
       success: false,
       error: String(error),
       contentLength: 0,
+      htmlLength: 0,
       processingTimeMs: processingTime
     };
+    
+    return { result, textContent: `Error: ${error}`, htmlContent: `Error: ${error}` };
   } finally {
     await page.close();
   }
 }
 
-async function saveResults(result: AggregationResult, content: string, resultsDir: string): Promise<void> {
+async function saveResults(result: AggregationResult, textContent: string, htmlContent: string, resultsDir: string): Promise<void> {
   const textFilepath = path.join(resultsDir, `${result.code}.txt`);
+  const htmlFilepath = path.join(resultsDir, `${result.code}.html`);
   const jsonFilepath = path.join(resultsDir, `${result.code}.json`);
   
-  fs.writeFileSync(textFilepath, content, 'utf8');
+  fs.writeFileSync(textFilepath, textContent, 'utf8');
+  fs.writeFileSync(htmlFilepath, htmlContent, 'utf8');
   fs.writeFileSync(jsonFilepath, JSON.stringify(result, null, 2), 'utf8');
 }
 
@@ -139,37 +154,17 @@ async function processCountriesInBatches(countries: CountryData[], browser: Brow
       await new Promise(resolve => setTimeout(resolve, jitter));
       
       log(`Processing ${country.country} (${country.code}) - ${country.foreign_affairs_ministry_url}`);
-      const result = await aggregateUrl(country, browser);
+      const { result, textContent, htmlContent } = await aggregateUrl(country, browser);
       
-      if (result.success) {
-        const page = await browser.newPage();
-        try {
-          // Set stealth headers for second request too
-          await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
-          await page.setViewport({ width: 1366, height: 768 });
-          
-          await page.goto(country.foreign_affairs_ministry_url, {
-            waitUntil: 'networkidle2',
-            timeout: CONFIG.timeout
-          });
-          
-          const textContent = await page.evaluate(() => {
-            const scripts = document.querySelectorAll('script, style');
-            scripts.forEach(el => el.remove());
-            return document.body.innerText.replace(/\s+/g, ' ').trim();
-          });
-          
-          await saveResults(result, textContent, resultsDir);
-          log(`✓ Saved ${result.code}.txt and ${result.code}.json`);
-        } catch (error) {
-          await saveResults(result, `Error: ${error}`, resultsDir);
-          log(`✗ Error saving ${result.code}: ${error}`);
-        } finally {
-          await page.close();
+      try {
+        await saveResults(result, textContent, htmlContent, resultsDir);
+        if (result.success) {
+          log(`✓ Saved ${result.code}.txt, ${result.code}.html and ${result.code}.json (${result.htmlLength} chars HTML, ${result.contentLength} chars text)`);
+        } else {
+          log(`✗ Failed ${result.code}: ${result.error}`);
         }
-      } else {
-        await saveResults(result, `Error: ${result.error}`, resultsDir);
-        log(`✗ Failed ${result.code}: ${result.error}`);
+      } catch (error) {
+        log(`✗ Error saving ${result.code}: ${error}`);
       }
     });
     
