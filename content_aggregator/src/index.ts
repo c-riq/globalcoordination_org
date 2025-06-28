@@ -10,7 +10,7 @@ interface CountryData {
   http_response_code: string;
 }
 
-interface ScrapingResult {
+interface AggregationResult {
   country: string;
   code: string;
   url: string;
@@ -21,16 +21,37 @@ interface ScrapingResult {
   processingTimeMs: number;
 }
 
-// Configuration
-const CONFIG = {
-  maxConcurrency: parseInt(process.env.MAX_CONCURRENCY || '20'),
-  requestDelay: parseInt(process.env.REQUEST_DELAY || '1000'),
-  timeout: parseInt(process.env.TIMEOUT || '30000')
-};
+function parseArgs(): { maxConcurrency: number; timeout: number } {
+  const args = process.argv.slice(2);
+  let maxConcurrency = 20;
+  let timeout = 15000;
+
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === 'concurrency') {
+      maxConcurrency = parseInt(args[i + 1]) || 20;
+      i++;
+    } else if (args[i] === 'timeout') {
+      timeout = parseInt(args[i + 1]) || 15000;
+      i++;
+    } else if (args[i] === 'help') {
+      console.log('Usage: npm start [concurrency <number>] [timeout <number>] [help]');
+      process.exit(0);
+    }
+  }
+
+  return { maxConcurrency, timeout };
+}
+
+const CONFIG = parseArgs();
+
+function log(message: string): void {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] ${message}`);
+}
 
 async function createResultsDir(): Promise<string> {
   const today = new Date();
-  const dateStr = today.toISOString().split('T')[0]; // YYYY-MM-DD format
+  const dateStr = today.toISOString().split('T')[0];
   const resultsDir = path.join(__dirname, '..', 'results', dateStr);
   
   if (!fs.existsSync(resultsDir)) {
@@ -40,27 +61,33 @@ async function createResultsDir(): Promise<string> {
   return resultsDir;
 }
 
-async function scrapeUrl(country: CountryData, browser: Browser): Promise<ScrapingResult> {
+async function aggregateUrl(country: CountryData, browser: Browser): Promise<AggregationResult> {
   const startTime = Date.now();
   const timestamp = new Date().toISOString();
   const page = await browser.newPage();
   
   try {
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+    await page.setExtraHTTPHeaders({
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.5',
+      'Accept-Encoding': 'gzip, deflate',
+      'DNT': '1',
+      'Connection': 'keep-alive',
+      'Upgrade-Insecure-Requests': '1'
+    });
+    
+    await page.setViewport({ width: 1366, height: 768 });
+    
     await page.goto(country.foreign_affairs_ministry_url, {
       waitUntil: 'networkidle2',
       timeout: CONFIG.timeout
     });
     
-    // Extract text content from the page
     const textContent = await page.evaluate(() => {
-      // Remove script and style elements
       const scripts = document.querySelectorAll('script, style');
       scripts.forEach(el => el.remove());
-      
-      // Get text content and clean it up
-      return document.body.innerText
-        .replace(/\s+/g, ' ')
-        .trim();
+      return document.body.innerText.replace(/\s+/g, ' ').trim();
     });
     
     const processingTime = Date.now() - startTime;
@@ -76,7 +103,6 @@ async function scrapeUrl(country: CountryData, browser: Browser): Promise<Scrapi
     };
   } catch (error) {
     const processingTime = Date.now() - startTime;
-    console.error(`Error scraping ${country.foreign_affairs_ministry_url}:`, error);
     
     return {
       country: country.country,
@@ -93,34 +119,35 @@ async function scrapeUrl(country: CountryData, browser: Browser): Promise<Scrapi
   }
 }
 
-async function saveResults(result: ScrapingResult, content: string, resultsDir: string): Promise<void> {
-  const textFilename = `${result.code}.txt`;
-  const jsonFilename = `${result.code}.json`;
-  const textFilepath = path.join(resultsDir, textFilename);
-  const jsonFilepath = path.join(resultsDir, jsonFilename);
+async function saveResults(result: AggregationResult, content: string, resultsDir: string): Promise<void> {
+  const textFilepath = path.join(resultsDir, `${result.code}.txt`);
+  const jsonFilepath = path.join(resultsDir, `${result.code}.json`);
   
-  // Save text content
   fs.writeFileSync(textFilepath, content, 'utf8');
-  
-  // Save metadata
   fs.writeFileSync(jsonFilepath, JSON.stringify(result, null, 2), 'utf8');
 }
 
 async function processCountriesInBatches(countries: CountryData[], browser: Browser, resultsDir: string): Promise<void> {
-  console.log(`Processing ${countries.length} countries with max concurrency: ${CONFIG.maxConcurrency}`);
+  log(`Starting batch processing with ${CONFIG.maxConcurrency} threads, ${CONFIG.timeout}ms timeout`);
   
   for (let i = 0; i < countries.length; i += CONFIG.maxConcurrency) {
     const batch = countries.slice(i, i + CONFIG.maxConcurrency);
+    log(`Processing batch ${Math.floor(i / CONFIG.maxConcurrency) + 1}/${Math.ceil(countries.length / CONFIG.maxConcurrency)}`);
     
     const promises = batch.map(async (country) => {
-      console.log(`Processing ${country.country} (${country.code})...`);
+      const jitter = Math.random() * 2000;
+      await new Promise(resolve => setTimeout(resolve, jitter));
       
-      const result = await scrapeUrl(country, browser);
+      log(`Processing ${country.country} (${country.code}) - ${country.foreign_affairs_ministry_url}`);
+      const result = await aggregateUrl(country, browser);
       
       if (result.success) {
-        // Get the content from the page again for saving
         const page = await browser.newPage();
         try {
+          // Set stealth headers for second request too
+          await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+          await page.setViewport({ width: 1366, height: 768 });
+          
           await page.goto(country.foreign_affairs_ministry_url, {
             waitUntil: 'networkidle2',
             timeout: CONFIG.timeout
@@ -133,27 +160,20 @@ async function processCountriesInBatches(countries: CountryData[], browser: Brow
           });
           
           await saveResults(result, textContent, resultsDir);
-          console.log(`✓ Saved ${result.code}.txt and ${result.code}.json`);
+          log(`✓ Saved ${result.code}.txt and ${result.code}.json`);
         } catch (error) {
           await saveResults(result, `Error: ${error}`, resultsDir);
-          console.log(`✗ Saved error for ${result.code}`);
+          log(`✗ Error saving ${result.code}: ${error}`);
         } finally {
           await page.close();
         }
       } else {
         await saveResults(result, `Error: ${result.error}`, resultsDir);
-        console.log(`✗ Saved error for ${result.code}`);
-      }
-      
-      // Delay between requests
-      if (CONFIG.requestDelay > 0) {
-        await new Promise(resolve => setTimeout(resolve, CONFIG.requestDelay));
+        log(`✗ Failed ${result.code}: ${result.error}`);
       }
     });
     
     await Promise.all(promises);
-    
-    console.log(`Completed batch ${Math.floor(i / CONFIG.maxConcurrency) + 1}/${Math.ceil(countries.length / CONFIG.maxConcurrency)}`);
   }
 }
 
@@ -182,31 +202,33 @@ async function readCsvData(): Promise<CountryData[]> {
 }
 
 async function main() {
-  console.log('Starting MOFA URL scraper...');
-  console.log(`Configuration: Max Concurrency=${CONFIG.maxConcurrency}, Request Delay=${CONFIG.requestDelay}ms, Timeout=${CONFIG.timeout}ms`);
+  log(`Starting MOFA URL aggregator with concurrency=${CONFIG.maxConcurrency}, timeout=${CONFIG.timeout}ms`);
   
-  try {
-    // Read CSV data
-    const countries = await readCsvData();
-    console.log(`Found ${countries.length} working MOFA URLs`);
-    
-    // Create results directory
-    const resultsDir = await createResultsDir();
-    console.log(`Results will be saved to: ${resultsDir}`);
-    
-    // Launch browser
-    const browser = await puppeteer.launch({ headless: true });
-    
-    // Process countries in batches
-    await processCountriesInBatches(countries, browser, resultsDir);
-    
-    await browser.close();
-    console.log('Scraping completed!');
-    
-  } catch (error) {
-    console.error('Error:', error);
-    process.exit(1);
-  }
+  const countries = await readCsvData();
+  log(`Found ${countries.length} working MOFA URLs`);
+  
+  const resultsDir = await createResultsDir();
+  log(`Results will be saved to: ${resultsDir}`);
+  
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--disable-gpu',
+      '--disable-web-security',
+      '--disable-features=VizDisplayCompositor'
+    ]
+  });
+  
+  await processCountriesInBatches(countries, browser, resultsDir);
+  
+  await browser.close();
+  log('Aggregation completed');
 }
 
 main();

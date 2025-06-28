@@ -1,16 +1,6 @@
-# MOFA URL Scraper
+# MOFA URL Aggregator
 
-A TypeScript Node.js project that uses Puppeteer to scrape text content from Ministry of Foreign Affairs (MOFA) URLs with configurable parallel processing and metadata collection.
-
-## Features
-
-- Reads MOFA URLs from `../website/public/national_governments.csv`
-- Only processes URLs with HTTP response code 200
-- Configurable parallel processing with batching
-- Scrapes text content using Puppeteer
-- Saves both text content and metadata for each country
-- Saves results in `results/<YYYY-MM-DD>/<country_ISO.txt>` and `<country_ISO.json>` format
-- Comprehensive error handling and logging
+Aggregates text content from MOFA URLs using Puppeteer with parallel processing.
 
 ## Installation
 
@@ -18,67 +8,25 @@ A TypeScript Node.js project that uses Puppeteer to scrape text content from Min
 npm install
 ```
 
-## Configuration
-
-Configure the scraper using environment variables:
-
-- `MAX_CONCURRENCY` - Maximum number of parallel requests (default: 7)
-- `REQUEST_DELAY` - Delay between requests in milliseconds (default: 1000)
-- `TIMEOUT` - Page load timeout in milliseconds (default: 30000)
-
 ## Usage
 
-### Development (with ts-node)
 ```bash
-npm run dev
-```
-
-### Production
-```bash
-npm run build
 npm start
-```
-
-### With custom configuration
-```bash
-MAX_CONCURRENCY=5 REQUEST_DELAY=500 npm start
+npm start concurrency 10
+npm start timeout 3000
+npm start concurrency 5 timeout 8000
+npm start help
 ```
 
 ## Output
 
-Results are saved in the `results/` directory with the following structure:
-```
-results/
-└── 2025-06-28/
-    ├── AF.txt          # Text content
-    ├── AF.json         # Metadata
-    ├── AL.txt
-    ├── AL.json
-    ├── DZ.txt
-    ├── DZ.json
-    └── ...
-```
+Saves to `results/<YYYY-MM-DD>/`:
+- `<ISO>.txt` - Text content
+- `<ISO>.json` - Metadata (URL, timestamp, success, content length, processing time)
 
-### Text Files (.txt)
-Each `.txt` file contains the scraped text content from the corresponding country's MOFA website.
+Console logs show aggregation progress, parameters, and status for each country.
 
-### Metadata Files (.json)
-Each `.json` file contains metadata about the scraping process:
-```json
-{
-  "country": "United States of America",
-  "code": "US",
-  "url": "https://www.state.gov",
-  "timestamp": "2025-06-28T14:22:30.123Z",
-  "success": true,
-  "contentLength": 15420,
-  "processingTimeMs": 2340
-}
-```
+## Configuration
 
-## Performance
-
-- Processes requests in configurable batches to respect server limits
-- Default configuration processes 7 URLs concurrently with 1-second delays
-- Includes comprehensive error handling for failed requests
-- Logs progress and completion status for each country
+- Default: 20 threads, 15000ms timeout
+- Arguments: `concurrency <number>` `timeout <number>` `help`
