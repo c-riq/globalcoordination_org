@@ -18,8 +18,7 @@ interface AnalysisResult {
   commonTopics: string[];
   countryAgreements: {
     topic: string;
-    countries: string[];
-    evidence: string;
+    countries: [{ [countryCode: string]: string }];
   }[];
   dataContext: string;
 }
@@ -34,70 +33,77 @@ async function loadTxtFiles(): Promise<CountryContent[]> {
   }));
 }
 
-async function analyzeWithGPT4o(countries: CountryContent[]): Promise<AnalysisResult> {
-  const prompt = `Analyze the following foreign ministry website content from ${countries.length} countries to identify topics where multiple countries show agreement or similar positions.
+async function analyzeWithGPT4o(countries: CountryContent[]): Promise<AnalysisResult> {  
+  const systemPrompt = `You are a diplomatic analyst specializing in identifying shared positions among countries on major global issues. Your task is to analyze foreign ministry website content and identify SPECIFIC STANCES where multiple countries show agreement.
 
-Data Context: This content was scraped from official foreign affairs ministry websites on 2025-06-28 using automated web scraping. Each text represents the main content from a country's foreign ministry homepage or key policy pages.
+Focus on finding specific stances such as:
+- UKRAINE CONFLICT: Support for Ukraine, condemnation of Russia, sanctions, military aid
+- ISRAEL/GAZA CONFLICT: Support for Israel, support for Palestinians, ceasefire calls, humanitarian aid
+- IRAN: Nuclear program concerns, sanctions, diplomatic relations, regional tensions
+- CLIMATE CHANGE: Paris Agreement, net zero commitments, climate finance, green transition
+- HUMAN RIGHTS: Democracy promotion, authoritarian criticism, minority rights, women's rights
 
-Countries and their content:
-${countries.map(c => `\n--- ${c.code} ---\n${c.content.slice(0, 2000)}...`).join('\n')}
+CRITICAL: Use EXACT quotes from the input text. Do NOT add trailing periods, punctuation, or modify the text in any way. Copy the text exactly as it appears in the source material.
 
-Please identify:
-1. Common topics/themes across multiple countries
-2. Specific areas where 3+ countries show similar positions or language
-3. Evidence of agreement or consensus
+Return ONLY valid JSON in this exact structure:
+{
+  "commonTopics": ["Brief topic descriptions"],
+  "countryAgreements": [
+    {
+      "topic": "Specific stance description",
+      "countries": [{ "US": "exact quote from input conveying the stance", "DE": "exact quote from input conveying the stance", "FR": "exact quote from input conveying the stance" }],
+    }
+  ]
+}
 
-Return a structured analysis focusing on diplomatic consensus and shared priorities.`;
+Only include positions where at least 2 countries clearly agree. Be specific and factual.`;
 
+  const userPrompt = `Analyze the following foreign ministry website content from ${countries.length} countries:
+
+${countries.map(c => `--- ${c.code} ---\n${c.content.slice(0, 25_000)}`).join('\n\n')}`;
+
+  console.log(`Sending ${countries.length} countries to GPT-4o...`);
+  
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
-    messages: [{ role: 'user', content: prompt }],
-    temperature: 0.3,
-    max_tokens: 2000
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt }
+    ],
+    temperature: 0.1,
+    max_tokens: 6_000,
+    response_format: { type: "json_object" }
   });
 
-  const analysis = response.choices[0].message.content || '';
+  if (response.usage) {
+    console.log('Input tokens:', response.usage.prompt_tokens);
+    console.log('Output tokens:', response.usage.completion_tokens);
+    console.log('Total tokens:', response.usage.total_tokens);
+  }
+
+  const jsonResponse = response.choices[0].message.content || '{}';
+  console.log('GPT-4o response length:', jsonResponse.length);
   
-  // Parse the response into structured format
-  return {
-    commonTopics: extractTopics(analysis),
-    countryAgreements: extractAgreements(analysis, countries.map(c => c.code)),
-    dataContext: `Analysis based on ${countries.length} foreign ministry websites scraped on 2025-06-28. Content represents official diplomatic positions and priorities as published on government websites.`
-  };
+  try {
+    const parsed = JSON.parse(jsonResponse);
+    console.log('Parsed successfully. Topics:', parsed.commonTopics?.length || 0, 'Agreements:', parsed.countryAgreements?.length || 0);
+    
+    return {
+      commonTopics: parsed.commonTopics || [],
+      countryAgreements: parsed.countryAgreements || [],
+      dataContext: parsed.dataContext || `Analysis based on ${countries.length} foreign ministry websites scraped on 2025-06-28. Content represents official diplomatic positions and priorities as published on government websites.`
+    };
+  } catch (error) {
+    console.error('Failed to parse JSON response:', error);
+    console.error('Raw response:', jsonResponse.slice(0, 500));
+    return {
+      commonTopics: ['Error: Could not parse GPT-4o response as JSON'],
+      countryAgreements: [],
+      dataContext: `Analysis failed - JSON parsing error. Raw response: ${jsonResponse.slice(0, 200)}...`
+    };
+  }
 }
 
-function extractTopics(analysis: string): string[] {
-  const topics: string[] = [];
-  const lines = analysis.split('\n');
-  
-  for (const line of lines) {
-    if (line.includes('topic') || line.includes('theme') || line.includes('priority')) {
-      const cleaned = line.replace(/^\d+\.?\s*/, '').replace(/[*-]\s*/, '').trim();
-      if (cleaned.length > 10) topics.push(cleaned);
-    }
-  }
-  
-  return topics.slice(0, 10);
-}
-
-function extractAgreements(analysis: string, countryCodes: string[]): { topic: string; countries: string[]; evidence: string; }[] {
-  const agreements: { topic: string; countries: string[]; evidence: string; }[] = [];
-  const sections = analysis.split('\n\n');
-  
-  for (const section of sections) {
-    const foundCountries = countryCodes.filter(code => section.includes(code));
-    if (foundCountries.length >= 3) {
-      const topic = section.split('\n')[0].replace(/^\d+\.?\s*/, '').trim();
-      agreements.push({
-        topic,
-        countries: foundCountries,
-        evidence: section.slice(0, 200) + '...'
-      });
-    }
-  }
-  
-  return agreements.slice(0, 5);
-}
 
 async function main() {
   if (!process.env.OPENAI_API_KEY) {
@@ -122,13 +128,37 @@ async function main() {
   console.log('\nCOUNTRY AGREEMENTS:');
   result.countryAgreements.forEach((agreement, i) => {
     console.log(`\n${i + 1}. ${agreement.topic}`);
-    console.log(`   Countries: ${agreement.countries.join(', ')}`);
-    console.log(`   Evidence: ${agreement.evidence}`);
+    console.log(`   Countries:`);
+    agreement.countries.forEach(countryObj => {
+      Object.entries(countryObj).forEach(([code, quote]) => {
+        // Verify if the quote actually exists in the country's content
+        const countryData = countries.find(c => c.code === code);
+        const verified = countryData ? countryData.content.includes(quote) : false;
+        const status = verified ? '✓' : '✗';
+        console.log(`     ${code}: "${quote}" ${status}`);
+      });
+    });
   });
 
-  // Save results
+  // Save results with verification status
+  const verifiedResult = {
+    ...result,
+    countryAgreements: result.countryAgreements.map(agreement => ({
+      ...agreement,
+      countries: agreement.countries.map(countryObj => {
+        const verifiedCountryObj: { [key: string]: { quote: string; verified: boolean } } = {};
+        Object.entries(countryObj).forEach(([code, quote]) => {
+          const countryData = countries.find(c => c.code === code);
+          const verified = countryData ? countryData.content.includes(quote) : false;
+          verifiedCountryObj[code] = { quote, verified };
+        });
+        return verifiedCountryObj;
+      })
+    }))
+  };
+
   const outputPath = path.join(__dirname, '..', 'results', 'analysis.json');
-  fs.writeFileSync(outputPath, JSON.stringify(result, null, 2));
+  fs.writeFileSync(outputPath, JSON.stringify(verifiedResult, null, 2));
   console.log(`\nResults saved to: ${outputPath}`);
 }
 
