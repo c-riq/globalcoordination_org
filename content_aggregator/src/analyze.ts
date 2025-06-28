@@ -15,10 +15,9 @@ interface CountryContent {
 }
 
 interface AnalysisResult {
-  commonTopics: string[];
-  countryAgreements: {
+  countryPositions: {
     topic: string;
-    countries: [{ [countryCode: string]: string }];
+    countries: [{ [countryCode: string]: { summarised_stance_in_english: string; exact_quote: string } }];
   }[];
   dataContext: string;
 }
@@ -34,7 +33,7 @@ async function loadTxtFiles(): Promise<CountryContent[]> {
 }
 
 async function analyzeWithGPT4o(countries: CountryContent[]): Promise<AnalysisResult> {  
-  const systemPrompt = `You are a diplomatic analyst specializing in identifying shared positions among countries on major global issues. Your task is to analyze foreign ministry website content and identify SPECIFIC STANCES where multiple countries show agreement.
+  const systemPrompt = `You are a diplomatic analyst specializing in identifying clear positions expressed by countries on major global issues. Your task is to analyze foreign ministry website content and identify SPECIFIC STANCES where countries express clear opinions.
 
 Focus on finding specific stances such as:
 - UKRAINE CONFLICT: Support for Ukraine, condemnation of Russia, sanctions, military aid
@@ -47,16 +46,20 @@ CRITICAL: Use EXACT quotes from the input text. Do NOT add trailing periods, pun
 
 Return ONLY valid JSON in this exact structure:
 {
-  "commonTopics": ["Brief topic descriptions"],
-  "countryAgreements": [
+  "countryPositions": [
     {
-      "topic": "Specific stance description",
-      "countries": [{ "US": "exact quote from input conveying the stance", "DE": "exact quote from input conveying the stance", "FR": "exact quote from input conveying the stance" }],
+      "topic": "<Topic name (e.g., Ukraine Conflict, Climate Change, etc.)>",
+      "countries": [
+        { "<2 digit ISO country code>": {
+         "summarised_stance_in_english": "<stance always in english>",
+         "exact_quote": "<exact quote in original language from input conveying their opinion>"
+        }}
+      ]
     }
   ]
 }
 
-Only include positions where at least 2 countries clearly agree. Be specific and factual.`;
+Include any clear positions expressed by countries on these topics. Be specific and factual.`;
 
   const userPrompt = `Analyze the following foreign ministry website content from ${countries.length} countries:
 
@@ -71,7 +74,7 @@ ${countries.map(c => `--- ${c.code} ---\n${c.content.slice(0, 25_000)}`).join('\
       { role: 'user', content: userPrompt }
     ],
     temperature: 0.1,
-    max_tokens: 6_000,
+    max_tokens: 10_000,
     response_format: { type: "json_object" }
   });
 
@@ -86,19 +89,17 @@ ${countries.map(c => `--- ${c.code} ---\n${c.content.slice(0, 25_000)}`).join('\
   
   try {
     const parsed = JSON.parse(jsonResponse);
-    console.log('Parsed successfully. Topics:', parsed.commonTopics?.length || 0, 'Agreements:', parsed.countryAgreements?.length || 0);
+    console.log('Parsed successfully. Positions:', parsed.countryPositions?.length || 0);
     
     return {
-      commonTopics: parsed.commonTopics || [],
-      countryAgreements: parsed.countryAgreements || [],
+      countryPositions: parsed.countryPositions || [],
       dataContext: parsed.dataContext || `Analysis based on ${countries.length} foreign ministry websites scraped on 2025-06-28. Content represents official diplomatic positions and priorities as published on government websites.`
     };
   } catch (error) {
     console.error('Failed to parse JSON response:', error);
     console.error('Raw response:', jsonResponse.slice(0, 500));
     return {
-      commonTopics: ['Error: Could not parse GPT-4o response as JSON'],
-      countryAgreements: [],
+      countryPositions: [],
       dataContext: `Analysis failed - JSON parsing error. Raw response: ${jsonResponse.slice(0, 200)}...`
     };
   }
@@ -122,20 +123,44 @@ async function main() {
   console.log('DATA CONTEXT:');
   console.log(result.dataContext);
   
-  console.log('\nCOMMON TOPICS:');
-  result.commonTopics.forEach((topic, i) => console.log(`${i + 1}. ${topic}`));
-  
-  console.log('\nCOUNTRY AGREEMENTS:');
-  result.countryAgreements.forEach((agreement, i) => {
-    console.log(`\n${i + 1}. ${agreement.topic}`);
+  console.log('\nCOUNTRY POSITIONS:');
+  result.countryPositions.forEach((position, i) => {
+    console.log(`\n${i + 1}. ${position.topic}`);
     console.log(`   Countries:`);
-    agreement.countries.forEach(countryObj => {
-      Object.entries(countryObj).forEach(([code, quote]) => {
+    position.countries.forEach(countryObj => {
+      Object.entries(countryObj).forEach(([code, countryData]) => {
         // Verify if the quote actually exists in the country's content
-        const countryData = countries.find(c => c.code === code);
-        const verified = countryData ? countryData.content.includes(quote) : false;
-        const status = verified ? '✓' : '✗';
-        console.log(`     ${code}: "${quote}" ${status}`);
+        const sourceData = countries.find(c => c.code === code);
+        const quoteStr = countryData.exact_quote;
+        const stance = countryData.summarised_stance_in_english;
+        
+        if (!sourceData) {
+          console.log(`     \x1b[31m${code}: "${stance}" | "${quoteStr}" ✗ (no data)\x1b[0m`);
+          return;
+        }
+        
+        const content = sourceData.content;
+        const exactMatch = content.includes(quoteStr);
+        
+        if (exactMatch) {
+          console.log(`     \x1b[32m${code}: "${stance}" | "${quoteStr}" ✓\x1b[0m`);
+        } else {
+          // Check for partial matches (first half or last half)
+          const halfLength = Math.floor(quoteStr.length / 2);
+          const firstHalf = quoteStr.substring(0, halfLength);
+          const lastHalf = quoteStr.substring(halfLength);
+          
+          const firstHalfMatch = firstHalf.length > 10 && content.includes(firstHalf);
+          const lastHalfMatch = lastHalf.length > 10 && content.includes(lastHalf);
+          
+          if (firstHalfMatch || lastHalfMatch) {
+            const matchType = firstHalfMatch && lastHalfMatch ? 'both halves' :
+                             firstHalfMatch ? 'first half' : 'last half';
+            console.log(`     \x1b[33m${code}: "${stance}" | "${quoteStr}" ~ (${matchType})\x1b[0m`);
+          } else {
+            console.log(`     \x1b[31m${code}: "${stance}" | "${quoteStr}" ✗\x1b[0m`);
+          }
+        }
       });
     });
   });
@@ -143,21 +168,70 @@ async function main() {
   // Save results with verification status
   const verifiedResult = {
     ...result,
-    countryAgreements: result.countryAgreements.map(agreement => ({
-      ...agreement,
-      countries: agreement.countries.map(countryObj => {
-        const verifiedCountryObj: { [key: string]: { quote: string; verified: boolean } } = {};
-        Object.entries(countryObj).forEach(([code, quote]) => {
-          const countryData = countries.find(c => c.code === code);
-          const verified = countryData ? countryData.content.includes(quote) : false;
-          verifiedCountryObj[code] = { quote, verified };
+    countryPositions: result.countryPositions.map(position => ({
+      ...position,
+      countries: position.countries.map(countryObj => {
+        const verifiedCountryObj: { [key: string]: { summarised_stance_in_english: string; exact_quote: string; verification: string; verified: boolean } } = {};
+        Object.entries(countryObj).forEach(([code, countryData]) => {
+          const sourceData = countries.find(c => c.code === code);
+          const quoteStr = countryData.exact_quote;
+          const stance = countryData.summarised_stance_in_english;
+          
+          if (!sourceData) {
+            verifiedCountryObj[code] = {
+              summarised_stance_in_english: stance,
+              exact_quote: quoteStr,
+              verification: 'no_data',
+              verified: false
+            };
+            return;
+          }
+          
+          const content = sourceData.content;
+          const exactMatch = content.includes(quoteStr);
+          
+          if (exactMatch) {
+            verifiedCountryObj[code] = {
+              summarised_stance_in_english: stance,
+              exact_quote: quoteStr,
+              verification: 'exact_match',
+              verified: true
+            };
+          } else {
+            // Check for partial matches
+            const halfLength = Math.floor(quoteStr.length / 2);
+            const firstHalf = quoteStr.substring(0, halfLength);
+            const lastHalf = quoteStr.substring(halfLength);
+            
+            const firstHalfMatch = firstHalf.length > 10 && content.includes(firstHalf);
+            const lastHalfMatch = lastHalf.length > 10 && content.includes(lastHalf);
+            
+            if (firstHalfMatch || lastHalfMatch) {
+              const matchType = firstHalfMatch && lastHalfMatch ? 'both_halves' :
+                               firstHalfMatch ? 'first_half' : 'last_half';
+              verifiedCountryObj[code] = {
+                summarised_stance_in_english: stance,
+                exact_quote: quoteStr,
+                verification: `partial_match_${matchType}`,
+                verified: false
+              };
+            } else {
+              verifiedCountryObj[code] = {
+                summarised_stance_in_english: stance,
+                exact_quote: quoteStr,
+                verification: 'no_match',
+                verified: false
+              };
+            }
+          }
         });
         return verifiedCountryObj;
       })
     }))
   };
 
-  const outputPath = path.join(__dirname, '..', 'results', 'analysis.json');
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const outputPath = path.join(__dirname, '..', 'results', `analysis_${timestamp}.json`);
   fs.writeFileSync(outputPath, JSON.stringify(verifiedResult, null, 2));
   console.log(`\nResults saved to: ${outputPath}`);
 }
