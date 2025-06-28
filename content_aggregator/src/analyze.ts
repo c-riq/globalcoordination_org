@@ -51,9 +51,38 @@ Return ONLY valid JSON in this exact structure:
       "topic": "<Topic name (e.g., Ukraine Conflict, Climate Change, etc.)>",
       "countries": [
         { "<2 digit ISO country code>": {
-         "summarised_stance_in_english": "<stance always in english>",
-         "exact_quote": "<exact quote in original language from input conveying their opinion>"
+          "exact_quote": "<exact quote in original language from input conveying their opinion>",
+          "summarised_stance_in_english": "<stance always in english>",
+          "relevance_to_topic": <0-1 score for how relevant the quote is to the topic>,
+          "clarity_of_stance": <0-1 score for how clear/unambiguous the country's position is>
         }}
+      ]
+    }
+  ]
+}
+
+Here is an example
+{
+  "countryPositions": [
+    {
+      "topic": "Iran",
+      "countries": [
+        {
+          "EG": {
+            "exact_quote": "رحب الوزيران باتفاق وقف إطلاق النار الذى أعلن عنه الرئيس الامريكى أمس بين إيران وإسرائيل",
+            "summarised_stance_in_english": "Welcomes the ceasefire between Iran and Israel",
+            "relevance_to_topic": 0.9,
+            "clarity_of_stance": 0.8
+          }
+        },
+        {
+          "JP": {
+            "exact_quote": "U.S. Strikes on Iranian Nuclear Facilities (Statement by Foreign Minister IWAYA Takeshi)",
+            "summarised_stance_in_english": "Unspecified stance on U.S. Strikes on Iranian Nuclear Facilities",
+            "relevance_to_topic": 0.7,
+            "clarity_of_stance": 0.3
+          }
+        }
       ]
     }
   ]
@@ -63,7 +92,7 @@ Include any clear positions expressed by countries on these topics. Be specific 
 
   const userPrompt = `Analyze the following foreign ministry website content from ${countries.length} countries:
 
-${countries.map(c => `--- ${c.code} ---\n${c.content.slice(0, 25_000)}`).join('\n\n')}`;
+${countries.map(c => `--- ${c.code} ---\n${c.content.slice(0, 40_000)}`).join('\n\n')}`;
 
   console.log(`Sending ${countries.length} countries to GPT-4o...`);
   
@@ -116,7 +145,12 @@ async function main() {
   const countries = await loadTxtFiles();
   console.log(`Loaded ${countries.length} country files`);
 
-  console.log('Analyzing with GPT-4o...');
+  const lengths = countries.map(c => c.content.length).sort((a, b) => a - b);
+  const mid = Math.floor(lengths.length / 2);
+  const median = lengths.length % 2 ? lengths[mid] : (lengths[mid - 1] + lengths[mid]) / 2;
+  console.log(`Min: ${lengths[0]}, Max: ${lengths[lengths.length - 1]}, Median: ${median}`);
+
+  console.log('\nAnalyzing with GPT-4o...');
   const result = await analyzeWithGPT4o(countries);
 
   console.log('\n=== ANALYSIS RESULTS ===\n');
@@ -133,9 +167,12 @@ async function main() {
         const sourceData = countries.find(c => c.code === code);
         const quoteStr = countryData.exact_quote;
         const stance = countryData.summarised_stance_in_english;
+        const relevance = (countryData as any).relevance_to_topic || 0;
+        const clarity = (countryData as any).clarity_of_stance || 0;
+        const scores = `R:${relevance} C:${clarity}`;
         
         if (!sourceData) {
-          console.log(`     \x1b[31m${code}: "${stance}" | "${quoteStr}" ✗ (no data)\x1b[0m`);
+          console.log(`     \x1b[31m${code}: "${stance}" | "${quoteStr}" | ${scores} ✗ (no data)\x1b[0m`);
           return;
         }
         
@@ -143,7 +180,7 @@ async function main() {
         const exactMatch = content.includes(quoteStr);
         
         if (exactMatch) {
-          console.log(`     \x1b[32m${code}: "${stance}" | "${quoteStr}" ✓\x1b[0m`);
+          console.log(`     \x1b[32m${code}: "${stance}" | "${quoteStr}" | ${scores} ✓\x1b[0m`);
         } else {
           // Check for partial matches (first half or last half)
           const halfLength = Math.floor(quoteStr.length / 2);
@@ -156,9 +193,9 @@ async function main() {
           if (firstHalfMatch || lastHalfMatch) {
             const matchType = firstHalfMatch && lastHalfMatch ? 'both halves' :
                              firstHalfMatch ? 'first half' : 'last half';
-            console.log(`     \x1b[33m${code}: "${stance}" | "${quoteStr}" ~ (${matchType})\x1b[0m`);
+            console.log(`     \x1b[33m${code}: "${stance}" | "${quoteStr}" | ${scores} ~ (${matchType})\x1b[0m`);
           } else {
-            console.log(`     \x1b[31m${code}: "${stance}" | "${quoteStr}" ✗\x1b[0m`);
+            console.log(`     \x1b[31m${code}: "${stance}" | "${quoteStr}" | ${scores} ✗\x1b[0m`);
           }
         }
       });
@@ -171,16 +208,20 @@ async function main() {
     countryPositions: result.countryPositions.map(position => ({
       ...position,
       countries: position.countries.map(countryObj => {
-        const verifiedCountryObj: { [key: string]: { summarised_stance_in_english: string; exact_quote: string; verification: string; verified: boolean } } = {};
+        const verifiedCountryObj: { [key: string]: { summarised_stance_in_english: string; exact_quote: string; relevance_to_topic: number; clarity_of_stance: number; verification: string; verified: boolean } } = {};
         Object.entries(countryObj).forEach(([code, countryData]) => {
           const sourceData = countries.find(c => c.code === code);
           const quoteStr = countryData.exact_quote;
           const stance = countryData.summarised_stance_in_english;
+          const relevance = (countryData as any).relevance_to_topic || 0;
+          const clarity = (countryData as any).clarity_of_stance || 0;
           
           if (!sourceData) {
             verifiedCountryObj[code] = {
               summarised_stance_in_english: stance,
               exact_quote: quoteStr,
+              relevance_to_topic: relevance,
+              clarity_of_stance: clarity,
               verification: 'no_data',
               verified: false
             };
@@ -194,6 +235,8 @@ async function main() {
             verifiedCountryObj[code] = {
               summarised_stance_in_english: stance,
               exact_quote: quoteStr,
+              relevance_to_topic: relevance,
+              clarity_of_stance: clarity,
               verification: 'exact_match',
               verified: true
             };
@@ -212,6 +255,8 @@ async function main() {
               verifiedCountryObj[code] = {
                 summarised_stance_in_english: stance,
                 exact_quote: quoteStr,
+                relevance_to_topic: relevance,
+                clarity_of_stance: clarity,
                 verification: `partial_match_${matchType}`,
                 verified: false
               };
@@ -219,6 +264,8 @@ async function main() {
               verifiedCountryObj[code] = {
                 summarised_stance_in_english: stance,
                 exact_quote: quoteStr,
+                relevance_to_topic: relevance,
+                clarity_of_stance: clarity,
                 verification: 'no_match',
                 verified: false
               };
