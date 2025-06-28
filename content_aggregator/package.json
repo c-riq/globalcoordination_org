@@ -5,10 +5,13 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node src/index.ts"
+    "aggregate": "ts-node src/index.ts",
+    "analyze": "ts-node src/analyze.ts"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",
+    "dotenv": "^17.0.0",
+    "openai": "^5.8.2",
     "puppeteer": "^24.11.1"
   },
   "devDependencies": {
