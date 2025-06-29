@@ -1,12 +1,40 @@
 import { Box, Typography, FormControl, Select, MenuItem, SelectChangeEvent } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import WorldMap, { StatusType } from './WorldMap';
 
-function LandingPage() {
-  const [statusType, setStatusType] = useState<StatusType>('website');
+type ViewType = StatusType | 'ukraine' | 'gaza' | 'iran' | 'climate' | 'rights';
 
-  const handleStatusChange = (event: SelectChangeEvent) => {
-    setStatusType(event.target.value as StatusType);
+interface AnalysisData {
+  countryPositions: Array<{
+    topic: string;
+    countries: Array<{
+      [countryCode: string]: {
+        exact_quote: string;
+        summarised_stance_in_english: string;
+        relevance_to_topic: number;
+        clarity_of_stance: number;
+        verification: string;
+        verified: boolean;
+      };
+    }>;
+  }>;
+  dataContext: string;
+}
+
+function LandingPage() {
+  const [viewType, setViewType] = useState<ViewType>('website');
+  const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
+
+  useEffect(() => {
+    // Always load analysis data for the map
+    fetch('/latest-analysis.json')
+      .then(response => response.json())
+      .then(data => setAnalysisData(data))
+      .catch(error => console.error('Error loading analysis data:', error));
+  }, []);
+
+  const handleViewChange = (event: SelectChangeEvent) => {
+    setViewType(event.target.value as ViewType);
   };
 
   return (
@@ -85,10 +113,10 @@ function LandingPage() {
             justifyContent: 'center',
             width: '100%'
           }}>
-            <FormControl size="small" sx={{ minWidth: 200 }}>
+            <FormControl size="small" sx={{ minWidth: 250 }}>
               <Select
-                value={statusType}
-                onChange={handleStatusChange}
+                value={viewType}
+                onChange={handleViewChange}
                 sx={{
                   backgroundColor: 'rgba(255, 255, 255, 0.9)',
                   fontSize: '0.9rem',
@@ -100,6 +128,11 @@ function LandingPage() {
                 <MenuItem value="website">Ministry Website Status</MenuItem>
                 <MenuItem value="robots">Robots.txt Status</MenuItem>
                 <MenuItem value="statements">Statements.txt Status</MenuItem>
+                <MenuItem value="ukraine">Ukraine Conflict</MenuItem>
+                <MenuItem value="gaza">Israel/Gaza Conflict</MenuItem>
+                <MenuItem value="iran">Iran</MenuItem>
+                <MenuItem value="climate">Climate Change</MenuItem>
+                <MenuItem value="rights">Human Rights</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -112,36 +145,51 @@ function LandingPage() {
             gap: 2,
             px: 2
           }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <Box sx={{ width: 12, height: 12, backgroundColor: '#424242', borderRadius: 1 }} />
-              <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
-                {statusType === 'website' ? 'Working (200)' :
-                 statusType === 'robots' ? 'Available (200)' :
-                 'Available (200)'}
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <Box sx={{ width: 12, height: 12, backgroundColor: '#616161', borderRadius: 1 }} />
-              <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>Redirect (301/302)</Typography>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <Box sx={{ width: 12, height: 12, backgroundColor: '#9E9E9E', borderRadius: 1 }} />
-              <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>Blocked (403)</Typography>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <Box sx={{ width: 12, height: 12, backgroundColor: '#BDBDBD', borderRadius: 1 }} />
-              <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
-                {statusType === 'website' ? 'SSL Error' : 'Not Found (404)'}
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <Box sx={{ width: 12, height: 12, backgroundColor: '#757575', borderRadius: 1 }} />
-              <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>Timeout/Other</Typography>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <Box sx={{ width: 12, height: 12, backgroundColor: '#E4E5E9', borderRadius: 1 }} />
-              <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>No Foreign Ministry URL</Typography>
-            </Box>
+            {['ukraine', 'gaza', 'iran', 'climate', 'rights'].includes(viewType) ? (
+              <>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <Box sx={{ width: 12, height: 12, backgroundColor: '#1B5E20', borderRadius: 1 }} />
+                  <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>Foreign ministry website contains text expressing a stance</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <Box sx={{ width: 12, height: 12, backgroundColor: '#E4E5E9', borderRadius: 1 }} />
+                  <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>No clear stance found</Typography>
+                </Box>
+              </>
+            ) : (
+              <>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <Box sx={{ width: 12, height: 12, backgroundColor: '#424242', borderRadius: 1 }} />
+                  <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
+                    {viewType === 'website' ? 'Working (200)' :
+                     viewType === 'robots' ? 'Available (200)' :
+                     'Available (200)'}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <Box sx={{ width: 12, height: 12, backgroundColor: '#616161', borderRadius: 1 }} />
+                  <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>Redirect (301/302)</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <Box sx={{ width: 12, height: 12, backgroundColor: '#9E9E9E', borderRadius: 1 }} />
+                  <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>Blocked (403)</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <Box sx={{ width: 12, height: 12, backgroundColor: '#BDBDBD', borderRadius: 1 }} />
+                  <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
+                    {viewType === 'website' ? 'SSL Error' : 'Not Found (404)'}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <Box sx={{ width: 12, height: 12, backgroundColor: '#757575', borderRadius: 1 }} />
+                  <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>Timeout/Other</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <Box sx={{ width: 12, height: 12, backgroundColor: '#E4E5E9', borderRadius: 1 }} />
+                  <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>No Foreign Ministry URL</Typography>
+                </Box>
+              </>
+            )}
           </Box>
         </Box>
         
@@ -157,7 +205,7 @@ function LandingPage() {
           alignItems: 'center',
           position: 'relative'
         }}>
-          <WorldMap statusType={statusType} />
+          <WorldMap statusType={viewType as StatusType} analysisData={analysisData} />
         </Box>
         
         {/* Footer */}

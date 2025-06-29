@@ -7,10 +7,28 @@ import {
 import { Box, Tooltip } from '@mui/material';
 import countryBorders from './countryBorders.json';
 
-export type StatusType = 'website' | 'robots' | 'statements';
+export type StatusType = 'website' | 'robots' | 'statements' | 'ukraine' | 'gaza' | 'iran' | 'climate' | 'rights';
+
+interface AnalysisData {
+  countryPositions: Array<{
+    topic: string;
+    countries: Array<{
+      [countryCode: string]: {
+        exact_quote: string;
+        summarised_stance_in_english: string;
+        relevance_to_topic: number;
+        clarity_of_stance: number;
+        verification: string;
+        verified: boolean;
+      };
+    }>;
+  }>;
+  dataContext: string;
+}
 
 interface WorldMapProps {
   statusType: StatusType;
+  analysisData?: AnalysisData | null;
 }
 
 interface ForeignMinistry {
@@ -21,8 +39,53 @@ interface ForeignMinistry {
   robots_txt: string;
 }
 
-const WorldMap: React.FC<WorldMapProps> = ({ statusType }) => {
+const WorldMap: React.FC<WorldMapProps> = ({ statusType, analysisData }) => {
   const [foreignMinistries, setForeignMinistries] = useState<ForeignMinistry[]>([]);
+
+  // Helper function to get analysis data for a country and specific topic
+  const getAnalysisForCountry = (countryCode: string, topicFilter?: string) => {
+    if (!analysisData) return null;
+    
+    const topicMap: { [key: string]: string } = {
+      'ukraine': 'Ukraine Conflict',
+      'gaza': 'Israel/Gaza Conflict',
+      'iran': 'Iran',
+      'climate': 'Climate Change',
+      'rights': 'Human Rights'
+    };
+    
+    const targetTopic = topicFilter ? topicMap[topicFilter] : null;
+    
+    const countryAnalysis: Array<{
+      topic: string;
+      stance: string;
+      quote: string;
+      relevance: number;
+      clarity: number;
+      verified: boolean;
+    }> = [];
+    
+    analysisData.countryPositions.forEach(position => {
+      // If we have a topic filter, only include matching topics
+      if (targetTopic && position.topic !== targetTopic) return;
+      
+      position.countries.forEach(countryObj => {
+        if (countryObj[countryCode]) {
+          const data = countryObj[countryCode];
+          countryAnalysis.push({
+            topic: position.topic,
+            stance: data.summarised_stance_in_english,
+            quote: data.exact_quote,
+            relevance: data.relevance_to_topic,
+            clarity: data.clarity_of_stance,
+            verified: data.verified
+          });
+        }
+      });
+    });
+    
+    return countryAnalysis.length > 0 ? countryAnalysis : null;
+  };
 
   useEffect(() => {
     // Load foreign ministry data
@@ -115,11 +178,32 @@ const WorldMap: React.FC<WorldMapProps> = ({ statusType }) => {
               const ministry = getForeignMinistryForCountry(countryName, isoCode);
               const hasMinistry = !!ministry;
               
-              // Determine color based on selected status type (grey shades only)
-              let fillColor = "#E4E5E9"; // Light gray for no ministry
+              // Check if this is a topic view
+              const isTopicView = ['ukraine', 'gaza', 'iran', 'climate', 'rights'].includes(statusType);
+              const countryAnalysis = isTopicView ? getAnalysisForCountry(isoCode, statusType) : null;
+              
+              // Determine color based on selected status type
+              let fillColor = "#E4E5E9"; // Light gray for no ministry/data
               let tooltipText = countryName;
               
-              if (ministry) {
+              if (isTopicView) {
+                // Topic-specific view - only show high quality positions
+                if (countryAnalysis && countryAnalysis.length > 0) {
+                  const analysis = countryAnalysis[0]; // Take the first (should be only) result
+                  // Only show if both relevance and clarity are >= 0.8
+                  if (analysis.relevance >= 0.8 && analysis.clarity >= 0.8) {
+                    fillColor = "#1B5E20"; // Dark green for high quality positions
+                    tooltipText = `${countryName}\nStance: ${analysis.stance}\nQuote: "${analysis.quote}"`;
+                  } else {
+                    fillColor = "#E4E5E9"; // Light gray for low quality positions
+                    tooltipText = `${countryName} - No high-quality position found on this topic`;
+                  }
+                } else {
+                  fillColor = "#E4E5E9"; // Light gray for no position
+                  tooltipText = `${countryName} - No position found on this topic`;
+                }
+              } else if (ministry) {
+                // Original ministry status logic
                 let responseCode = '';
                 let statusLabel = '';
                 
@@ -176,24 +260,41 @@ const WorldMap: React.FC<WorldMapProps> = ({ statusType }) => {
                       default: {
                         outline: 'none',
                         fill: fillColor,
-                        cursor: hasMinistry ? 'pointer' : 'default'
+                        cursor: (isTopicView && countryAnalysis && countryAnalysis.length > 0 &&
+                                countryAnalysis[0].relevance >= 0.8 && countryAnalysis[0].clarity >= 0.8) ||
+                                hasMinistry ? 'pointer' : 'default'
                       },
                       hover: {
                         outline: 'none',
-                        fill: hasMinistry ? (fillColor === "#424242" ? "#212121" :
-                                           fillColor === "#616161" ? "#424242" :
-                                           fillColor === "#9E9E9E" ? "#757575" :
-                                           fillColor === "#BDBDBD" ? "#9E9E9E" :
-                                           fillColor === "#757575" ? "#616161" : "#424242") : "#D6D6DA",
-                        cursor: hasMinistry ? 'pointer' : 'default'
+                        fill: isTopicView ?
+                          (fillColor === "#1B5E20" ? "#0D4E14" : "#D6D6DA") :
+                          (hasMinistry ? (fillColor === "#424242" ? "#212121" :
+                                         fillColor === "#616161" ? "#424242" :
+                                         fillColor === "#9E9E9E" ? "#757575" :
+                                         fillColor === "#BDBDBD" ? "#9E9E9E" :
+                                         fillColor === "#757575" ? "#616161" : "#424242") : "#D6D6DA"),
+                        cursor: (isTopicView && countryAnalysis && countryAnalysis.length > 0 &&
+                                countryAnalysis[0].relevance >= 0.8 && countryAnalysis[0].clarity >= 0.8) ||
+                                hasMinistry ? 'pointer' : 'default'
                       },
                       pressed: {
                         outline: 'none',
-                        fill: hasMinistry ? "#616161" : "#D6D6DA"
+                        fill: isTopicView ?
+                          (fillColor === "#1B5E20" ? "#0D4E14" : "#D6D6DA") :
+                          (hasMinistry ? "#616161" : "#D6D6DA")
                       }
                     }}
                     onClick={() => {
-                      if (hasMinistry) {
+                      if (isTopicView && countryAnalysis && countryAnalysis.length > 0) {
+                        const analysis = countryAnalysis[0];
+                        // Only open website for high-quality positions (relevance >= 0.8 AND clarity >= 0.8)
+                        if (analysis.relevance >= 0.8 && analysis.clarity >= 0.8 && ministry) {
+                          const url = ministry.foreign_affairs_ministry_url.startsWith('http')
+                            ? ministry.foreign_affairs_ministry_url
+                            : `https://${ministry.foreign_affairs_ministry_url}`;
+                          window.open(url, '_blank');
+                        }
+                      } else if (hasMinistry) {
                         handleCountryClick(countryName, isoCode);
                       }
                     }}
