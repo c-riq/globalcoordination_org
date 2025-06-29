@@ -277,6 +277,29 @@ function LandingPage() {
           <WorldMap statusType={viewType as StatusType} analysisData={analysisData} />
         </Box>
 
+        {/* Text Analysis Description - Only shown for text analysis topics */}
+        {['ukraine', 'gaza', 'iran', 'climate', 'rights', 'sanctions', 'tariffs', 'ai'].includes(viewType) && (
+          <Box sx={{
+            width: '100%',
+            maxWidth: '800px',
+            textAlign: 'center',
+            mb: 2,
+            px: 2
+          }}>
+            <Typography
+              variant="body2"
+              sx={{
+                color: 'text.secondary',
+                fontSize: '0.85rem',
+                lineHeight: 1.4,
+                fontStyle: 'italic'
+              }}
+            >
+              Website Text Analysis: Based on saved text content from foreign ministry websites, which was processed by Large Language Models (LLMs) to identify country positions on certain topics. The results may not be accurate.
+            </Typography>
+          </Box>
+        )}
+
         {/* Compact Stances List for Topic Views */}
         {['ukraine', 'gaza', 'iran', 'climate', 'rights', 'sanctions', 'tariffs', 'ai'].includes(viewType) && analysisData && (
           <Box sx={{ width: '100%', maxWidth: '1000px', mt: 3 }}>
