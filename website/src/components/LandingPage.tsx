@@ -114,19 +114,35 @@ function LandingPage() {
           textAlign: 'center',
           mb: { xs: 1, sm: 2 }
         }}>
-          <Typography
-            variant="h5"
-            component="h1"
-            sx={{
-              color: '#1a237e',
-              fontWeight: 400,
-              fontSize: { xs: '1.2rem', sm: '1.5rem', md: '1.75rem' },
-              fontFamily: '"Helvetica Neue", Arial, sans-serif',
-              mb: 1
-            }}
-          >
-            Adoption of Stated.network Coordination Protocol
-          </Typography>
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 2,
+            mb: 1,
+            flexDirection: { xs: 'column', sm: 'row' }
+          }}>
+            <img
+              src="/logo.png"
+              alt="Logo"
+              style={{
+                height: '50px',
+                width: 'auto'
+              }}
+            />
+            <Typography
+              variant="h5"
+              component="h1"
+              sx={{
+                color: '#1a237e',
+                fontWeight: 400,
+                fontSize: { xs: '1.2rem', sm: '1.5rem', md: '1.75rem' },
+                fontFamily: '"Helvetica Neue", Arial, sans-serif'
+              }}
+            >
+              Adoption of Stated.network Coordination Protocol
+            </Typography>
+          </Box>
           <Typography
             variant="body2"
             component="a"
