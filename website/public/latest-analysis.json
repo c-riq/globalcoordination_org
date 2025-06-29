@@ -5,12 +5,14 @@
       "countries": [
         {
           "AL": {
-            "summarised_stance_in_english": "Unwavering support of Albania for Ukraine",
+            "summarised_stance_in_english": "Albania's unwavering support for Ukraine",
             "exact_quote": "Mbështetje e palëkundur e Shqipërisë për Ukrainën",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:05.757Z",
+            "source_url": "https://punetejashtme.gov.al/en/"
           }
         },
         {
@@ -20,17 +22,33 @@
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:19.941Z",
+            "source_url": "https://www.dfat.gov.au/"
           }
         },
         {
           "CH": {
-            "summarised_stance_in_english": "Switzerland takes measures to support Ukraine",
-            "exact_quote": "Measures taken by the Confederation to support Ukraine",
+            "summarised_stance_in_english": "Switzerland implements measures to help people affected by the war in Ukraine",
+            "exact_quote": "On 24 February 2022, Russia launched a military attack on Ukraine. Since then, the Swiss Confederation has been implementing measures in various fields to help people affected by the war",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:28.165Z",
+            "source_url": "https://www.fdfa.admin.ch/eda/en/home.html"
+          }
+        },
+        {
+          "CZ": {
+            "summarised_stance_in_english": "Czech Republic presents projects helping Ukraine",
+            "exact_quote": "Minister Lipavský Presented Czech Projects that are Helping in Ukraine to his Ukrainian Counterpart",
+            "relevance_to_topic": 1,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:04.228Z",
+            "source_url": "https://mzv.gov.cz/en"
           }
         },
         {
@@ -40,37 +58,69 @@
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:04.026Z",
+            "source_url": "https://um.dk/en"
+          }
+        },
+        {
+          "GB": {
+            "summarised_stance_in_english": "UK estimates impact of sanctions on Russia",
+            "exact_quote": "Estimating the impact of sanctions on Russia’s war efforts",
+            "relevance_to_topic": 1,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:59.178Z",
+            "source_url": "https://www.gov.uk/government/organisations/foreign-commonwealth-development-office"
           }
         },
         {
           "LV": {
-            "summarised_stance_in_english": "Latvia supports the establishment of a tribunal for Russian aggression",
-            "exact_quote": "The Establishment of a Special Tribunal Sends a Strong Political Message to the Aggressor Russia – Justice Will Prevail and Impunity Will Not Be Permitted",
+            "summarised_stance_in_english": "Latvia supports the establishment of a tribunal for crimes against Ukraine",
+            "exact_quote": "Latvia welcomes the signing of the Agreement on the Establishment of a Special Tribunal for the Crime of Aggression against Ukraine by the President of Ukraine, Volodymyr Zelenskyy",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:29:05.725Z",
+            "source_url": "https://www.mfa.gov.lv/en"
+          }
+        },
+        {
+          "NL": {
+            "summarised_stance_in_english": "Netherlands showcases support for Ukraine through expertise",
+            "exact_quote": "The exhibition ‘Panorama Ukraine’ gives a sense of what that might look like and how Dutch expertise in areas like design and water management can help",
+            "relevance_to_topic": 1,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:29:42.800Z",
+            "source_url": "https://www.government.nl/ministries/ministry-of-foreign-affairs"
           }
         },
         {
           "NO": {
-            "summarised_stance_in_english": "Norway supports tribunal for prosecuting Russians for Ukraine attack",
+            "summarised_stance_in_english": "Norway supports tribunal to prosecute Russians for Ukraine attack",
             "exact_quote": "Norway supports the establishment of a special tribunal to prosecute Russians responsible for the attack on Ukraine",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:29:39.983Z",
+            "source_url": "https://www.regjeringen.no/en/dep/ud/id833/"
           }
         },
         {
           "SI": {
-            "summarised_stance_in_english": "Slovenia believes security guarantees for Ukraine are essential",
-            "exact_quote": "Clear security guarantees for Ukraine are essential for peace",
+            "summarised_stance_in_english": "Slovenia supports security guarantees for Ukraine",
+            "exact_quote": "Minister Fajon at the NATO Summit: Clear security guarantees for Ukraine are essential for peace",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:10.804Z",
+            "source_url": "https://www.gov.si/en/state-authorities/ministries/ministry-of-foreign-and-european-affairs/"
           }
         }
       ]
@@ -85,7 +135,9 @@
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:19.853Z",
+            "source_url": "https://www.bmeia.gv.at/en/"
           }
         },
         {
@@ -95,127 +147,117 @@
             "relevance_to_topic": 0.8,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:44.899Z",
+            "source_url": "https://www.mfa.bg/en/"
           }
         },
         {
-          "CH": {
-            "summarised_stance_in_english": "Switzerland calls for de-escalation and dialogue in the Israel-Iran conflict.",
-            "exact_quote": "Switzerland is deeply concerned about the escalation of the conflict between Israel and Iran and calls on all parties to de-escalate and return to dialogue",
-            "relevance_to_topic": 0.9,
-            "clarity_of_stance": 1,
+          "CY": {
+            "summarised_stance_in_english": "Cyprus issued an announcement for its citizens in the Middle East.",
+            "exact_quote": "Announcement by the Ministry of Foreign Affairs for Cypriot citizens in the Middle East",
+            "relevance_to_topic": 0.5,
+            "clarity_of_stance": 0.5,
             "verification": "exact_match",
-            "verified": true
-          }
-        },
-        {
-          "CZ": {
-            "summarised_stance_in_english": "Czech Republic explains its vote on a resolution concerning civilians and the humanitarian situation in Gaza.",
-            "exact_quote": "Explanation of Vote on the Resolution on the Protection of Civilians and the Humanitarian Situation in Gaza",
-            "relevance_to_topic": 1,
-            "clarity_of_stance": 0.9,
-            "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:05.111Z",
+            "source_url": "https://www.gov.cy/mfa/en/"
           }
         },
         {
           "DE": {
-            "summarised_stance_in_english": "Germany continues its assistance amid ongoing fighting in Gaza.",
+            "summarised_stance_in_english": "Germany continues assistance amid Gaza fighting.",
             "exact_quote": "Ongoing fighting in Gaza – Germany continues its assistance",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:24.429Z",
+            "source_url": "https://www.auswaertiges-amt.de/en"
           }
         },
         {
           "EG": {
-            "summarised_stance_in_english": "Egypt emphasizes the importance of resuming the ceasefire in Gaza and delivering humanitarian aid.",
-            "exact_quote": "استعرض الوزيران تطورات الأوضاع في قطاع غزة بعد التوصل لوقف اطلاق النار بين ايران واسرائيل، حيث أكدا على أهمية استئناف وقف إطلاق النار فى غزة، ونفاذ المساعدات الإنسانية والإغاثية الى القطاع فى ظل التدهور الحاد للأوضاع الإنسانية بالقطاع",
+            "summarised_stance_in_english": "Egypt calls for ceasefire and humanitarian aid access in Gaza.",
+            "exact_quote": "استئناف وقف إطلاق النار فى غزة، ونفاذ المساعدات الإنسانية والإغاثية الى القطاع فى ظل التدهور الحاد للأوضاع الإنسانية بالقطاع",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
-            "verification": "partial_match_last_half",
-            "verified": false
-          }
-        },
-        {
-          "GB": {
-            "summarised_stance_in_english": "The UK advises against travel to certain areas of Israel and the Occupied Palestinian Territories.",
-            "exact_quote": "The FCDO advises against all travel to certain areas of Israel and the Occupied Palestinian Territories",
-            "relevance_to_topic": 0.8,
-            "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:06.404Z",
+            "source_url": "https://www.mfa.gov.eg/ar"
           }
         },
         {
           "GR": {
-            "summarised_stance_in_english": "Greece discusses developments in the Middle East.",
-            "exact_quote": "The Council's agenda includes the developments in the Middle East and the war in Ukraine",
-            "relevance_to_topic": 0.7,
-            "clarity_of_stance": 0.7,
+            "summarised_stance_in_english": "Greece discusses Middle East developments.",
+            "exact_quote": "The Council's agenda includes the developments in the Middle East",
+            "relevance_to_topic": 0.5,
+            "clarity_of_stance": 0.5,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:21.239Z",
+            "source_url": "https://www.mfa.gr/en/"
           }
         },
         {
           "IL": {
-            "summarised_stance_in_english": "Israel reports the return of bodies of hostages from Gaza.",
+            "summarised_stance_in_english": "Israel reports on hostages' bodies returned from Gaza.",
             "exact_quote": "Bodies of three deceased Israeli hostages located in Gaza and returned to Israel",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:46.875Z",
+            "source_url": "https://www.gov.il/en/departments/ministry_of_foreign_affairs/govil-landing-page"
           }
         },
         {
           "LK": {
             "summarised_stance_in_english": "Sri Lanka calls for de-escalation in the Middle East.",
             "exact_quote": "Sri Lanka calls upon all parties to take concrete steps to de-escalate the situation in the Middle East region",
-            "relevance_to_topic": 0.9,
-            "clarity_of_stance": 1,
-            "verification": "exact_match",
-            "verified": true
-          }
-        },
-        {
-          "LU": {
-            "summarised_stance_in_english": "Luxembourg participates in a joint donor statement on humanitarian aid to Gaza.",
-            "exact_quote": "Joint donor statement on humanitarian aid to Gaza",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:23.982Z",
+            "source_url": "https://mfa.gov.lk/en/"
           }
         },
         {
           "SI": {
-            "summarised_stance_in_english": "Slovenia calls for a return to diplomacy and dialogue in the Middle East.",
+            "summarised_stance_in_english": "Slovenia calls for diplomacy and dialogue in the Middle East.",
             "exact_quote": "Minister Fajon: Urgent return to diplomacy and political dialogue needed in the Middle East",
-            "relevance_to_topic": 0.9,
+            "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:10.804Z",
+            "source_url": "https://www.gov.si/en/state-authorities/ministries/ministry-of-foreign-and-european-affairs/"
           }
         },
         {
           "TR": {
-            "summarised_stance_in_english": "Turkey comments on the ceasefire between Israel and Iran.",
+            "summarised_stance_in_english": "Turkey comments on ceasefire between Israel and Iran.",
             "exact_quote": "No: 127, 24 June 2025, Regarding the Ceasefire Between Israel and Iran",
             "relevance_to_topic": 0.8,
             "clarity_of_stance": 0.8,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:41.484Z",
+            "source_url": "https://www.mfa.gov.tr/default.en.mfa"
           }
         },
         {
           "YE": {
-            "summarised_stance_in_english": "Yemen condemns Iranian aggression.",
+            "summarised_stance_in_english": "Yemen condemns Iranian actions related to Qatar.",
             "exact_quote": "Yemen condemns Iranian aggression against Qatar",
-            "relevance_to_topic": 0.7,
-            "clarity_of_stance": 0.7,
+            "relevance_to_topic": 0.5,
+            "clarity_of_stance": 0.5,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:31:14.614Z",
+            "source_url": "https://www.mofa-ye.org/Pages/en/"
           }
         }
       ]
@@ -230,47 +272,57 @@
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:08.686Z",
+            "source_url": "https://mfa.gov.af/en/home-en"
           }
         },
         {
           "AU": {
-            "summarised_stance_in_english": "Australia has suspended operations at its embassy in Tehran due to security concerns.",
+            "summarised_stance_in_english": "Australia has suspended its embassy operations in Tehran due to security concerns.",
             "exact_quote": "The Australian Government has directed the departure of all Australian officials and dependents and suspended operations at our Embassy in Tehran, based on advice about the deteriorating security environment in Iran",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:19.941Z",
+            "source_url": "https://www.dfat.gov.au/"
           }
         },
         {
           "BG": {
-            "summarised_stance_in_english": "Bulgaria is relocating its diplomatic staff from Iran due to deteriorating security.",
-            "exact_quote": "The security situation in Iran is deteriorating with each passing day. Ensuring the safety and well-being of our personnel required us to take action to relocate a total of 17 individuals—diplomatic staff and their families—to a safe destination",
+            "summarised_stance_in_english": "Bulgaria notes a deteriorating security situation in Iran.",
+            "exact_quote": "The security situation in Iran is deteriorating with each passing day",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:44.899Z",
+            "source_url": "https://www.mfa.bg/en/"
           }
         },
         {
           "CH": {
-            "summarised_stance_in_english": "Switzerland is concerned about the Israel-Iran conflict and calls for de-escalation and dialogue.",
+            "summarised_stance_in_english": "Switzerland is concerned about the Israel-Iran conflict and calls for de-escalation.",
             "exact_quote": "Switzerland is deeply concerned about the escalation of the conflict between Israel and Iran and calls on all parties to de-escalate and return to dialogue",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:28.165Z",
+            "source_url": "https://www.fdfa.admin.ch/eda/en/home.html"
           }
         },
         {
           "CZ": {
-            "summarised_stance_in_english": "Czech Republic temporarily closed its embassy in Tehran due to security concerns.",
-            "exact_quote": "Temporary Closure of the Czech Embassy in Tehran For security reasons related to the ongoing military conflict affecting the territory of the Islamic Republic of Iran",
+            "summarised_stance_in_english": "Czech Republic has temporarily closed its embassy in Tehran.",
+            "exact_quote": "Temporary Closure of the Czech Embassy in Tehran",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
-            "verification": "partial_match_last_half",
-            "verified": false
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:04.228Z",
+            "source_url": "https://mzv.gov.cz/en"
           }
         },
         {
@@ -280,27 +332,21 @@
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:24.429Z",
+            "source_url": "https://www.auswaertiges-amt.de/en"
           }
         },
         {
           "EG": {
-            "summarised_stance_in_english": "Egypt emphasizes the importance of Iran and Israel fully committing to a ceasefire and taking concrete steps to de-escalate.",
-            "exact_quote": "أضاف المتحدث الرسمي أن الوزيرين توافقا على أهمية التزام ايران واسرائيل بشكل كامل بوقف إطلاق النار واهمية اتخاذ إجراءات عملية وملموسة تسهم في خفض التصعيد وفتح المجال أمام المسارات السياسية والدبلوماسية",
+            "summarised_stance_in_english": "Egypt praises the ceasefire agreement between Iran and Israel.",
+            "exact_quote": "أشاد الوزيران باتفاق وقف إطلاق النار الذى أعلن عنه الرئيس الامريكى أمس بين إيران وإسرائيل",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
-            "verification": "exact_match",
-            "verified": true
-          }
-        },
-        {
-          "GB": {
-            "summarised_stance_in_english": "The UK advises against travel to certain areas due to tensions involving Iran.",
-            "exact_quote": "The FCDO advises against all travel to certain areas of Israel and the Occupied Palestinian Territories",
-            "relevance_to_topic": 0.5,
-            "clarity_of_stance": 0.5,
-            "verification": "exact_match",
-            "verified": true
+            "verification": "partial_match_last_half",
+            "verified": false,
+            "source_timestamp": "2025-06-28T16:28:06.404Z",
+            "source_url": "https://www.mfa.gov.eg/ar"
           }
         },
         {
@@ -310,76 +356,79 @@
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
-          }
-        },
-        {
-          "LK": {
-            "summarised_stance_in_english": "Sri Lanka calls for de-escalation in the Middle East, including Iran.",
-            "exact_quote": "Sri Lanka calls upon all parties to take concrete steps to de-escalate the situation in the Middle East region",
-            "relevance_to_topic": 0.5,
-            "clarity_of_stance": 0.5,
-            "verification": "exact_match",
-            "verified": true
-          }
-        },
-        {
-          "NL": {
-            "summarised_stance_in_english": "The Netherlands is providing updates on the Israel-Iran conflict.",
-            "exact_quote": "Israel – Iran conflict: central government updates",
-            "relevance_to_topic": 0.5,
-            "clarity_of_stance": 0.5,
-            "verification": "exact_match",
-            "verified": true
-          }
-        },
-        {
-          "SI": {
-            "summarised_stance_in_english": "Slovenia calls for a return to diplomacy and dialogue in the Middle East, including Iran.",
-            "exact_quote": "Minister Fajon: Urgent return to diplomacy and political dialogue needed in the Middle East",
-            "relevance_to_topic": 0.5,
-            "clarity_of_stance": 0.5,
-            "verification": "exact_match",
-            "verified": true
-          }
-        },
-        {
-          "TR": {
-            "summarised_stance_in_english": "Turkey comments on the ceasefire between Israel and Iran.",
-            "exact_quote": "No: 127, 24 June 2025, Regarding the Ceasefire Between Israel and Iran",
-            "relevance_to_topic": 1,
-            "clarity_of_stance": 1,
-            "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:46.875Z",
+            "source_url": "https://www.gov.il/en/departments/ministry_of_foreign_affairs/govil-landing-page"
           }
         },
         {
           "YE": {
-            "summarised_stance_in_english": "Yemen condemns Iranian aggression against Qatar.",
+            "summarised_stance_in_english": "Yemen condemns Iranian aggression towards Qatar.",
             "exact_quote": "Yemen condemns Iranian aggression against Qatar",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:31:14.614Z",
+            "source_url": "https://www.mofa-ye.org/Pages/en/"
           }
         }
       ]
     },
     {
       "topic": "Climate Change",
-      "countries": []
+      "countries": [
+        {
+          "LR": {
+            "summarised_stance_in_english": "Liberia is actively promoting climate resilience and forest protection in international negotiations.",
+            "exact_quote": "Liberia Champions Climate Resilience and Forest Protection at High-Level Negotiations in Germany",
+            "relevance_to_topic": 1,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:29:06.319Z",
+            "source_url": "https://www.mofa.gov.lr/"
+          }
+        }
+      ]
     },
     {
       "topic": "Human Rights",
       "countries": [
         {
           "AR": {
-            "summarised_stance_in_english": "Argentina reaffirms its commitment to democracy and human rights.",
+            "summarised_stance_in_english": "Argentina reaffirms commitment to democracy and human rights.",
             "exact_quote": "The Argentine Republic reaffirms its steadfast commitment to the defence of democracy, respect for human rights",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:06.298Z",
+            "source_url": "https://www.cancilleria.gob.ar/en"
+          }
+        },
+        {
+          "AR": {
+            "summarised_stance_in_english": "Argentina rejects accusations by Nicolás Maduro.",
+            "exact_quote": "The Argentine Republic Categorically Rejects Dictator Nicolás Maduro’s False and Unfounded Accusations",
+            "relevance_to_topic": 0.8,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:06.298Z",
+            "source_url": "https://www.cancilleria.gob.ar/en"
+          }
+        },
+        {
+          "AR": {
+            "summarised_stance_in_english": "Argentina files complaint with ICC over arbitrary detention and disappearance.",
+            "exact_quote": "Arbitrary detention and forced disappearance of Nahuel Gallo: Argentina files complaint with the International Criminal Court",
+            "relevance_to_topic": 1,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:06.298Z",
+            "source_url": "https://www.cancilleria.gob.ar/en"
           }
         },
         {
@@ -389,27 +438,57 @@
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:46.747Z",
+            "source_url": "https://www.international.gc.ca/global-affairs-affaires-mondiales/home-accueil.aspx?lang=eng"
+          }
+        },
+        {
+          "CA": {
+            "summarised_stance_in_english": "Canada empowers women and girls, promotes gender equality.",
+            "exact_quote": "Canada helping women and girls around the world Our work to empower women and girls and promote gender equality in all our international development",
+            "relevance_to_topic": 1,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:46.747Z",
+            "source_url": "https://www.international.gc.ca/global-affairs-affaires-mondiales/home-accueil.aspx?lang=eng"
+          }
+        },
+        {
+          "CH": {
+            "summarised_stance_in_english": "Switzerland reflects on gender parity in diplomacy.",
+            "exact_quote": "International Day of Women in Diplomacy What is it like for women in diplomacy, and where do we stand today in terms of gender parity?",
+            "relevance_to_topic": 0.8,
+            "clarity_of_stance": 0.9,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:28.165Z",
+            "source_url": "https://www.fdfa.admin.ch/eda/en/home.html"
           }
         },
         {
           "DK": {
-            "summarised_stance_in_english": "Denmark supports Ukraine and accounts for war crimes.",
-            "exact_quote": "Denmark supports Ukraine Ever since Russia invaded Ukraine, Denmark has supported Ukraine with military, humanitarian aid, to support Ukraine's strained economy and to account for war crimes",
+            "summarised_stance_in_english": "Denmark supports Ukraine with aid and accountability for war crimes.",
+            "exact_quote": "DENMARK SUPPORTS UKRAINE Ever since Russia invaded Ukraine, Denmark has supported Ukraine with military, humanitarian aid, to support Ukraine's strained economy and to account for war crimes",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
-            "verification": "partial_match_last_half",
-            "verified": false
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:04.026Z",
+            "source_url": "https://um.dk/en"
           }
         },
         {
           "EG": {
-            "summarised_stance_in_english": "Egypt supports a two-state solution for the Palestinian issue.",
+            "summarised_stance_in_english": "Egypt supports a two-state solution for Palestine.",
             "exact_quote": "كما تناول الوزيران مسألة الاعتراف بالدولة الفلسطينية، حيث استمع الوزير عبد العاطى من نظيره الفرنسي للتطورات ذات الصلة بالمؤتمر الدولي رفيع المستوى بشأن التسوية السلمية للقضية الفلسطينية وتطبيق حل الدولتين برئاسة مشتركة من فرنسا والمملكة العربية السعودية، وقد شدد الوزير عبد العاطى على ضرورة تحقيق تسوية عادلة ومستدامة للقضية الفلسطينية من خلال تنفيذ حل الدولتين وإقامة دولة فلسطينية مستقلة على خطوط الرابع من يونيو ١٩٦٧ وعاصمتها القدس الشرقية",
-            "relevance_to_topic": 1,
+            "relevance_to_topic": 0.9,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:06.404Z",
+            "source_url": "https://www.mfa.gov.eg/ar"
           }
         },
         {
@@ -417,63 +496,226 @@
             "summarised_stance_in_english": "UK supports peace efforts in DRC.",
             "exact_quote": "The UK stands ready to support steps towards a durable peace in DRC: UK statement at the UN Security Council",
             "relevance_to_topic": 0.8,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:59.178Z",
+            "source_url": "https://www.gov.uk/government/organisations/foreign-commonwealth-development-office"
+          }
+        },
+        {
+          "GB": {
+            "summarised_stance_in_english": "UK partners with Gavi for global health.",
+            "exact_quote": "UK partners with Gavi to help save up to 8 million lives by 2030",
+            "relevance_to_topic": 0.7,
+            "clarity_of_stance": 0.9,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:59.178Z",
+            "source_url": "https://www.gov.uk/government/organisations/foreign-commonwealth-development-office"
+          }
+        },
+        {
+          "IE": {
+            "summarised_stance_in_english": "Ireland prioritizes international cooperation.",
+            "exact_quote": "Ireland at the UN International priorities",
+            "relevance_to_topic": 0.7,
             "clarity_of_stance": 0.8,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:29.244Z",
+            "source_url": "https://www.ireland.ie/en/dfa/"
+          }
+        },
+        {
+          "IL": {
+            "summarised_stance_in_english": "Israel sees opportunity post-Hamas defeat.",
+            "exact_quote": "Statement by PM Netanyahu - June 26, 2025 “Along with the release of our hostages and the defeat of Hamas, there is a window of opportunity here that must not be wasted. We must not waste even a single day.”",
+            "relevance_to_topic": 0.8,
+            "clarity_of_stance": 0.9,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:46.875Z",
+            "source_url": "https://www.gov.il/en/departments/ministry_of_foreign_affairs/govil-landing-page"
+          }
+        },
+        {
+          "IN": {
+            "summarised_stance_in_english": "India focuses on foreign relations during G20 presidency.",
+            "exact_quote": "India’s G20 Presidency sub links Briefs on Foreign Relations Consular Services",
+            "relevance_to_topic": 0.7,
+            "clarity_of_stance": 0.8,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:28:31.290Z",
+            "source_url": "https://www.mea.gov.in/"
           }
         },
         {
           "LU": {
-            "summarised_stance_in_english": "Luxembourg honors women in diplomacy for promoting peace.",
-            "exact_quote": "Today, on the #InternationalDayofWomeninDiplomacy, we honor the commitment, leadership, and accomplishments of women who influence foreign policy, promote peace, and represent our nation with unwavering strength and integrity",
-            "relevance_to_topic": 1,
+            "summarised_stance_in_english": "Luxembourg honors women in diplomacy.",
+            "exact_quote": "Today, on the #InternationalDayofWomeninDiplomacy, we honor the commitment, leadership, and accomplishments of women who influence foreign policy, promote peace, and represent our nation with unwavering strength and integrity.",
+            "relevance_to_topic": 0.9,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:29:25.770Z",
+            "source_url": "https://mae.gouvernement.lu/en.html"
           }
         },
         {
           "NO": {
-            "summarised_stance_in_english": "Norway supports a tribunal for prosecuting Russians for Ukraine attack.",
-            "exact_quote": "Ukraine: Norway Supports the Establishment of a Special Tribunal Press release 09/05/2025 Norway supports the establishment of a special tribunal to prosecute Russians responsible for the attack on Ukraine",
+            "summarised_stance_in_english": "Norway supports tribunal for Ukraine conflict.",
+            "exact_quote": "Ukraine: Norway Supports the Establishment of a Special Tribunal Press release 09/05/2025 Norway supports the establishment of a special tribunal to prosecute Russians responsible for the attack on Ukraine.",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:29:39.983Z",
+            "source_url": "https://www.regjeringen.no/en/dep/ud/id833/"
+          }
+        },
+        {
+          "QA": {
+            "summarised_stance_in_english": "Qatar emphasizes children's rights in education.",
+            "exact_quote": "QATAR AFFIRMS IMPORTANCE OF PROTECTING RIGHTS OF CHILDREN IN EDUCATION",
+            "relevance_to_topic": 1,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:29:58.355Z",
+            "source_url": "https://mofa.gov.qa/en"
           }
         },
         {
           "SI": {
-            "summarised_stance_in_english": "Slovenia calls for diplomacy and dialogue in the Middle East.",
+            "summarised_stance_in_english": "Slovenia calls for diplomacy in the Middle East.",
             "exact_quote": "Minister Fajon: Urgent return to diplomacy and political dialogue needed in the Middle East",
-            "relevance_to_topic": 0.8,
-            "clarity_of_stance": 0.8,
+            "relevance_to_topic": 0.9,
+            "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:10.804Z",
+            "source_url": "https://www.gov.si/en/state-authorities/ministries/ministry-of-foreign-and-european-affairs/"
           }
         },
         {
           "TR": {
-            "summarised_stance_in_english": "Turkey engages with Moro Islamic Liberation Front leader.",
+            "summarised_stance_in_english": "Turkey engages with Moro Islamic Liberation Front.",
             "exact_quote": "Minister of Foreign Affairs Hakan Fidan met with Al Haj Murad Ebrahim, Leader of the Moro Islamic Liberation Front, 20 June 2025, in Istanbul",
-            "relevance_to_topic": 0.5,
-            "clarity_of_stance": 0.5,
+            "relevance_to_topic": 0.7,
+            "clarity_of_stance": 0.8,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:41.484Z",
+            "source_url": "https://www.mfa.gov.tr/default.en.mfa"
           }
         },
         {
           "US": {
-            "summarised_stance_in_english": "US supports Rosa María Payá as a human rights and democracy defender.",
-            "exact_quote": "Rosa María Payá is a principled, courageous, and deeply committed human rights and democracy defender",
+            "summarised_stance_in_english": "US supports human rights defender Rosa María Payá.",
+            "exact_quote": "Rosa María Payá is a principled, courageous, and deeply committed human rights and democracy defender.",
             "relevance_to_topic": 1,
             "clarity_of_stance": 1,
             "verification": "exact_match",
-            "verified": true
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:56.172Z",
+            "source_url": "https://www.state.gov/"
+          }
+        },
+        {
+          "US": {
+            "summarised_stance_in_english": "US focuses on advancing national interests and security.",
+            "exact_quote": "Leading America’s foreign policy to advance the interests and security of the American people.",
+            "relevance_to_topic": 0.7,
+            "clarity_of_stance": 0.9,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:56.172Z",
+            "source_url": "https://www.state.gov/"
           }
         }
       ]
+    },
+    {
+      "topic": "Sanctions",
+      "countries": [
+        {
+          "AU": {
+            "summarised_stance_in_english": "Australia has imposed targeted financial sanctions and travel bans on 37 persons and 7 entities under the Autonomous Sanctions Regulations 2011 related to Russia.",
+            "exact_quote": "37 persons and 7 entities listed under the Autonomous Sanctions Regulations 2011 – Russia The Minister for Foreign Affairs (the Minister) has by legislative instrument designated persons and entities for targeted financial sanctions and declared persons for travel bans (together, 'listed') in accordance with item 6A of regulation 6 (the Russia Criteria) of the Autonomous Sanctions Regulations 2011 (the Regulations)",
+            "relevance_to_topic": 1,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:19.941Z",
+            "source_url": "https://www.dfat.gov.au/"
+          }
+        },
+        {
+          "AU": {
+            "summarised_stance_in_english": "Australia has sanctioned 60 vessels under the Autonomous Sanctions Regulations 2011 related to Russia.",
+            "exact_quote": "60 vessels entities listed under the Autonomous Sanctions Regulations 2011 The Minister for Foreign Affairs (the Minister) has by legislative instrument designated 60 vessels as sanctioned vessels for Russia (‘listed’) in accordance with regulation 8 of the Autonomous Sanctions Regulations 2011 (the Regulations)",
+            "relevance_to_topic": 1,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:19.941Z",
+            "source_url": "https://www.dfat.gov.au/"
+          }
+        },
+        {
+          "GB": {
+            "summarised_stance_in_english": "The UK is assessing the impact of sanctions on Russia's military efforts.",
+            "exact_quote": "Estimating the impact of sanctions on Russia’s war efforts",
+            "relevance_to_topic": 0.8,
+            "clarity_of_stance": 0.8,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:59.178Z",
+            "source_url": "https://www.gov.uk/government/organisations/foreign-commonwealth-development-office"
+          }
+        },
+        {
+          "CA": {
+            "summarised_stance_in_english": "Canada is involved in international sanctions as part of its foreign policy.",
+            "exact_quote": "Canada's international relations Explore Canada’s role in international organizations, trade negotiations and sanctions",
+            "relevance_to_topic": 0.7,
+            "clarity_of_stance": 0.7,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:27:46.747Z",
+            "source_url": "https://www.international.gc.ca/global-affairs-affaires-mondiales/home-accueil.aspx?lang=eng"
+          }
+        },
+        {
+          "US": {
+            "summarised_stance_in_english": "The US has sanctioned a key member of Tren de Aragua and is offering a reward for information leading to their arrest.",
+            "exact_quote": "Sanctioning Key Member of Tren de Aragua The Department of State is offering a reward of up to $3 million for information leading to the arrest and/or conviction of Mosquera Serrano",
+            "relevance_to_topic": 0.9,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:30:56.172Z",
+            "source_url": "https://www.state.gov/"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "Tariffs",
+      "countries": []
     }
   ],
-  "dataContext": "Comprehensive analysis across 5 topics based on 81 foreign ministry websites scraped on 2025-06-28."
+  "dataContext": "Comprehensive analysis across 7 topics with incremental updates support. Each topic analyzed separately and combined.",
+  "analysisTimestamp": "2025-06-29T10:25:04.675Z",
+  "topicAnalysisFiles": [
+    "topic_ukraine_conflict_2025-06-29T10-19-40-478Z.json",
+    "topic_israel_gaza_conflict_2025-06-29T10-19-53-676Z.json",
+    "topic_iran_2025-06-29T10-20-08-318Z.json",
+    "topic_climate_change_2025-06-29T10-20-16-200Z.json",
+    "topic_human_rights_2025-06-29T10-20-46-711Z.json",
+    "topic_sanctions_2025-06-29T10-24-56-866Z.json",
+    "topic_tariffs_2025-06-29T10-25-04-671Z.json"
+  ]
 }

@@ -7,7 +7,7 @@ import {
 import { Box, Tooltip } from '@mui/material';
 import countryBorders from './countryBorders.json';
 
-export type StatusType = 'website' | 'robots' | 'statements' | 'ukraine' | 'gaza' | 'iran' | 'climate' | 'rights';
+export type StatusType = 'website' | 'robots' | 'statements' | 'ukraine' | 'gaza' | 'iran' | 'climate' | 'rights' | 'sanctions' | 'tariffs';
 
 interface AnalysisData {
   countryPositions: Array<{
@@ -51,7 +51,9 @@ const WorldMap: React.FC<WorldMapProps> = ({ statusType, analysisData }) => {
       'gaza': 'Israel/Gaza Conflict',
       'iran': 'Iran',
       'climate': 'Climate Change',
-      'rights': 'Human Rights'
+      'rights': 'Human Rights',
+      'sanctions': 'Sanctions',
+      'tariffs': 'Tariffs'
     };
     
     const targetTopic = topicFilter ? topicMap[topicFilter] : null;
@@ -179,7 +181,7 @@ const WorldMap: React.FC<WorldMapProps> = ({ statusType, analysisData }) => {
               const hasMinistry = !!ministry;
               
               // Check if this is a topic view
-              const isTopicView = ['ukraine', 'gaza', 'iran', 'climate', 'rights'].includes(statusType);
+              const isTopicView = ['ukraine', 'gaza', 'iran', 'climate', 'rights', 'sanctions', 'tariffs'].includes(statusType);
               const countryAnalysis = isTopicView ? getAnalysisForCountry(isoCode, statusType) : null;
               
               // Determine color based on selected status type

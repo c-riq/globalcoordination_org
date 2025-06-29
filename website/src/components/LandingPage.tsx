@@ -2,7 +2,7 @@ import { Box, Typography, FormControl, Select, MenuItem, SelectChangeEvent, Link
 import { useState, useEffect } from 'react';
 import WorldMap, { StatusType } from './WorldMap';
 
-type ViewType = StatusType | 'ukraine' | 'gaza' | 'iran' | 'climate' | 'rights';
+type ViewType = StatusType | 'ukraine' | 'gaza' | 'iran' | 'climate' | 'rights' | 'sanctions' | 'tariffs';
 
 interface AnalysisData {
   countryPositions: Array<{
@@ -194,11 +194,13 @@ function LandingPage() {
                 <MenuItem value="website">Ministry Website Status</MenuItem>
                 <MenuItem value="robots">Robots.txt Status</MenuItem>
                 <MenuItem value="statements">Statements.txt Status</MenuItem>
-                <MenuItem value="ukraine">📄 Text Analysis: Ukraine Conflict</MenuItem>
-                <MenuItem value="gaza">📄 Text Analysis: Israel/Gaza Conflict</MenuItem>
-                <MenuItem value="iran">📄 Text Analysis: Iran</MenuItem>
-                <MenuItem value="climate">📄 Text Analysis: Climate Change</MenuItem>
-                <MenuItem value="rights">📄 Text Analysis: Human Rights</MenuItem>
+                <MenuItem value="ukraine">📄 Website Text Analysis: Ukraine Conflict</MenuItem>
+                <MenuItem value="gaza">📄 Website Text Analysis: Israel/Gaza Conflict</MenuItem>
+                <MenuItem value="iran">📄 Website Text Analysis: Iran</MenuItem>
+                <MenuItem value="climate">📄 Website Text Analysis: Climate Change</MenuItem>
+                <MenuItem value="rights">📄 Website Text Analysis: Human Rights</MenuItem>
+                <MenuItem value="sanctions">📄 Website Text Analysis: Sanctions</MenuItem>
+                <MenuItem value="tariffs">📄 Website Text Analysis: Tariffs</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -211,7 +213,7 @@ function LandingPage() {
             gap: 2,
             px: 2
           }}>
-            {['ukraine', 'gaza', 'iran', 'climate', 'rights'].includes(viewType) ? (
+            {['ukraine', 'gaza', 'iran', 'climate', 'rights', 'sanctions', 'tariffs'].includes(viewType) ? (
               <>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                   <Box sx={{ width: 12, height: 12, backgroundColor: '#1B5E20', borderRadius: 1 }} />
@@ -275,7 +277,7 @@ function LandingPage() {
         </Box>
 
         {/* Compact Stances List for Topic Views */}
-        {['ukraine', 'gaza', 'iran', 'climate', 'rights'].includes(viewType) && analysisData && (
+        {['ukraine', 'gaza', 'iran', 'climate', 'rights', 'sanctions', 'tariffs'].includes(viewType) && analysisData && (
           <Box sx={{ width: '100%', maxWidth: '1000px', mt: 3 }}>
             {(() => {
               const topicMap: { [key: string]: string } = {
@@ -283,7 +285,9 @@ function LandingPage() {
                 'gaza': 'Israel/Gaza Conflict',
                 'iran': 'Iran',
                 'climate': 'Climate Change',
-                'rights': 'Human Rights'
+                'rights': 'Human Rights',
+                'sanctions': 'Sanctions',
+                'tariffs': 'Tariffs'
               };
               
               const targetTopic = topicMap[viewType];

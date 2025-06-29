@@ -89,7 +89,9 @@ const TOPICS = [
   { name: "Israel/Gaza Conflict", description: "Support for Israel, support for Palestinians, ceasefire calls, humanitarian aid" },
   { name: "Iran", description: "Nuclear program concerns, sanctions, diplomatic relations, regional tensions" },
   { name: "Climate Change", description: "Paris Agreement, net zero commitments, climate finance, green transition" },
-  { name: "Human Rights", description: "Democracy promotion, authoritarian criticism, minority rights, women's rights" }
+  { name: "Human Rights", description: "Democracy promotion, authoritarian criticism, minority rights, women's rights" },
+  { name: "Sanctions", description: "Economic sanctions, trade restrictions, financial penalties, embargo measures" },
+  { name: "Tariffs", description: "Trade tariffs, customs duties, import taxes, trade barriers, protectionist measures" }
 ];
 
 async function analyzeTopicWithGPT4o(countries: CountryContent[], topic: { name: string; description: string }): Promise<TopicAnalysisResult> {
