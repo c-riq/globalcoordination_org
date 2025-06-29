@@ -91,7 +91,8 @@ const TOPICS = [
   { name: "Climate Change", description: "Paris Agreement, net zero commitments, climate finance, green transition" },
   { name: "Human Rights", description: "Democracy promotion, authoritarian criticism, minority rights, women's rights" },
   { name: "Sanctions", description: "Economic sanctions, trade restrictions, financial penalties, embargo measures" },
-  { name: "Tariffs", description: "Trade tariffs, customs duties, import taxes, trade barriers, protectionist measures" }
+  { name: "Tariffs", description: "Trade tariffs, customs duties, import taxes, trade barriers, protectionist measures" },
+  { name: "Artificial Intelligence", description: "AI governance, regulation, ethics, development policies, international cooperation" }
 ];
 
 async function analyzeTopicWithGPT4o(countries: CountryContent[], topic: { name: string; description: string }): Promise<TopicAnalysisResult> {

@@ -705,10 +705,14 @@
     {
       "topic": "Tariffs",
       "countries": []
+    },
+    {
+      "topic": "Artificial Intelligence",
+      "countries": []
     }
   ],
-  "dataContext": "Comprehensive analysis across 7 topics with incremental updates support. Each topic analyzed separately and combined.",
-  "analysisTimestamp": "2025-06-29T10:25:04.675Z",
+  "dataContext": "Comprehensive analysis across 8 topics with incremental updates support. Each topic analyzed separately and combined.",
+  "analysisTimestamp": "2025-06-29T10:37:30.986Z",
   "topicAnalysisFiles": [
     "topic_ukraine_conflict_2025-06-29T10-19-40-478Z.json",
     "topic_israel_gaza_conflict_2025-06-29T10-19-53-676Z.json",
@@ -716,6 +720,7 @@
     "topic_climate_change_2025-06-29T10-20-16-200Z.json",
     "topic_human_rights_2025-06-29T10-20-46-711Z.json",
     "topic_sanctions_2025-06-29T10-24-56-866Z.json",
-    "topic_tariffs_2025-06-29T10-25-04-671Z.json"
+    "topic_tariffs_2025-06-29T10-25-04-671Z.json",
+    "topic_artificial_intelligence_2025-06-29T10-37-30-982Z.json"
   ]
 }

@@ -2,7 +2,7 @@ import { Box, Typography, FormControl, Select, MenuItem, SelectChangeEvent, Link
 import { useState, useEffect } from 'react';
 import WorldMap, { StatusType } from './WorldMap';
 
-type ViewType = StatusType | 'ukraine' | 'gaza' | 'iran' | 'climate' | 'rights' | 'sanctions' | 'tariffs';
+type ViewType = StatusType | 'ukraine' | 'gaza' | 'iran' | 'climate' | 'rights' | 'sanctions' | 'tariffs' | 'ai';
 
 interface AnalysisData {
   countryPositions: Array<{
@@ -201,6 +201,7 @@ function LandingPage() {
                 <MenuItem value="rights">📄 Website Text Analysis: Human Rights</MenuItem>
                 <MenuItem value="sanctions">📄 Website Text Analysis: Sanctions</MenuItem>
                 <MenuItem value="tariffs">📄 Website Text Analysis: Tariffs</MenuItem>
+                <MenuItem value="ai">📄 Website Text Analysis: Artificial Intelligence</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -213,7 +214,7 @@ function LandingPage() {
             gap: 2,
             px: 2
           }}>
-            {['ukraine', 'gaza', 'iran', 'climate', 'rights', 'sanctions', 'tariffs'].includes(viewType) ? (
+            {['ukraine', 'gaza', 'iran', 'climate', 'rights', 'sanctions', 'tariffs', 'ai'].includes(viewType) ? (
               <>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                   <Box sx={{ width: 12, height: 12, backgroundColor: '#1B5E20', borderRadius: 1 }} />
@@ -277,7 +278,7 @@ function LandingPage() {
         </Box>
 
         {/* Compact Stances List for Topic Views */}
-        {['ukraine', 'gaza', 'iran', 'climate', 'rights', 'sanctions', 'tariffs'].includes(viewType) && analysisData && (
+        {['ukraine', 'gaza', 'iran', 'climate', 'rights', 'sanctions', 'tariffs', 'ai'].includes(viewType) && analysisData && (
           <Box sx={{ width: '100%', maxWidth: '1000px', mt: 3 }}>
             {(() => {
               const topicMap: { [key: string]: string } = {
@@ -287,7 +288,8 @@ function LandingPage() {
                 'climate': 'Climate Change',
                 'rights': 'Human Rights',
                 'sanctions': 'Sanctions',
-                'tariffs': 'Tariffs'
+                'tariffs': 'Tariffs',
+                'ai': 'Artificial Intelligence'
               };
               
               const targetTopic = topicMap[viewType];
