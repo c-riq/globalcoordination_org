@@ -12,24 +12,76 @@ const openai = new OpenAI({
 interface CountryContent {
   code: string;
   content: string;
+  timestamp: string;
+  url: string;
 }
 
-interface AnalysisResult {
+interface TopicAnalysisResult {
+  topic: string;
+  countries: { [countryCode: string]: {
+    summarised_stance_in_english: string;
+    exact_quote: string;
+    relevance_to_topic: number;
+    clarity_of_stance: number;
+    verification: string;
+    verified: boolean;
+    source_timestamp: string;
+    source_url: string;
+  } }[];
+  dataContext: string;
+  analysisTimestamp: string;
+  sourceDataTimestamp: string;
+}
+
+interface CombinedAnalysisResult {
   countryPositions: {
     topic: string;
-    countries: [{ [countryCode: string]: { summarised_stance_in_english: string; exact_quote: string } }];
+    countries: [{ [countryCode: string]: {
+      summarised_stance_in_english: string;
+      exact_quote: string;
+      relevance_to_topic: number;
+      clarity_of_stance: number;
+      verification: string;
+      verified: boolean;
+      source_timestamp: string;
+      source_url: string;
+    } }];
   }[];
   dataContext: string;
+  analysisTimestamp: string;
+  topicAnalysisFiles: string[];
 }
 
 async function loadTxtFiles(): Promise<CountryContent[]> {
   const resultsDir = path.join(__dirname, '..', 'results', '2025-06-28');
   const files = fs.readdirSync(resultsDir).filter(f => f.endsWith('.txt'));
   
-  return files.map(file => ({
-    code: file.replace('.txt', ''),
-    content: fs.readFileSync(path.join(resultsDir, file), 'utf8')
-  }));
+  return files.map(file => {
+    const code = file.replace('.txt', '');
+    const content = fs.readFileSync(path.join(resultsDir, file), 'utf8');
+    
+    // Load metadata from corresponding JSON file
+    const jsonFile = path.join(resultsDir, `${code}.json`);
+    let timestamp = new Date().toISOString();
+    let url = '';
+    
+    if (fs.existsSync(jsonFile)) {
+      try {
+        const metadata = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
+        timestamp = metadata.timestamp || timestamp;
+        url = metadata.url || '';
+      } catch (error) {
+        console.warn(`Failed to parse metadata for ${code}:`, error);
+      }
+    }
+    
+    return {
+      code,
+      content,
+      timestamp,
+      url
+    };
+  });
 }
 
 const TOPICS = [
@@ -40,7 +92,7 @@ const TOPICS = [
   { name: "Human Rights", description: "Democracy promotion, authoritarian criticism, minority rights, women's rights" }
 ];
 
-async function analyzeTopicWithGPT4o(countries: CountryContent[], topic: { name: string; description: string }): Promise<AnalysisResult> {
+async function analyzeTopicWithGPT4o(countries: CountryContent[], topic: { name: string; description: string }): Promise<TopicAnalysisResult> {
   const systemPrompt = `You are a diplomatic analyst specializing in identifying clear positions expressed by countries on ${topic.name}. Your task is to analyze foreign ministry website content and identify SPECIFIC STANCES where countries express clear opinions on this topic ONLY.
 
 Focus EXCLUSIVELY on finding specific stances related to ${topic.name}:
@@ -97,34 +149,179 @@ ${countries.map(c => `--- ${c.code} ---\n${c.content.slice(0, 40_000)}`).join('\
     const parsed = JSON.parse(jsonResponse);
     console.log('Parsed successfully. Positions:', parsed.countryPositions?.length || 0);
     
+    const analysisTimestamp = new Date().toISOString();
+    const sourceDataTimestamp = countries.length > 0 ? countries[0].timestamp : analysisTimestamp;
+    
     return {
-      countryPositions: parsed.countryPositions || [],
-      dataContext: parsed.dataContext || `Analysis based on ${countries.length} foreign ministry websites scraped on 2025-06-28. Content represents official diplomatic positions and priorities as published on government websites.`
+      topic: topic.name,
+      countries: parsed.countryPositions?.[0]?.countries || [],
+      dataContext: parsed.dataContext || `Analysis of ${topic.name} based on ${countries.length} foreign ministry websites scraped on 2025-06-28. Content represents official diplomatic positions and priorities as published on government websites.`,
+      analysisTimestamp,
+      sourceDataTimestamp
     };
   } catch (error) {
     console.error('Failed to parse JSON response:', error);
     console.error('Raw response:', jsonResponse.slice(0, 500));
+    const analysisTimestamp = new Date().toISOString();
+    const sourceDataTimestamp = countries.length > 0 ? countries[0].timestamp : analysisTimestamp;
+    
     return {
-      countryPositions: [],
-      dataContext: `Analysis failed - JSON parsing error. Raw response: ${jsonResponse.slice(0, 200)}...`
+      topic: topic.name,
+      countries: [],
+      dataContext: `Analysis failed - JSON parsing error. Raw response: ${jsonResponse.slice(0, 200)}...`,
+      analysisTimestamp,
+      sourceDataTimestamp
     };
   }
 }
 
-async function analyzeAllTopics(countries: CountryContent[]): Promise<AnalysisResult> {
-  const allResults: AnalysisResult[] = [];
+async function saveTopicAnalysis(topicResult: TopicAnalysisResult, countries: CountryContent[]): Promise<string> {
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const topicSlug = topicResult.topic.toLowerCase().replace(/[^a-z0-9]/g, '_');
+  const outputPath = path.join(__dirname, '..', 'results', `topic_${topicSlug}_${timestamp}.json`);
+  
+  // Add verification and source metadata to each country position
+  const verifiedResult = {
+    ...topicResult,
+    countries: topicResult.countries.map(countryObj => {
+      const verifiedCountryObj: { [key: string]: any } = {};
+      Object.entries(countryObj).forEach(([code, countryData]: [string, any]) => {
+        const sourceData = countries.find(c => c.code === code);
+        const quoteStr = countryData.exact_quote;
+        const stance = countryData.summarised_stance_in_english;
+        const relevance = countryData.relevance_to_topic || 0;
+        const clarity = countryData.clarity_of_stance || 0;
+        
+        if (!sourceData) {
+          verifiedCountryObj[code] = {
+            summarised_stance_in_english: stance,
+            exact_quote: quoteStr,
+            relevance_to_topic: relevance,
+            clarity_of_stance: clarity,
+            verification: 'no_data',
+            verified: false,
+            source_timestamp: '',
+            source_url: ''
+          };
+          return;
+        }
+        
+        const content = sourceData.content;
+        const exactMatch = content.includes(quoteStr);
+        
+        if (exactMatch) {
+          verifiedCountryObj[code] = {
+            summarised_stance_in_english: stance,
+            exact_quote: quoteStr,
+            relevance_to_topic: relevance,
+            clarity_of_stance: clarity,
+            verification: 'exact_match',
+            verified: true,
+            source_timestamp: sourceData.timestamp,
+            source_url: sourceData.url
+          };
+        } else {
+          // Check for partial matches
+          const halfLength = Math.floor(quoteStr.length / 2);
+          const firstHalf = quoteStr.substring(0, halfLength);
+          const lastHalf = quoteStr.substring(halfLength);
+          
+          const firstHalfMatch = firstHalf.length > 10 && content.includes(firstHalf);
+          const lastHalfMatch = lastHalf.length > 10 && content.includes(lastHalf);
+          
+          if (firstHalfMatch || lastHalfMatch) {
+            const matchType = firstHalfMatch && lastHalfMatch ? 'both_halves' :
+                             firstHalfMatch ? 'first_half' : 'last_half';
+            verifiedCountryObj[code] = {
+              summarised_stance_in_english: stance,
+              exact_quote: quoteStr,
+              relevance_to_topic: relevance,
+              clarity_of_stance: clarity,
+              verification: `partial_match_${matchType}`,
+              verified: false,
+              source_timestamp: sourceData.timestamp,
+              source_url: sourceData.url
+            };
+          } else {
+            verifiedCountryObj[code] = {
+              summarised_stance_in_english: stance,
+              exact_quote: quoteStr,
+              relevance_to_topic: relevance,
+              clarity_of_stance: clarity,
+              verification: 'no_match',
+              verified: false,
+              source_timestamp: sourceData.timestamp,
+              source_url: sourceData.url
+            };
+          }
+        }
+      });
+      return verifiedCountryObj;
+    })
+  };
+  
+  fs.writeFileSync(outputPath, JSON.stringify(verifiedResult, null, 2));
+  console.log(`Topic analysis saved: ${outputPath}`);
+  return outputPath;
+}
+
+function getExistingTopicFiles(): string[] {
+  const resultsDir = path.join(__dirname, '..', 'results');
+  const files = fs.readdirSync(resultsDir).filter(f => f.startsWith('topic_') && f.endsWith('.json'));
+  return files;
+}
+
+function getTopicSlug(topicName: string): string {
+  return topicName.toLowerCase().replace(/[^a-z0-9]/g, '_');
+}
+
+async function analyzeAllTopics(countries: CountryContent[]): Promise<string[]> {
+  const topicFiles: string[] = [];
+  const existingFiles = getExistingTopicFiles();
+  const existingTopics = new Set(existingFiles.map(f => f.split('_').slice(1, -1).join('_')));
   
   for (const topic of TOPICS) {
+    const topicSlug = getTopicSlug(topic.name);
+    
+    if (existingTopics.has(topicSlug)) {
+      const existingFile = existingFiles.find(f => f.includes(topicSlug));
+      if (existingFile) {
+        const fullPath = path.join(__dirname, '..', 'results', existingFile);
+        console.log(`\nSkipping topic: ${topic.name} (already exists: ${existingFile})`);
+        topicFiles.push(fullPath);
+        continue;
+      }
+    }
+    
+    console.log(`\nAnalyzing topic: ${topic.name}`);
     const result = await analyzeTopicWithGPT4o(countries, topic);
-    allResults.push(result);
+    const filePath = await saveTopicAnalysis(result, countries);
+    topicFiles.push(filePath);
   }
   
-  // Aggregate all results
-  const aggregatedPositions = allResults.flatMap(result => result.countryPositions);
+  return topicFiles;
+}
+
+async function combineTopicAnalyses(topicFiles: string[]): Promise<CombinedAnalysisResult> {
+  const countryPositions: any[] = [];
+  
+  for (const filePath of topicFiles) {
+    try {
+      const topicData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      countryPositions.push({
+        topic: topicData.topic,
+        countries: topicData.countries
+      });
+    } catch (error) {
+      console.error(`Failed to read topic file ${filePath}:`, error);
+    }
+  }
   
   return {
-    countryPositions: aggregatedPositions,
-    dataContext: `Comprehensive analysis across ${TOPICS.length} topics based on ${countries.length} foreign ministry websites scraped on 2025-06-28.`
+    countryPositions,
+    dataContext: `Comprehensive analysis across ${TOPICS.length} topics with incremental updates support. Each topic analyzed separately and combined.`,
+    analysisTimestamp: new Date().toISOString(),
+    topicAnalysisFiles: topicFiles.map(f => path.basename(f))
   };
 }
 
@@ -138,142 +335,19 @@ async function main() {
   const countries = await loadTxtFiles();
   console.log(`Loaded ${countries.length} country files`);
 
-  const lengths = countries.map(c => c.content.length).sort((a, b) => a - b);
-  const mid = Math.floor(lengths.length / 2);
-  const median = lengths.length % 2 ? lengths[mid] : (lengths[mid - 1] + lengths[mid]) / 2;
-  console.log(`Min: ${lengths[0]}, Max: ${lengths[lengths.length - 1]}, Median: ${median}`);
+  console.log('\nAnalyzing topics separately...');
+  const topicFiles = await analyzeAllTopics(countries);
 
-  console.log('\nAnalyzing with GPT-4o (topic by topic)...');
-  const result = await analyzeAllTopics(countries);
-
-  console.log('\n=== ANALYSIS RESULTS ===\n');
-  console.log('DATA CONTEXT:');
-  console.log(result.dataContext);
-  
-  console.log('\nCOUNTRY POSITIONS:');
-  result.countryPositions.forEach((position, i) => {
-    console.log(`\n${i + 1}. ${position.topic}`);
-    console.log(`   Countries:`);
-    position.countries.forEach(countryObj => {
-      Object.entries(countryObj).forEach(([code, countryData]) => {
-        // Verify if the quote actually exists in the country's content
-        const sourceData = countries.find(c => c.code === code);
-        const quoteStr = countryData.exact_quote;
-        const stance = countryData.summarised_stance_in_english;
-        const relevance = (countryData as any).relevance_to_topic || 0;
-        const clarity = (countryData as any).clarity_of_stance || 0;
-        const scores = `Relevance:${relevance} Clarity:${clarity}`;
-        
-        if (!sourceData) {
-          console.log(`     \x1b[31m${code}: "${stance}" | "${quoteStr}" | ${scores} ✗ (no data)\x1b[0m`);
-          return;
-        }
-        
-        const content = sourceData.content;
-        const exactMatch = content.includes(quoteStr);
-        
-        if (exactMatch) {
-          console.log(`     \x1b[32m${code}: "${stance}" | "${quoteStr}" | ${scores} ✓\x1b[0m`);
-        } else {
-          // Check for partial matches (first half or last half)
-          const halfLength = Math.floor(quoteStr.length / 2);
-          const firstHalf = quoteStr.substring(0, halfLength);
-          const lastHalf = quoteStr.substring(halfLength);
-          
-          const firstHalfMatch = firstHalf.length > 10 && content.includes(firstHalf);
-          const lastHalfMatch = lastHalf.length > 10 && content.includes(lastHalf);
-          
-          if (firstHalfMatch || lastHalfMatch) {
-            const matchType = firstHalfMatch && lastHalfMatch ? 'both halves' :
-                             firstHalfMatch ? 'first half' : 'last half';
-            console.log(`     \x1b[33m${code}: "${stance}" | "${quoteStr}" | ${scores} ~ (${matchType})\x1b[0m`);
-          } else {
-            console.log(`     \x1b[31m${code}: "${stance}" | "${quoteStr}" | ${scores} ✗\x1b[0m`);
-          }
-        }
-      });
-    });
-  });
-
-  // Save results with verification status
-  const verifiedResult = {
-    ...result,
-    countryPositions: result.countryPositions.map(position => ({
-      ...position,
-      countries: position.countries.map(countryObj => {
-        const verifiedCountryObj: { [key: string]: { summarised_stance_in_english: string; exact_quote: string; relevance_to_topic: number; clarity_of_stance: number; verification: string; verified: boolean } } = {};
-        Object.entries(countryObj).forEach(([code, countryData]) => {
-          const sourceData = countries.find(c => c.code === code);
-          const quoteStr = countryData.exact_quote;
-          const stance = countryData.summarised_stance_in_english;
-          const relevance = (countryData as any).relevance_to_topic || 0;
-          const clarity = (countryData as any).clarity_of_stance || 0;
-          
-          if (!sourceData) {
-            verifiedCountryObj[code] = {
-              summarised_stance_in_english: stance,
-              exact_quote: quoteStr,
-              relevance_to_topic: relevance,
-              clarity_of_stance: clarity,
-              verification: 'no_data',
-              verified: false
-            };
-            return;
-          }
-          
-          const content = sourceData.content;
-          const exactMatch = content.includes(quoteStr);
-          
-          if (exactMatch) {
-            verifiedCountryObj[code] = {
-              summarised_stance_in_english: stance,
-              exact_quote: quoteStr,
-              relevance_to_topic: relevance,
-              clarity_of_stance: clarity,
-              verification: 'exact_match',
-              verified: true
-            };
-          } else {
-            // Check for partial matches
-            const halfLength = Math.floor(quoteStr.length / 2);
-            const firstHalf = quoteStr.substring(0, halfLength);
-            const lastHalf = quoteStr.substring(halfLength);
-            
-            const firstHalfMatch = firstHalf.length > 10 && content.includes(firstHalf);
-            const lastHalfMatch = lastHalf.length > 10 && content.includes(lastHalf);
-            
-            if (firstHalfMatch || lastHalfMatch) {
-              const matchType = firstHalfMatch && lastHalfMatch ? 'both_halves' :
-                               firstHalfMatch ? 'first_half' : 'last_half';
-              verifiedCountryObj[code] = {
-                summarised_stance_in_english: stance,
-                exact_quote: quoteStr,
-                relevance_to_topic: relevance,
-                clarity_of_stance: clarity,
-                verification: `partial_match_${matchType}`,
-                verified: false
-              };
-            } else {
-              verifiedCountryObj[code] = {
-                summarised_stance_in_english: stance,
-                exact_quote: quoteStr,
-                relevance_to_topic: relevance,
-                clarity_of_stance: clarity,
-                verification: 'no_match',
-                verified: false
-              };
-            }
-          }
-        });
-        return verifiedCountryObj;
-      })
-    }))
-  };
+  console.log('\nCombining topic analyses...');
+  const combinedResult = await combineTopicAnalyses(topicFiles);
 
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const outputPath = path.join(__dirname, '..', 'results', `analysis_${timestamp}.json`);
-  fs.writeFileSync(outputPath, JSON.stringify(verifiedResult, null, 2));
-  console.log(`\nResults saved to: ${outputPath}`);
+  const outputPath = path.join(__dirname, '..', 'results', `combined_analysis_${timestamp}.json`);
+  fs.writeFileSync(outputPath, JSON.stringify(combinedResult, null, 2));
+  
+  console.log(`\nCombined analysis saved to: ${outputPath}`);
+  console.log(`Individual topic files: ${topicFiles.length}`);
+  console.log('Topic files saved for incremental updates');
 }
 
 main().catch(console.error);
