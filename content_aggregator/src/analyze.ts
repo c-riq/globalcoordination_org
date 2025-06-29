@@ -32,15 +32,19 @@ async function loadTxtFiles(): Promise<CountryContent[]> {
   }));
 }
 
-async function analyzeWithGPT4o(countries: CountryContent[]): Promise<AnalysisResult> {  
-  const systemPrompt = `You are a diplomatic analyst specializing in identifying clear positions expressed by countries on major global issues. Your task is to analyze foreign ministry website content and identify SPECIFIC STANCES where countries express clear opinions.
+const TOPICS = [
+  { name: "Ukraine Conflict", description: "Support for Ukraine, condemnation of Russia, sanctions, military aid" },
+  { name: "Israel/Gaza Conflict", description: "Support for Israel, support for Palestinians, ceasefire calls, humanitarian aid" },
+  { name: "Iran", description: "Nuclear program concerns, sanctions, diplomatic relations, regional tensions" },
+  { name: "Climate Change", description: "Paris Agreement, net zero commitments, climate finance, green transition" },
+  { name: "Human Rights", description: "Democracy promotion, authoritarian criticism, minority rights, women's rights" }
+];
 
-Focus on finding specific stances such as:
-- UKRAINE CONFLICT: Support for Ukraine, condemnation of Russia, sanctions, military aid
-- ISRAEL/GAZA CONFLICT: Support for Israel, support for Palestinians, ceasefire calls, humanitarian aid
-- IRAN: Nuclear program concerns, sanctions, diplomatic relations, regional tensions
-- CLIMATE CHANGE: Paris Agreement, net zero commitments, climate finance, green transition
-- HUMAN RIGHTS: Democracy promotion, authoritarian criticism, minority rights, women's rights
+async function analyzeTopicWithGPT4o(countries: CountryContent[], topic: { name: string; description: string }): Promise<AnalysisResult> {
+  const systemPrompt = `You are a diplomatic analyst specializing in identifying clear positions expressed by countries on ${topic.name}. Your task is to analyze foreign ministry website content and identify SPECIFIC STANCES where countries express clear opinions on this topic ONLY.
+
+Focus EXCLUSIVELY on finding specific stances related to ${topic.name}:
+${topic.description}
 
 CRITICAL: Use EXACT quotes from the input text. Do NOT add trailing periods, punctuation, or modify the text in any way. Copy the text exactly as it appears in the source material.
 
@@ -48,12 +52,12 @@ Return ONLY valid JSON in this exact structure:
 {
   "countryPositions": [
     {
-      "topic": "<Topic name (e.g., Ukraine Conflict, Climate Change, etc.)>",
+      "topic": "${topic.name}",
       "countries": [
         { "<2 digit ISO country code>": {
           "exact_quote": "<exact quote in original language from input conveying their opinion>",
           "summarised_stance_in_english": "<stance always in english>",
-          "relevance_to_topic": <0-1 score for how relevant the quote is to the topic>,
+          "relevance_to_topic": <0-1 score for how relevant the quote is to ${topic.name}>,
           "clarity_of_stance": <0-1 score for how clear/unambiguous the country's position is>
         }}
       ]
@@ -61,34 +65,7 @@ Return ONLY valid JSON in this exact structure:
   ]
 }
 
-Here is an example
-{
-  "countryPositions": [
-    {
-      "topic": "Iran",
-      "countries": [
-        {
-          "EG": {
-            "exact_quote": "رحب الوزيران باتفاق وقف إطلاق النار الذى أعلن عنه الرئيس الامريكى أمس بين إيران وإسرائيل",
-            "summarised_stance_in_english": "Welcomes the ceasefire between Iran and Israel",
-            "relevance_to_topic": 0.9,
-            "clarity_of_stance": 0.8
-          }
-        },
-        {
-          "JP": {
-            "exact_quote": "U.S. Strikes on Iranian Nuclear Facilities (Statement by Foreign Minister IWAYA Takeshi)",
-            "summarised_stance_in_english": "Unspecified stance on U.S. Strikes on Iranian Nuclear Facilities",
-            "relevance_to_topic": 0.7,
-            "clarity_of_stance": 0.3
-          }
-        }
-      ]
-    }
-  ]
-}
-
-Include any clear positions expressed by countries on these topics. Be specific and factual.`;
+Only include positions that are clearly related to ${topic.name}. Be specific and factual.`;
 
   const userPrompt = `Analyze the following foreign ministry website content from ${countries.length} countries:
 
@@ -134,6 +111,22 @@ ${countries.map(c => `--- ${c.code} ---\n${c.content.slice(0, 40_000)}`).join('\
   }
 }
 
+async function analyzeAllTopics(countries: CountryContent[]): Promise<AnalysisResult> {
+  const allResults: AnalysisResult[] = [];
+  
+  for (const topic of TOPICS) {
+    const result = await analyzeTopicWithGPT4o(countries, topic);
+    allResults.push(result);
+  }
+  
+  // Aggregate all results
+  const aggregatedPositions = allResults.flatMap(result => result.countryPositions);
+  
+  return {
+    countryPositions: aggregatedPositions,
+    dataContext: `Comprehensive analysis across ${TOPICS.length} topics based on ${countries.length} foreign ministry websites scraped on 2025-06-28.`
+  };
+}
 
 async function main() {
   if (!process.env.OPENAI_API_KEY) {
@@ -150,8 +143,8 @@ async function main() {
   const median = lengths.length % 2 ? lengths[mid] : (lengths[mid - 1] + lengths[mid]) / 2;
   console.log(`Min: ${lengths[0]}, Max: ${lengths[lengths.length - 1]}, Median: ${median}`);
 
-  console.log('\nAnalyzing with GPT-4o...');
-  const result = await analyzeWithGPT4o(countries);
+  console.log('\nAnalyzing with GPT-4o (topic by topic)...');
+  const result = await analyzeAllTopics(countries);
 
   console.log('\n=== ANALYSIS RESULTS ===\n');
   console.log('DATA CONTEXT:');
@@ -169,7 +162,7 @@ async function main() {
         const stance = countryData.summarised_stance_in_english;
         const relevance = (countryData as any).relevance_to_topic || 0;
         const clarity = (countryData as any).clarity_of_stance || 0;
-        const scores = `R:${relevance} C:${clarity}`;
+        const scores = `Relevance:${relevance} Clarity:${clarity}`;
         
         if (!sourceData) {
           console.log(`     \x1b[31m${code}: "${stance}" | "${quoteStr}" | ${scores} ✗ (no data)\x1b[0m`);
