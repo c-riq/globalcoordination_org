@@ -194,11 +194,11 @@ function LandingPage() {
                 <MenuItem value="website">Ministry Website Status</MenuItem>
                 <MenuItem value="robots">Robots.txt Status</MenuItem>
                 <MenuItem value="statements">Statements.txt Status</MenuItem>
-                <MenuItem value="ukraine">Ukraine Conflict</MenuItem>
-                <MenuItem value="gaza">Israel/Gaza Conflict</MenuItem>
-                <MenuItem value="iran">Iran</MenuItem>
-                <MenuItem value="climate">Climate Change</MenuItem>
-                <MenuItem value="rights">Human Rights</MenuItem>
+                <MenuItem value="ukraine">📄 Text Analysis: Ukraine Conflict</MenuItem>
+                <MenuItem value="gaza">📄 Text Analysis: Israel/Gaza Conflict</MenuItem>
+                <MenuItem value="iran">📄 Text Analysis: Iran</MenuItem>
+                <MenuItem value="climate">📄 Text Analysis: Climate Change</MenuItem>
+                <MenuItem value="rights">📄 Text Analysis: Human Rights</MenuItem>
               </Select>
             </FormControl>
           </Box>
