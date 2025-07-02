@@ -1,0 +1,22 @@
+{
+  "name": "mofa-aggregator",
+  "version": "1.0.0",
+  "description": "Aggregate content from ministries of foreign affairs",
+  "main": "dist/index.js",
+  "scripts": {
+    "aggregate": "ts-node src/index.ts",
+    "analyze": "ts-node src/analyze.ts",
+    "analyse": "ts-node src/analyze.ts"
+  },
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "dotenv": "^17.0.0",
+    "openai": "^5.8.2",
+    "puppeteer": "^24.11.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^5.0.0"
+  }
+}

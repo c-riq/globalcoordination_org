@@ -24,13 +24,17 @@ fi
 #set env variable for aws cli
 export AWS_PROFILE=$aws_profile
 
-if [ ! -d "public" ]; then
-    echo "${red}public folder not found${reset}"
+# Build the project first
+echo "Building project..."
+npm run build
+
+if [ ! -d "dist" ]; then
+    echo "${red}dist folder not found${reset}"
     exit 0;
 fi
 
 echo Synching Build Folder: $s3_bucket...
-aws s3 sync public/ s3://$s3_bucket --delete --cache-control max-age=3600,public
+aws s3 sync dist/ s3://$s3_bucket --delete --cache-control max-age=3600,public
 
 echo Adjusting cache...
 aws s3 cp s3://$s3_bucket/index.html s3://$s3_bucket/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html --acl public-read
