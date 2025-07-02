@@ -709,10 +709,27 @@
     {
       "topic": "Artificial Intelligence",
       "countries": []
+    },
+    {
+      "topic": "Corruption",
+      "countries": [
+        {
+          "KG": {
+            "summarised_stance_in_english": "Anti-corruption activities",
+            "exact_quote": "КОРРУПЦИЯГА КАРШЫ ИШМЕРДҮҮЛҮК",
+            "relevance_to_topic": 1,
+            "clarity_of_stance": 1,
+            "verification": "exact_match",
+            "verified": true,
+            "source_timestamp": "2025-06-28T16:29:06.454Z",
+            "source_url": "https://mfa.gov.kg/en"
+          }
+        }
+      ]
     }
   ],
-  "dataContext": "Comprehensive analysis across 8 topics with incremental updates support. Each topic analyzed separately and combined.",
-  "analysisTimestamp": "2025-06-29T10:37:30.986Z",
+  "dataContext": "Comprehensive analysis across 9 topics with incremental updates support. Each topic analyzed separately and combined.",
+  "analysisTimestamp": "2025-07-02T12:08:45.957Z",
   "topicAnalysisFiles": [
     "topic_ukraine_conflict_2025-06-29T10-19-40-478Z.json",
     "topic_israel_gaza_conflict_2025-06-29T10-19-53-676Z.json",
@@ -721,6 +738,7 @@
     "topic_human_rights_2025-06-29T10-20-46-711Z.json",
     "topic_sanctions_2025-06-29T10-24-56-866Z.json",
     "topic_tariffs_2025-06-29T10-25-04-671Z.json",
-    "topic_artificial_intelligence_2025-06-29T10-37-30-982Z.json"
+    "topic_artificial_intelligence_2025-06-29T10-37-30-982Z.json",
+    "topic_corruption_2025-07-02T12-08-45-954Z.json"
   ]
 }

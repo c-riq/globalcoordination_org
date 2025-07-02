@@ -92,7 +92,8 @@ const TOPICS = [
   { name: "Human Rights", description: "Democracy promotion, authoritarian criticism, minority rights, women's rights" },
   { name: "Sanctions", description: "Economic sanctions, trade restrictions, financial penalties, embargo measures" },
   { name: "Tariffs", description: "Trade tariffs, customs duties, import taxes, trade barriers, protectionist measures" },
-  { name: "Artificial Intelligence", description: "AI governance, regulation, ethics, development policies, international cooperation" }
+  { name: "Artificial Intelligence", description: "AI governance, regulation, ethics, development policies, international cooperation" },
+  { name: "Corruption", description: "Government corruption scandals, anti-corruption legislation, bribery investigations, embezzlement cases, transparency in public procurement" }
 ];
 
 async function analyzeTopicWithGPT4o(countries: CountryContent[], topic: { name: string; description: string }): Promise<TopicAnalysisResult> {

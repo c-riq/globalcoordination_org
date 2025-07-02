@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "aggregate": "ts-node src/index.ts",
-    "analyze": "ts-node src/analyze.ts"
+    "analyze": "ts-node src/analyze.ts",
+    "analyse": "ts-node src/analyze.ts"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",
